@@ -10,4 +10,6 @@ class Profile {
     @Id
     var email: String = ""
     var name: String = ""
+    var role: String = "customer"
+    var phone: String = ""
 }
