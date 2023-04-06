@@ -8,5 +8,5 @@ data class ProfileDTO(
 )
 
 fun Profile.toDTO(): ProfileDTO {
-    return ProfileDTO(email, name)
+    return ProfileDTO(email, name, role, phone)
 }

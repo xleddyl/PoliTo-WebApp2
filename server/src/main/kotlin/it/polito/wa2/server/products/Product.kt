@@ -9,6 +9,9 @@ import jakarta.persistence.Id
 class Product {
     @Id
     var ean: String = ""
+    var sku: String = ""
     var name: String = ""
     var brand: String = ""
+    var category: String = ""
+    var price: Float = 0.0f
 }
