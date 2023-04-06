@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class ProfileController(private val profileService: ProfileService) {
 
-    @GetMapping("/profiles/{email}")
+    @GetMapping("/API/profiles/{email}")
     fun getByEmail(@PathVariable email: String): ProfileDTO? {
         return profileService.getByEmail(email)
     }

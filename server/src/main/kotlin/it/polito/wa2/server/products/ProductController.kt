@@ -13,7 +13,7 @@ class ProductController (
         return productService.getAll()
     }
 
-    @GetMapping("/products/{ean}")
+    @GetMapping("/API/products/{ean}")
     fun getById(@PathVariable ean: String): ProductDTO? {
         return productService.getById(ean)
     }
