@@ -10,5 +10,5 @@ class Profile (
     @Id var email: String,
     var name: String,
     var role: String,
-    var phone: String = ""
+    var phone: String
 )

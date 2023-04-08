@@ -1,9 +1,11 @@
 package it.polito.wa2.server.products
 
+import jakarta.transaction.Transactional
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
+@Transactional
 class ProductServiceImpl(private val productRepository: ProductRepository)
     : ProductService {
     override fun getAll(): List<ProductDTO> {

@@ -20,12 +20,16 @@ class ProfileController(private val profileService: ProfileService) {
         if (profile != null) {
             profileService.addProfile(profile)
         } else {
-            /* ERROR */
+            TODO("ERROR")
         }
     }
 
-    @PutMapping("")
-    fun editProfile() {
-
+    @PutMapping("/API/profiles/{email}")
+    fun editProfile(@RequestBody profile: ProfileDTO?, @PathVariable email: String) {
+        if (profile != null && profile.email == email) {
+            profileService.editProfile(profile, email)
+        } else {
+            TODO("ERROR")
+        }
     }
 }
