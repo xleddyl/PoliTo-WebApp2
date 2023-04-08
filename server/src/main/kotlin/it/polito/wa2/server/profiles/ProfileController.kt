@@ -12,24 +12,26 @@ class ProfileController(private val profileService: ProfileService) {
 
     @GetMapping("/API/profiles/{email}")
     fun getByEmail(@PathVariable email: String): ProfileDTO? {
-        return profileService.getByEmail(email)
+        val profile = profileService.getByEmail(email)
+        if (profile == null) {
+            TODO("ERROR -> email does not exists")
+        }
+        return profile
     }
 
     @PostMapping("/API/profiles")
     fun addProfile(@RequestBody profile: ProfileDTO?) {
-        if (profile != null) {
-            profileService.addProfile(profile)
-        } else {
-            TODO("ERROR")
+        if (profile == null) {
+            TODO("ERROR -> invalid profileDTO")
         }
+        profileService.addProfile(profile)
     }
 
     @PutMapping("/API/profiles/{email}")
     fun editProfile(@RequestBody profile: ProfileDTO?, @PathVariable email: String) {
-        if (profile != null && profile.email == email) {
-            profileService.editProfile(profile, email)
-        } else {
-            TODO("ERROR")
+        if (profile == null || profile.email != email) {
+            TODO("ERROR -> invalid profileDTO || emails do not match")
         }
+        profileService.editProfile(profile, email)
     }
 }

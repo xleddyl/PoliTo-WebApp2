@@ -14,29 +14,27 @@ class ProfileServiceImpl(
     }
 
     override fun addProfile(profileDTO: ProfileDTO) {
-        if (profileRepository.findByIdOrNull(profileDTO.email) == null) {
-            profileRepository.save(Profile(
-                email = profileDTO.email,
-                name = profileDTO.name,
-                role = profileDTO.role,
-                phone = profileDTO.phone
-            ))
-        } else {
-            TODO("ERROR")
+        if (profileRepository.findByIdOrNull(profileDTO.email) != null) {
+            TODO("ERROR -> duplicate email")
         }
+        profileRepository.save(Profile(
+            email = profileDTO.email,
+            name = profileDTO.name,
+            role = profileDTO.role,
+            phone = profileDTO.phone
+        ))
     }
 
     override fun editProfile(profileDTO: ProfileDTO, email: String) {
         val profile = profileRepository.findByIdOrNull(email)
-        if (profile != null) {
-            profileRepository.save(Profile(
-                email = email,
-                name = profileDTO.name,
-                role = profileDTO.role,
-                phone = profileDTO.phone
-            ))
-        } else {
-            TODO("ERROR")
+        if (profile == null) {
+            TODO("ERROR -> email does not exists")
         }
+        profileRepository.save(Profile(
+            email = email,
+            name = profileDTO.name,
+            role = profileDTO.role,
+            phone = profileDTO.phone
+        ))
     }
 }

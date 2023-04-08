@@ -16,6 +16,10 @@ class ProductController (
 
     @GetMapping("/API/products/{ean}")
     fun getById(@PathVariable ean: String): ProductDTO? {
-        return productService.getById(ean)
+        val product = productService.getById(ean)
+        if (product != null) {
+            return product
+        }
+        TODO("ERROR -> ean not found")
     }
 }
