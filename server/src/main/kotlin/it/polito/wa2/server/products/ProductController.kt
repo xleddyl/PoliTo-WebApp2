@@ -1,5 +1,6 @@
 package it.polito.wa2.server.products
 
+import it.polito.wa2.server.ProductNotFoundException
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
@@ -20,6 +21,6 @@ class ProductController (
         if (product != null) {
             return product
         }
-        TODO("ERROR -> ean not found")
+        throw ProductNotFoundException("Product not found");
     }
 }
