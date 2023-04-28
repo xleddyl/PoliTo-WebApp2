@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class ProductController (
+class ProductController(
     private val productService: ProductService
 ) {
 

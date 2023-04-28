@@ -6,8 +6,7 @@ import org.springframework.stereotype.Service
 
 @Service
 @Transactional
-class ProductServiceImpl(private val productRepository: ProductRepository)
-    : ProductService {
+class ProductServiceImpl(private val productRepository: ProductRepository) : ProductService {
     override fun getAll(): List<ProductDTO> {
         return productRepository.findAll().map { it.toDTO() }
     }

@@ -9,6 +9,6 @@ data class ProductDTO(
     val price: Float
 )
 
-fun Product.toDTO() : ProductDTO {
+fun Product.toDTO(): ProductDTO {
     return ProductDTO(ean, sku, name, brand, category, price)
 }

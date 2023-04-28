@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
 @Transactional
 class ProfileServiceImpl(
     private val profileRepository: ProfileRepository
-): ProfileService {
+) : ProfileService {
     override fun getByEmail(email: String): ProfileDTO? {
         return profileRepository.findByIdOrNull(email)?.toDTO()
     }
@@ -19,24 +19,25 @@ class ProfileServiceImpl(
         if (profileRepository.findByIdOrNull(profileDTO.email) != null) {
             throw DuplicateProfileException("User already exist with the same email address")
         }
-        profileRepository.save(Profile(
-            email = profileDTO.email,
-            name = profileDTO.name,
-            role = profileDTO.role,
-            phone = profileDTO.phone
-        ))
+        profileRepository.save(
+            Profile(
+                email = profileDTO.email,
+                name = profileDTO.name,
+                role = profileDTO.role,
+                phone = profileDTO.phone
+            )
+        )
     }
 
     override fun editProfile(profileDTO: ProfileDTO, email: String) {
-        val profile = profileRepository.findByIdOrNull(email)
-        if (profile == null) {
-            throw ProfileNotFoundException("No user associated with this email address")
-        }
-        profileRepository.save(Profile(
-            email = email,
-            name = profileDTO.name,
-            role = profileDTO.role,
-            phone = profileDTO.phone
-        ))
+        profileRepository.findByIdOrNull(email) ?: throw ProfileNotFoundException("No user associated with this email address")
+        profileRepository.save(
+            Profile(
+                email = email,
+                name = profileDTO.name,
+                role = profileDTO.role,
+                phone = profileDTO.phone
+            )
+        )
     }
 }

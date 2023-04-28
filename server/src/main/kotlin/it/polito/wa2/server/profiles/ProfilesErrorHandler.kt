@@ -12,15 +12,17 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 class ProfilesErrorHandler {
     @RestControllerAdvice
-    class ProblemDetailsHandler: ResponseEntityExceptionHandler() {
+    class ProblemDetailsHandler : ResponseEntityExceptionHandler() {
         @ExceptionHandler(ProfileNotFoundException::class)
         fun handleProfileNotFound(e: ProfileNotFoundException) = ProblemDetail
-            .forStatusAndDetail( HttpStatus.NOT_FOUND, e.message!! )
+            .forStatusAndDetail(HttpStatus.NOT_FOUND, e.message!!)
+
         @ExceptionHandler(DTONotValidException::class)
         fun handleDTONotValid(e: DTONotValidException) = ProblemDetail
-            .forStatusAndDetail( HttpStatus.NOT_ACCEPTABLE, e.message!! )
+            .forStatusAndDetail(HttpStatus.NOT_ACCEPTABLE, e.message!!)
+
         @ExceptionHandler(DuplicateProfileException::class)
         fun handleDuplicateProfile(e: DuplicateProfileException) = ProblemDetail
-            .forStatusAndDetail(HttpStatus.CONFLICT, e.message!! )
+            .forStatusAndDetail(HttpStatus.CONFLICT, e.message!!)
     }
 }
