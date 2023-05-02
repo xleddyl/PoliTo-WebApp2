@@ -43,7 +43,7 @@ Message (
 | PUT    | /profiles/{email}           | ProfileDTO | edit profile                               |      Y      |
 | GET    | /tickets                    |     -      | get all tickets                            |      Y      |
 | GET    | /tickets/{id}               |     -      | get ticket by id                           |      N      |
-| POST   | /tickets/{id}               | TicketDTO  | create ticket                              |      N      |
+| POST   | /tickets                    | TicketDTO  | create ticket                              |      N      |
 | PUT    | /tickets/{id}               | TicketDTO  | edit ticket                                |      N      |
 | GET    | /tickets/{id}/messages      |     -      | get all the messages for a specific ticket |      N      |
 | GET    | /tickets/{id}/messages/{id} |     -      | get message by id for a specific ticket    |      N      |

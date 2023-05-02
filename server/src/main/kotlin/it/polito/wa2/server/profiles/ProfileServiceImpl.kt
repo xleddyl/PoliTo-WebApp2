@@ -30,7 +30,9 @@ class ProfileServiceImpl(
     }
 
     override fun editProfile(profileDTO: ProfileDTO, email: String) {
-        profileRepository.findByIdOrNull(email) ?: throw ProfileNotFoundException("No user associated with this email address")
+        if (profileRepository.findByIdOrNull(email) == null) {
+            throw ProfileNotFoundException("No user associated with this email address")
+        }
         profileRepository.save(
             Profile(
                 email = email,
