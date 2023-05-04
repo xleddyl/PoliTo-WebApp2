@@ -5,8 +5,8 @@ import jakarta.persistence.*
 import java.sql.Timestamp
 
 @Entity
-@Table(name="messages")
-class Message (
+@Table(name = "messages")
+class Message(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long?,

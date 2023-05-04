@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-interface MessageRepository: JpaRepository<Message, Long?> {
+interface MessageRepository : JpaRepository<Message, Long?> {
     @Query("select m from Message m where m.ticket = ?")
     fun findMessagesByTicket(ticket: Ticket): List<Message>
 

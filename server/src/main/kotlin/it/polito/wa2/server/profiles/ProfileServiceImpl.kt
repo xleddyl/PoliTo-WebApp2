@@ -1,7 +1,7 @@
 package it.polito.wa2.server.profiles
 
-import it.polito.wa2.server.DuplicateProfileException
-import it.polito.wa2.server.ProfileNotFoundException
+import it.polito.wa2.server.DuplicateException
+import it.polito.wa2.server.NotFoundException
 import jakarta.transaction.Transactional
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -16,9 +16,7 @@ class ProfileServiceImpl(
     }
 
     override fun addProfile(profileDTO: ProfileDTO) {
-        if (profileRepository.findByIdOrNull(profileDTO.email) != null) {
-            throw DuplicateProfileException("User already exist with the same email address")
-        }
+        if (profileRepository.findByIdOrNull(profileDTO.email) != null) throw DuplicateException("User already exist")
         profileRepository.save(
             Profile(
                 email = profileDTO.email,
@@ -30,9 +28,7 @@ class ProfileServiceImpl(
     }
 
     override fun editProfile(profileDTO: ProfileDTO, email: String) {
-        if (profileRepository.findByIdOrNull(email) == null) {
-            throw ProfileNotFoundException("No user associated with this email address")
-        }
+        if (profileRepository.findByIdOrNull(email) == null) throw NotFoundException("User not found")
         profileRepository.save(
             Profile(
                 email = email,

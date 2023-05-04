@@ -1,10 +1,6 @@
 package it.polito.wa2.server.profiles
 
-import jakarta.persistence.Entity
-import jakarta.persistence.EnumType
-import jakarta.persistence.Enumerated
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 
 enum class Roles {
     CUSTOMER, ADMIN, MANAGER, TECHNICIAN

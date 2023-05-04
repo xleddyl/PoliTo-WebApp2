@@ -1,14 +1,11 @@
 package it.polito.wa2.server.ticketing.tickets
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import it.polito.wa2.server.NotFoundException
+import it.polito.wa2.server.NotValidException
+import org.springframework.web.bind.annotation.*
 
 @RestController
-class TicketController (
+class TicketController(
     private val ticketService: TicketService
 ) {
 
@@ -18,30 +15,24 @@ class TicketController (
     }
 
     @GetMapping("API/tickets/{ticketId}")
-    fun getAllById(@PathVariable ticketId: Long): TicketDTO {
+    fun getById(@PathVariable ticketId: Long): TicketDTO {
         val ticket = ticketService.getById(ticketId)
         if (ticket != null) {
             return ticket
         }
-        TODO("THROW -> Product not found")
+        throw NotFoundException("Ticket not found")
     }
 
     @PostMapping("API/tickets")
     fun createTicket(@RequestBody ticket: TicketDTO?) {
-        if (ticket == null) {
-            TODO("THROW -> Invalid ticket")
-        }
+        if (ticket == null) throw NotValidException("Ticket was malformed")
         ticketService.createTicket(ticket)
     }
 
     @PutMapping("API/tickets/{ticketId}")
     fun editTicket(@PathVariable ticketId: Long, @RequestBody ticket: TicketDTO?) {
-        if (ticket == null) {
-            TODO("THROW -> Invalid ticket")
-        }
-        if (ticketId != ticket.id) {
-            TODO("THROW -> Invalid id")
-        }
+        if (ticket == null) throw NotValidException("Ticket was malformed")
+        if (ticketId != ticket.id) throw NotValidException("Ticket id and path id doesn't match")
         ticketService.editTicket(ticketId, ticket)
     }
 }

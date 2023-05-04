@@ -1,7 +1,6 @@
 package it.polito.wa2.server.ticketing.messages
 
 
-
 interface MessageService {
     fun getAllForTicket(ticketId: Long): List<MessageDTO>
 
