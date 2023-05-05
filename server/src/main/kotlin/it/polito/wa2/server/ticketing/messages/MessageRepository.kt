@@ -8,9 +8,9 @@ import java.util.*
 
 @Repository
 interface MessageRepository : JpaRepository<Message, Long?> {
-    @Query("select m from Message m where m.ticket = ?")
+    @Query("select m from Message m where m.ticket = :ticket")
     fun findMessagesByTicket(ticket: Ticket): List<Message>
 
-    @Query("select m from Message m where m.id = ? and m.ticket = ?")
+    @Query("select m from Message m where m.id = :id and m.ticket = :ticket")
     fun findMessageByIdAndTicket(id: Long, ticket: Ticket): Message?
 }

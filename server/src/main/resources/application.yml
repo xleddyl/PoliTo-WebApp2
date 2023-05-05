@@ -5,4 +5,5 @@ spring:
     password: mysecretpassword
   jpa:
     show-sql: true
-    ddl-auto: create
+    hibernate:
+      ddl-auto: create
