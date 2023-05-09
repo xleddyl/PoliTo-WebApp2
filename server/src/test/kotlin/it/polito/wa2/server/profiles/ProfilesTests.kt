@@ -35,8 +35,8 @@ class ProfilesTests : AbstractApplicationTest() {
         val profile = ProfileDTO("Test@email.com", "Test Test", Roles.TECHNICIAN, "333333333")
         val newProfile = ProfileDTO("Test@email.com", "Testing Testing", Roles.CUSTOMER, "222222222")
 
-        val addedProfile = restTemplate.put("http://localhost:$port/API/profiles", profile)
-        val updatedProfile = restTemplate.put("http://localhost:$port/API/profiles", newProfile)
+        val addedProfile = restTemplate.postForLocation("http://localhost:$port/API/profiles", profile)
+        val updatedProfile = restTemplate.put("http://localhost:$port/API/profiles/Test@email.com", newProfile)
 
 
         val retrievedProfile =

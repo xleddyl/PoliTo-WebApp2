@@ -7,6 +7,7 @@ import it.polito.wa2.server.profiles.Roles
 import it.polito.wa2.server.ticketing.tickets.States
 import it.polito.wa2.server.ticketing.tickets.TicketDTO
 import junit.framework.TestCase.assertEquals
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.web.client.TestRestTemplate
@@ -39,7 +40,7 @@ class TicketingTests : AbstractApplicationTest() {
         val addedTicket = restTemplate.postForLocation("http://localhost:$port/API/tickets", ticket)
 
         val retrievedTicket = restTemplate.getForObject("http://localhost:$port/API/tickets/5", TicketDTO::class.java)
-        assertEquals(ticket, retrievedTicket)
+        Assertions.assertEquals(ticket, retrievedTicket)
     }
 
     @Test
