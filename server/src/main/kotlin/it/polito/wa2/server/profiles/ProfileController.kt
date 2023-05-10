@@ -13,16 +13,16 @@ class ProfileController(private val profileService: ProfileService) {
     }
 
     @PostMapping("/API/profiles")
-    fun addProfile(@RequestBody profile: ProfileDTO?) {
-        if (profile == null) throw NotValidException("Profile was malformed")
-        profileService.addProfile(profile)
+    fun addProfile(@RequestBody profileDTO: ProfileDTO?) {
+        if (profileDTO == null) throw NotValidException("Profile was malformed")
+        profileService.addProfile(profileDTO)
     }
 
     @PutMapping("/API/profiles/{email}")
-    fun editProfile(@RequestBody profile: ProfileDTO?, @PathVariable email: String) {
-        if (profile == null) throw NotFoundException("Profile not found")
-        if (profile.email != email) throw NotValidException("Profile id and path id doesn't match")
+    fun editProfile(@RequestBody profileDTO: ProfileDTO?, @PathVariable email: String) {
+        if (profileDTO == null) throw NotFoundException("Profile not found")
+        if (profileDTO.email != email) throw NotValidException("Profile id and path id doesn't match")
 
-        profileService.editProfile(profile, email)
+        profileService.editProfile(profileDTO, email)
     }
 }

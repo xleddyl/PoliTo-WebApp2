@@ -16,23 +16,23 @@ class TicketController(
 
     @GetMapping("API/tickets/{ticketId}")
     fun getById(@PathVariable ticketId: Long): TicketDTO {
-        val ticket = ticketService.getById(ticketId)
-        if (ticket != null) {
-            return ticket
+        val ticketDTO = ticketService.getById(ticketId)
+        if (ticketDTO != null) {
+            return ticketDTO
         }
         throw NotFoundException("Ticket not found")
     }
 
     @PostMapping("API/tickets")
-    fun createTicket(@RequestBody ticket: TicketDTO?) {
-        if (ticket == null) throw NotValidException("Ticket was malformed")
-        ticketService.createTicket(ticket)
+    fun createTicket(@RequestBody ticketDTO: TicketDTO?) {
+        if (ticketDTO == null) throw NotValidException("Ticket was malformed")
+        ticketService.createTicket(ticketDTO)
     }
 
     @PutMapping("API/tickets/{ticketId}")
-    fun editTicket(@PathVariable ticketId: Long, @RequestBody ticket: TicketDTO?) {
-        if (ticket == null) throw NotValidException("Ticket was malformed")
-        if (ticketId != ticket.id) throw NotValidException("Ticket id and path id doesn't match")
-        ticketService.editTicket(ticketId, ticket)
+    fun editTicket(@PathVariable ticketId: Long, @RequestBody ticketDTO: TicketDTO?) {
+        if (ticketDTO == null) throw NotValidException("Ticket was malformed")
+        if (ticketId != ticketDTO.id) throw NotValidException("Ticket id and path id doesn't match")
+        ticketService.editTicket(ticketId, ticketDTO)
     }
 }
