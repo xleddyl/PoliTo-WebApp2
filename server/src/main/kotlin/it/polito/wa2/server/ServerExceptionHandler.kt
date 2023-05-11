@@ -11,13 +11,13 @@ class ServerExceptionHandler : ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(NotFoundException::class)
     fun handleNotFoundException(e: NotFoundException) = ProblemDetail
-        .forStatusAndDetail(HttpStatus.NOT_FOUND, e.message ?: "")
+            .forStatusAndDetail(HttpStatus.NOT_FOUND, e.message ?: "")
 
     @ExceptionHandler(NotValidException::class)
     fun handleNotFoundException(e: NotValidException) = ProblemDetail
-        .forStatusAndDetail(HttpStatus.UNPROCESSABLE_ENTITY, e.message ?: "")
+            .forStatusAndDetail(HttpStatus.UNPROCESSABLE_ENTITY, e.message ?: "")
 
     @ExceptionHandler(DuplicateException::class)
     fun handleDuplicateException(e: DuplicateException) = ProblemDetail
-        .forStatusAndDetail(HttpStatus.CONFLICT, e.message ?: "")
+            .forStatusAndDetail(HttpStatus.CONFLICT, e.message ?: "")
 }

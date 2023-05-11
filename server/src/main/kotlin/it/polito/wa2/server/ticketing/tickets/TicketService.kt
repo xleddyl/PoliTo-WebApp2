@@ -1,11 +1,17 @@
 package it.polito.wa2.server.ticketing.tickets
 
+import it.polito.wa2.server.DuplicateException
+import it.polito.wa2.server.NotFoundException
+
 interface TicketService {
     fun getAll(): List<TicketDTO>
 
-    fun getById(ticketId: Long): TicketDTO?
+    @Throws(NotFoundException::class)
+    fun getById(ticketId: Long): TicketDTO
 
-    fun createTicket(ticket: TicketDTO)
+    @Throws(DuplicateException::class)
+    fun createTicket(ticketDTO: TicketDTO): TicketDTO
 
-    fun editTicket(ticketId: Long, ticket: TicketDTO)
+    @Throws(NotFoundException::class)
+    fun editTicket(ticketId: Long, ticketDTO: TicketDTO): TicketDTO
 }

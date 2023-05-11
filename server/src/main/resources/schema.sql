@@ -1,24 +1,68 @@
 create table if not exists products
 (
-    ean      varchar(15)  NOT NULL,
-    sku      varchar(255) NOT NULL,
-    name     varchar(255) NOT NULL,
-    brand    varchar(255) NOT NULL,
-    category varchar(255) NOT NULL,
-    price    float8 DEFAULT 0.0 CHECK (price > 0.0),
-
-    PRIMARY KEY (ean)
-);
+    ean varchar
+(
+    15
+) NOT NULL,
+    sku varchar
+(
+    255
+) NOT NULL,
+    name varchar
+(
+    255
+) NOT NULL,
+    brand varchar
+(
+    255
+) NOT NULL,
+    category varchar
+(
+    255
+) NOT NULL,
+    price float8 DEFAULT 0.0 CHECK
+(
+    price >
+    0.0
+),
+    PRIMARY KEY
+(
+    ean
+)
+    );
 
 create table if not exists profiles
 (
-    email varchar(255) NOT NULL,
-    name  varchar(255) NOT NULL,
-    role  varchar(255) DEFAULT 'customer' CHECK (role IN ('customer', 'admin', 'manager', 'technician')),
-    phone varchar(255) NOT NULL,
-
-    PRIMARY KEY (email)
-);
+    email varchar
+(
+    255
+) NOT NULL,
+    name varchar
+(
+    255
+) NOT NULL,
+    role varchar
+(
+    255
+) DEFAULT 'customer' CHECK
+(
+    role
+    IN
+(
+    'customer',
+    'admin',
+    'manager',
+    'technician'
+)),
+    phone varchar
+(
+    255
+) NOT NULL,
+    PRIMARY KEY
+(
+    email
+)
+    );
 
 ---
 

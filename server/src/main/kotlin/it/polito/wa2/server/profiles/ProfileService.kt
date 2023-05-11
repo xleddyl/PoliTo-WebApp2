@@ -1,10 +1,16 @@
 package it.polito.wa2.server.profiles
 
+import it.polito.wa2.server.DuplicateException
+import it.polito.wa2.server.NotFoundException
+
 
 interface ProfileService {
-    fun getByEmail(email: String): ProfileDTO?
+    @Throws(NotFoundException::class)
+    fun getByEmail(email: String): ProfileDTO
 
-    fun addProfile(profileDTO: ProfileDTO)
+    @Throws(DuplicateException::class)
+    fun addProfile(profileDTO: ProfileDTO): ProfileDTO
 
-    fun editProfile(profileDTO: ProfileDTO, email: String)
+    @Throws(NotFoundException::class)
+    fun editProfile(profileDTO: ProfileDTO, email: String): ProfileDTO
 }
