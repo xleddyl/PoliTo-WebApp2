@@ -8,39 +8,29 @@ import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.test.web.server.LocalServerPort
 
 class ProfilesTests : AbstractApplicationTest() {
-
-    @LocalServerPort
-    protected var port: Int = 0
-
-    @Autowired
-    lateinit var restTemplate: TestRestTemplate
-
     @Test
-    fun testProfile() {
+    fun `test POST on profiles`() {
 
-        val profileDTO = ProfileDTO("Test@email.com", "Test Test", Roles.TECHNICIAN, "333333333")
+        val profileDTO = ProfileDTO("test@email.com", "Test Test", Roles.TECHNICIAN, "333333333")
 
-        val addedProfile = restTemplate.postForLocation("http://localhost:$port/API/profiles", profileDTO)
+        restTemplate.postForLocation("http://localhost:$port/API/profiles", profileDTO)
 
-        //assertNotNull(addedProfile) // In theory this should not be empty, but it is
+        val retrievedProfile = restTemplate.getForObject("http://localhost:$port/API/profiles/test@email.com", ProfileDTO::class.java)
 
-        val retrievedProfile =
-            restTemplate.getForObject("http://localhost:$port/API/profiles/Test@email.com", ProfileDTO::class.java)
         Assertions.assertEquals(profileDTO, retrievedProfile)
     }
 
     @Test
-    fun testUpdateProfile() {
+    fun `test PUT on profiles`() {
 
-        val profileDTO = ProfileDTO("Test@email.com", "Test Test", Roles.TECHNICIAN, "333333333")
-        val newProfileDTO = ProfileDTO("Test@email.com", "Testing Testing", Roles.CUSTOMER, "222222222")
+        val profileDTO = ProfileDTO("test@email.com", "Test Test", Roles.TECHNICIAN, "333333333")
+        val newProfileDTO = ProfileDTO("test@email.com", "Testing Testing", Roles.CUSTOMER, "222222222")
 
-        val addedProfile = restTemplate.postForLocation("http://localhost:$port/API/profiles", profileDTO)
-        val updatedProfile = restTemplate.put("http://localhost:$port/API/profiles/Test@email.com", newProfileDTO)
+        restTemplate.postForLocation("http://localhost:$port/API/profiles", profileDTO)
+        restTemplate.put("http://localhost:$port/API/profiles/test@email.com", newProfileDTO)
 
 
-        val retrievedProfile =
-            restTemplate.getForObject("http://localhost:$port/API/profiles/Test@email.com", ProfileDTO::class.java)
+        val retrievedProfile = restTemplate.getForObject("http://localhost:$port/API/profiles/test@email.com", ProfileDTO::class.java)
         Assertions.assertEquals(newProfileDTO, retrievedProfile)
     }
 }
