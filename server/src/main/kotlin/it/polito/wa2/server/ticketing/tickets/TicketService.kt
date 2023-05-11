@@ -15,4 +15,7 @@ interface TicketService {
 
     @Throws(NotFoundException::class)
     fun editTicket(ticketId: Long, ticketDTO: TicketDTO): TicketDTO
+
+    @Throws(NotFoundException::class, NotValidException::class)
+    fun updateStatus(ticketId: Long, state: States): TicketDTO
 }
