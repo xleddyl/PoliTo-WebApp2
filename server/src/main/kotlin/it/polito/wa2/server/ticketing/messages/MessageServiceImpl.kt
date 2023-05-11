@@ -1,6 +1,7 @@
 package it.polito.wa2.server.ticketing.messages
 
 import it.polito.wa2.server.NotFoundException
+import it.polito.wa2.server.ticketing.tickets.TicketDTO
 import it.polito.wa2.server.ticketing.tickets.TicketRepository
 import jakarta.transaction.Transactional
 import org.springframework.data.repository.findByIdOrNull

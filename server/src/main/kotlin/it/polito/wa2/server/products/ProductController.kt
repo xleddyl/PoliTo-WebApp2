@@ -1,14 +1,19 @@
 package it.polito.wa2.server.products
 
 import it.polito.wa2.server.NotFoundException
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RestController
+import it.polito.wa2.server.NotValidException
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class ProductController(
     private val productService: ProductService
 ) {
+
+    @PostMapping("/API/products")
+    fun addProduct(@RequestBody productDTO: ProductDTO?) {
+        if (productDTO == null) throw NotValidException("Product was malformed")
+        productService.addProduct(productDTO)
+    }
 
     @GetMapping("/API/products")
     fun getAll(): List<ProductDTO> {
@@ -17,9 +22,9 @@ class ProductController(
 
     @GetMapping("/API/products/{ean}")
     fun getById(@PathVariable ean: String): ProductDTO? {
-        val product = productService.getById(ean)
-        if (product != null) {
-            return product
+        val productDTO = productService.getById(ean)
+        if (productDTO != null) {
+            return productDTO
         }
         throw NotFoundException("Product not found")
     }

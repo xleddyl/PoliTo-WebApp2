@@ -18,29 +18,29 @@ class ProfilesTests : AbstractApplicationTest() {
     @Test
     fun testProfile() {
 
-        val profile = ProfileDTO("Test@email.com", "Test Test", Roles.TECHNICIAN, "333333333")
+        val profileDTO = ProfileDTO("Test@email.com", "Test Test", Roles.TECHNICIAN, "333333333")
 
-        val addedProfile = restTemplate.postForLocation("http://localhost:$port/API/profiles", profile)
+        val addedProfile = restTemplate.postForLocation("http://localhost:$port/API/profiles", profileDTO)
 
         //assertNotNull(addedProfile) // In theory this should not be empty, but it is
 
         val retrievedProfile =
             restTemplate.getForObject("http://localhost:$port/API/profiles/Test@email.com", ProfileDTO::class.java)
-        Assertions.assertEquals(profile, retrievedProfile)
+        Assertions.assertEquals(profileDTO, retrievedProfile)
     }
 
     @Test
     fun testUpdateProfile() {
 
-        val profile = ProfileDTO("Test@email.com", "Test Test", Roles.TECHNICIAN, "333333333")
-        val newProfile = ProfileDTO("Test@email.com", "Testing Testing", Roles.CUSTOMER, "222222222")
+        val profileDTO = ProfileDTO("Test@email.com", "Test Test", Roles.TECHNICIAN, "333333333")
+        val newProfileDTO = ProfileDTO("Test@email.com", "Testing Testing", Roles.CUSTOMER, "222222222")
 
-        val addedProfile = restTemplate.postForLocation("http://localhost:$port/API/profiles", profile)
-        val updatedProfile = restTemplate.put("http://localhost:$port/API/profiles/Test@email.com", newProfile)
+        val addedProfile = restTemplate.postForLocation("http://localhost:$port/API/profiles", profileDTO)
+        val updatedProfile = restTemplate.put("http://localhost:$port/API/profiles/Test@email.com", newProfileDTO)
 
 
         val retrievedProfile =
             restTemplate.getForObject("http://localhost:$port/API/profiles/Test@email.com", ProfileDTO::class.java)
-        Assertions.assertEquals(newProfile, retrievedProfile)
+        Assertions.assertEquals(newProfileDTO, retrievedProfile)
     }
 }
