@@ -26,10 +26,6 @@ class ProductController(
     @GetMapping("/API/products/{ean}")
     @ResponseStatus(HttpStatus.OK)
     fun getById(@PathVariable ean: String): ProductDTO? {
-        val productDTO = productService.getById(ean)
-        if (productDTO != null) {
-            return productDTO
-        }
-        throw NotFoundException("Product not found")
+        return productService.getById(ean)
     }
 }

@@ -18,7 +18,7 @@ class MessageController(
     @GetMapping("API/tickets/{ticketId}/messages/{messageId}")
     @ResponseStatus(HttpStatus.OK)
     fun getMessageByIdForTicket(@PathVariable ticketId: Long, @PathVariable messageId: Long): MessageDTO {
-        return messageService.getById(ticketId, messageId) ?: throw NotFoundException("Message not found")
+        return messageService.getById(ticketId, messageId)
     }
 
     @PostMapping("API/tickets/{ticketId}/messages")

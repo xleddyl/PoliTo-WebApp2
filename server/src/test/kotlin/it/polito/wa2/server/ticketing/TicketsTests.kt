@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
 import org.springframework.test.annotation.DirtiesContext
 
-class TicketingTests : AbstractApplicationTest() {
-    private fun createTicket(): TicketDTO {
+class TicketsTests : AbstractApplicationTest() {
+    fun createTicket(): TicketDTO {
         val customerDTO = ProfileDTO("customer@email.com", "customer customer", Roles.CUSTOMER, "222222222")
         val technicianDTO = ProfileDTO("technician@email.com", "technician tech", Roles.TECHNICIAN, "333333333")
         val productDTO = ProductDTO("ean", "sku", "name", "brand", "category", 1.0f)
@@ -49,36 +49,15 @@ class TicketingTests : AbstractApplicationTest() {
         Assertions.assertEquals(ticket, res.body)
     }
 
-    /*
-        @Test
-        fun testEditTicket() {
-            val technician = Profile("customer@email.com", "customer customer", Roles.CUSTOMER, "222222222")
-            val customer = Profile("technician@email.com", "technician tech", Roles.TECHNICIAN, "333333333")
+    @Test
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
+    fun `test edit ticket`() {
+        val ticket = createTicket().copy(priority = 0)
 
-            val product = Product("ean", "sku", "name", "brand", "category", 1.0f)
-            val states = mutableListOf<States>(States.IN_PROGRESS)
+        val res = restTemplate.postForEntity("http://localhost:$port/API/tickets/${ticket.id}", ticket, TicketDTO::class.java)
 
-            val ticket = TicketDTO(5, product, customer, technician, states, "description", 3, null)
+        Assertions.assertEquals(HttpStatus.CREATED, res.statusCode)
+        Assertions.assertEquals(ticket, res.body)
+    }
 
-            val addedTicket = restTemplate.put("http://localhost:$port/API/tickets", ticket)
-
-            val retrievedTicket = restTemplate.getForObject("http://localhost:$port/API/tickets/5", TicketDTO::class.java)
-            assertEquals(ticket, retrievedTicket)
-        }
-
-        @Test
-        fun testMessage() {
-            val technician = Profile("customer@email.com", "customer customer", Roles.CUSTOMER, "222222222")
-            val customer = Profile("technician@email.com", "technician tech", Roles.TECHNICIAN, "333333333")
-
-            val product = Product("ean", "sku", "name", "brand", "category", 1.0f)
-            val states = mutableListOf<States>(States.IN_PROGRESS)
-
-            val ticket = TicketDTO(5, product, customer, technician, states, "description", 3, null)
-
-            val addedTicket = restTemplate.put("http://localhost:$port/API/tickets", ticket)
-
-            val message = Message()
-        }
-    */
 }

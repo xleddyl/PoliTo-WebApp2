@@ -15,8 +15,7 @@ import org.springframework.stereotype.Service
 class TicketServiceImpl(
         private val ticketRepository: TicketRepository,
         private val profileService: ProfileService,
-        private val productService: ProductService,
-        private val messageService: MessageService
+        private val productService: ProductService
 ) : TicketService {
     override fun getAll(): List<TicketDTO> {
         return ticketRepository.findAll().map { it.toDTO() }
@@ -47,14 +46,14 @@ class TicketServiceImpl(
     }
 
     override fun editTicket(ticketId: Long, ticketDTO: TicketDTO): TicketDTO {
-        if (ticketRepository.findByIdOrNull(ticketDTO.id) == null) throw NotFoundException("Ticket not found")
+        val ticket = getById(ticketId)
         val customer = profileService.getByEmail(ticketDTO.customer.email)
         val product = productService.getById(ticketDTO.product.ean)
         val messages = mutableSetOf<Message>()
         ticketDTO.messages?.forEach { messages.add(it.fromDTO()) }
         return ticketRepository.save(
                 Ticket(
-                        id = ticketId,
+                        id = ticket.id,
                         product = product.fromDTO(),
                         customer = customer.fromDTO(),
                         technician = ticketDTO.technician?.fromDTO(),
@@ -63,6 +62,32 @@ class TicketServiceImpl(
                         priority = ticketDTO.priority,
                         messages = messages
                 )
+        ).toDTO()
+    }
+
+    override fun updateStatus(ticketId: Long, state: States): TicketDTO {
+        // OPEN -> RESOLVED -> REOPENED -> IN PROGRESS -> OPEN
+        val ticket = getById(ticketId)
+        when (ticket.statuses.last()) {
+            States.OPEN -> {
+                if (state!=States.RESOLVED && state!=States.CLOSED && state!=States.IN_PROGRESS) throw NotValidException("Invalid status")
+            }
+            States.CLOSED -> {
+                if (state!=States.RESOLVED) throw NotValidException("Invalid status")
+            }
+            States.IN_PROGRESS -> {
+                if (state!=States.OPEN && state!=States.CLOSED && state!=States.RESOLVED) throw NotValidException("Invalid status")
+            }
+            States.REOPEN -> {
+                if (state!=States.IN_PROGRESS && state!=States.RESOLVED) throw NotValidException("Invalid status")
+            }
+            States.RESOLVED -> {
+                if (state!=States.REOPEN  && state!=States.CLOSED) throw NotValidException("Invalid status")
+            }
+        }
+        ticket.statuses.add(state)
+        return ticketRepository.save(
+            ticket.fromDTO()
         ).toDTO()
     }
 

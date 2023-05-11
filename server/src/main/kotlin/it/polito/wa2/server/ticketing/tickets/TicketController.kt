@@ -4,6 +4,7 @@ import it.polito.wa2.server.NotFoundException
 import it.polito.wa2.server.NotValidException
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import java.lang.IllegalArgumentException
 
 @RestController
 class TicketController(
@@ -19,11 +20,7 @@ class TicketController(
     @GetMapping("API/tickets/{ticketId}")
     @ResponseStatus(HttpStatus.OK)
     fun getById(@PathVariable ticketId: Long): TicketDTO {
-        val ticketDTO = ticketService.getById(ticketId)
-        if (ticketDTO != null) {
-            return ticketDTO
-        }
-        throw NotFoundException("Ticket not found")
+        return ticketService.getById(ticketId)
     }
 
     @PostMapping("API/tickets")
@@ -31,6 +28,17 @@ class TicketController(
     fun createTicket(@RequestBody ticketDTO: TicketDTO?): TicketDTO {
         if (ticketDTO == null) throw NotValidException("Ticket was malformed")
         return ticketService.createTicket(ticketDTO)
+    }
+
+    @PostMapping("/API/tickets/{ticketId}/{stateString}")
+    @ResponseStatus(HttpStatus.CREATED)
+    fun updateStatus(@PathVariable ticketId: Long, @PathVariable stateString: String): TicketDTO {
+        try {
+            val state = States.valueOf(stateString.uppercase())
+            return ticketService.updateStatus(ticketId, state)
+        } catch (e: IllegalArgumentException) {
+            throw NotValidException("Invalid status")
+        }
     }
 
     @PutMapping("API/tickets/{ticketId}")

@@ -11,7 +11,7 @@ class ProfileController(private val profileService: ProfileService) {
     @GetMapping("/API/profiles/{email}")
     @ResponseStatus(HttpStatus.OK)
     fun getByEmail(@PathVariable email: String): ProfileDTO? {
-        return profileService.getByEmail(email) ?: throw NotFoundException("Profile not found")
+        return profileService.getByEmail(email)
     }
 
     @PostMapping("/API/profiles")
