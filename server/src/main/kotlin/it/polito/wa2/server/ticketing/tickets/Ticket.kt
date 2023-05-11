@@ -20,7 +20,7 @@ class Ticket(
     @ManyToOne(cascade = [CascadeType.ALL])
     var customer: Profile,
     @ManyToOne(cascade = [CascadeType.ALL])
-    var technician: Profile,
+    var technician: Profile?,
     @Enumerated(value = EnumType.STRING)
     var statuses: MutableList<States> = mutableListOf(States.OPEN),
     var description: String,

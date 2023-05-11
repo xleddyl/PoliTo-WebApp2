@@ -16,13 +16,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.test.web.server.LocalServerPort
 
 class TicketingTests : AbstractApplicationTest() {
-
-    @LocalServerPort
-    protected var port: Int = 0
-
-    @Autowired
-    lateinit var restTemplate: TestRestTemplate
-
     @Test
     fun testTicket() {
 
@@ -33,12 +26,11 @@ class TicketingTests : AbstractApplicationTest() {
         val ticketId: Long = 1         // ticket id is automatically assigned and autoincremented
         val ticketDTO = TicketDTO(ticketId, productDTO, customerDTO, technicianDTO, states, "description", 3, null)
 
-        val addedCustomer = restTemplate.postForLocation("http://localhost:$port/API/profiles", customerDTO)
-        val addedTechnician = restTemplate.postForLocation("http://localhost:$port/API/profiles", technicianDTO)
+        restTemplate.postForLocation("http://localhost:$port/API/profiles", customerDTO)
+        restTemplate.postForLocation("http://localhost:$port/API/profiles", technicianDTO)
 
-        val addedProduct = restTemplate.postForLocation("http://localhost:$port/API/products", productDTO)
-
-        val addedTicket = restTemplate.postForLocation("http://localhost:$port/API/tickets", ticketDTO)
+        restTemplate.postForLocation("http://localhost:$port/API/products", productDTO)
+        restTemplate.postForLocation("http://localhost:$port/API/tickets", ticketDTO)
 
 
         val retrievedTicket = restTemplate.getForObject("http://localhost:$port/API/tickets/$ticketId", TicketDTO::class.java)
