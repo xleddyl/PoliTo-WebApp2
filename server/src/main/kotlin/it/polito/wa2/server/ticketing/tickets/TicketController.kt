@@ -42,10 +42,16 @@ class TicketController(
     }
 
     @PutMapping("API/tickets/{ticketId}")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     fun editTicket(@PathVariable ticketId: Long, @RequestBody ticketDTO: TicketDTO?): TicketDTO {
         if (ticketDTO == null) throw NotValidException("Ticket was malformed")
         if (ticketId != ticketDTO.id) throw NotValidException("Ticket id and path id doesn't match")
         return ticketService.editTicket(ticketId, ticketDTO)
+    }
+
+    @DeleteMapping("API/tickets/{ticketId}")
+    @ResponseStatus(HttpStatus.OK)
+    fun deleteTicket(@PathVariable ticketId: Long): TicketDTO {
+        return ticketService.deleteTicket(ticketId)
     }
 }

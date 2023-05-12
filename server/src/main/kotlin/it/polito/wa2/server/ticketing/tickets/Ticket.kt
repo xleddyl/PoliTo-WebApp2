@@ -14,7 +14,7 @@ enum class States {
 class Ticket(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        var id: Long?,
+        var id: Long? = null,
         @ManyToOne(cascade = [CascadeType.ALL])
         var product: Product,
         @ManyToOne(cascade = [CascadeType.ALL])
