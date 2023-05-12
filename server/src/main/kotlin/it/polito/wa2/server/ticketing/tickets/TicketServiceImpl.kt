@@ -18,22 +18,23 @@ class TicketServiceImpl(
     private val profileService: ProfileService,
     private val productService: ProductService
 ) : TicketService {
-    override fun getAll(): List<TicketDTO> {
-        return ticketRepository.findAll().map { it.toDTO() }
+    override fun getAll(): List<Ticket> {
+        return ticketRepository.findAll()
     }
 
-    override fun getById(ticketId: Long): TicketDTO {
-        return ticketRepository.findByIdOrNull(ticketId)?.toDTO() ?: throw NotFoundException("Ticket not found")
+    override fun getById(ticketId: Long): Ticket {
+        val t = ticketRepository.findByIdOrNull(ticketId)
+        return t ?: throw NotFoundException("Ticket not found")
     }
 
-    override fun createTicket(ticketDTO: TicketDTO): TicketDTO {
+    override fun createTicket(ticketDTO: TicketDTO): Ticket {
         if (ticketDTO.id != null && ticketRepository.findByIdOrNull(ticketDTO.id) != null) throw DuplicateException("Ticket id already exists")
         if (ticketDTO.statuses.size != 1 && ticketDTO.statuses.first() != States.OPEN) throw NotValidException("Ticket status is invalid")
         val customer = profileService.getByEmailP(ticketDTO.customer.email)
         val technician = ticketDTO.technician?.email?.let { profileService.getByEmailP(it) }
         val product = productService.getByIdP(ticketDTO.product.ean)
+
         val messages = mutableSetOf<Message>()
-        ticketDTO.messages?.forEach { messages.add(it.fromDTO()) }
 
         return ticketRepository.save(
             Ticket(
@@ -46,16 +47,20 @@ class TicketServiceImpl(
                 priority = ticketDTO.priority,
                 messages = messages
             )
-        ).toDTO()
+        )
     }
 
-    override fun editTicket(ticketId: Long, ticketDTO: TicketDTO): TicketDTO {
+    override fun editTicket(ticketId: Long, ticketDTO: TicketDTO): Ticket {
         val ticket = getById(ticketId)
         val customer = profileService.getByEmailP(ticketDTO.customer.email)
         val technician = ticketDTO.technician?.email?.let { profileService.getByEmailP(it) }
         val product = productService.getByIdP(ticketDTO.product.ean)
         val messages = mutableSetOf<Message>()
-        ticketDTO.messages?.forEach { messages.add(it.fromDTO()) }
+        /*ticketDTO.messages?.forEach {
+            messages.add(
+                messageService.getById(ticketId, it)
+            )
+        }*/
         return ticketRepository.save(
             Ticket(
                 id = ticket.id,
@@ -65,18 +70,18 @@ class TicketServiceImpl(
                 statuses = ticketDTO.statuses,
                 description = ticketDTO.description,
                 priority = ticketDTO.priority,
-                messages = messages
+                messages = ticket.messages
             )
-        ).toDTO()
+        )
     }
 
-    override fun deleteTicket(ticketId: Long): TicketDTO {
-        val ticketDTO = getById(ticketId)
+    override fun deleteTicket(ticketId: Long): Ticket {
+        val ticket = getById(ticketId)
         ticketRepository.deleteById(ticketId)
-        return ticketDTO
+        return ticket
     }
 
-    override fun updateStatus(ticketId: Long, state: States): TicketDTO {
+    override fun updateStatus(ticketId: Long, state: States): Ticket {
         // OPEN -> RESOLVED -> REOPENED -> IN PROGRESS -> OPEN
         val ticket = getById(ticketId)
         when (ticket.statuses.last()) {
@@ -106,8 +111,8 @@ class TicketServiceImpl(
         }
         ticket.statuses.add(state)
         return ticketRepository.save(
-            ticket.fromDTO()
-        ).toDTO()
+            ticket
+        )
     }
 
 }

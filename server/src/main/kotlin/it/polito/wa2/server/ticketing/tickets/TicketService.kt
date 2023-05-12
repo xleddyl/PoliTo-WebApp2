@@ -5,20 +5,20 @@ import it.polito.wa2.server.NotFoundException
 import it.polito.wa2.server.NotValidException
 
 interface TicketService {
-    fun getAll(): List<TicketDTO>
+    fun getAll(): List<Ticket>
 
     @Throws(NotFoundException::class)
-    fun getById(ticketId: Long): TicketDTO
+    fun getById(ticketId: Long): Ticket
 
     @Throws(DuplicateException::class)
-    fun createTicket(ticketDTO: TicketDTO): TicketDTO
+    fun createTicket(ticketDTO: TicketDTO): Ticket
 
     @Throws(NotFoundException::class)
-    fun editTicket(ticketId: Long, ticketDTO: TicketDTO): TicketDTO
+    fun editTicket(ticketId: Long, ticketDTO: TicketDTO): Ticket
 
     @Throws(NotFoundException::class)
-    fun deleteTicket(ticketId: Long): TicketDTO
+    fun deleteTicket(ticketId: Long): Ticket
 
     @Throws(NotFoundException::class, NotValidException::class)
-    fun updateStatus(ticketId: Long, state: States): TicketDTO
+    fun updateStatus(ticketId: Long, state: States): Ticket
 }

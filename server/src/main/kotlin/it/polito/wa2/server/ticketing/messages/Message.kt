@@ -9,7 +9,7 @@ import java.sql.Timestamp
 class Message(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        var id: Long?,
+        var id: Long? = null,
         @ManyToOne
         var ticket: Ticket,
         var fromCustomer: Boolean,

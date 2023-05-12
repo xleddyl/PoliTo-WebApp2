@@ -34,7 +34,7 @@ class ProductsTests : AbstractApplicationTest() {
 
         val rateResponse: ResponseEntity<List<ProductDTO>> = restTemplate.exchange("http://localhost:$port/API/products",
             HttpMethod.GET, null, object : ParameterizedTypeReference<List<ProductDTO>>() {})
-        val rates: List<ProductDTO>? = rateResponse.getBody()
+        val rates: List<ProductDTO>? = rateResponse.body
 
         if (rates != null) {
             Assertions.assertEquals(rates.size, 3)

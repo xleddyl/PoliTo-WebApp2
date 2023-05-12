@@ -12,21 +12,21 @@ class MessageController(
     @GetMapping("API/tickets/{ticketId}/messages")
     @ResponseStatus(HttpStatus.OK)
     fun getAllForTicket(@PathVariable ticketId: Long): List<MessageDTO> {
-        return messageService.getAllForTicket(ticketId)
+        return messageService.getAllForTicket(ticketId).map { it.toDTO() }
     }
 
     @GetMapping("API/tickets/{ticketId}/messages/{messageId}")
     @ResponseStatus(HttpStatus.OK)
     fun getMessageByIdForTicket(@PathVariable ticketId: Long, @PathVariable messageId: Long): MessageDTO {
-        return messageService.getById(ticketId, messageId)
+        return messageService.getById(ticketId, messageId).toDTO()
     }
 
     @PostMapping("API/tickets/{ticketId}/messages")
     @ResponseStatus(HttpStatus.CREATED)
     fun addMessageForTicket(@RequestBody messageDTO: MessageDTO?, @PathVariable ticketId: Long): MessageDTO {
         if (messageDTO == null) throw NotValidException("Message was malformed")
-        if (messageDTO.ticket.id != ticketId) throw NotValidException("Message id and path id doesn't match")
-        return messageService.addMessage(messageDTO, ticketId)
+        if (messageDTO.ticket != ticketId) throw NotValidException("Message id and path id doesn't match")
+        return messageService.addMessage(messageDTO, ticketId).toDTO()
     }
 
 }
