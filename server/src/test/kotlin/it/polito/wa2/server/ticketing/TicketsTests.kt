@@ -8,6 +8,9 @@ import it.polito.wa2.server.ticketing.tickets.States
 import it.polito.wa2.server.ticketing.tickets.TicketDTO
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import org.springframework.boot.test.web.client.exchange
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.test.annotation.DirtiesContext
 
@@ -19,9 +22,9 @@ class TicketsTests : AbstractApplicationTest() {
         val states = mutableListOf(States.OPEN)
         val ticketDTO = TicketDTO(null, productDTO, customerDTO, technicianDTO, states, "description", 3, null)
 
-        // restTemplate.postForLocation("http://localhost:$port/API/profiles", customerDTO)
-        // restTemplate.postForLocation("http://localhost:$port/API/profiles", technicianDTO)
-        // restTemplate.postForLocation("http://localhost:$port/API/products", productDTO)
+        restTemplate.postForLocation("http://localhost:$port/API/profiles", customerDTO)
+        restTemplate.postForLocation("http://localhost:$port/API/profiles", technicianDTO)
+        restTemplate.postForLocation("http://localhost:$port/API/products", productDTO)
 
         val res = restTemplate.postForEntity("http://localhost:$port/API/tickets", ticketDTO, TicketDTO::class.java)
         Assertions.assertEquals(HttpStatus.CREATED, res.statusCode)
@@ -54,11 +57,53 @@ class TicketsTests : AbstractApplicationTest() {
     fun `test edit ticket`() {
         val ticket = createTicket().copy(priority = 0)
 
-        val res =
-            restTemplate.postForEntity("http://localhost:$port/API/tickets/${ticket.id}", ticket, TicketDTO::class.java)
 
-        Assertions.assertEquals(HttpStatus.CREATED, res.statusCode)
+
+        val res = restTemplate.exchange(
+            "http://localhost:$port/API/tickets/${ticket.id}",
+            HttpMethod.PUT,
+            HttpEntity(ticket),
+            TicketDTO::class.java
+        )
+
+        Assertions.assertEquals(HttpStatus.OK, res.statusCode)
         Assertions.assertEquals(ticket, res.body)
+    }
+
+    @Test
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
+    fun `test delete ticket`() {
+        val ticket = createTicket()
+
+        val res = restTemplate.exchange(
+            "http://localhost:$port/API/tickets/${ticket.id}",
+            HttpMethod.DELETE,
+            null,
+            TicketDTO::class.java
+        )
+
+        Assertions.assertEquals(HttpStatus.OK, res.statusCode)
+        Assertions.assertEquals(ticket, res.body)
+    }
+
+    @Test
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
+    fun `test add status for ticket`() {
+        val ticket = createTicket()
+        val state = States.IN_PROGRESS
+
+        val res = restTemplate.postForEntity(
+            "http://localhost:$port/API/tickets/${ticket.id}/${state}",
+            null,
+            TicketDTO::class.java
+        )
+        Assertions.assertEquals(HttpStatus.CREATED, res.statusCode)
+        Assertions.assertNotNull(res.body)
+
+        ticket.statuses.add(state)
+        Assertions.assertEquals(ticket, res.body)
+
+
     }
 
 }

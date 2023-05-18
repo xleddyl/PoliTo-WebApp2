@@ -12,20 +12,20 @@ class TicketController(
     @GetMapping("API/tickets")
     @ResponseStatus(HttpStatus.OK)
     fun getAll(): List<TicketDTO> {
-        return ticketService.getAll()
+        return ticketService.getAll().map { it.toDTO() }
     }
 
     @GetMapping("API/tickets/{ticketId}")
     @ResponseStatus(HttpStatus.OK)
     fun getById(@PathVariable ticketId: Long): TicketDTO {
-        return ticketService.getById(ticketId)
+        return ticketService.getById(ticketId).toDTO()
     }
 
     @PostMapping("API/tickets")
     @ResponseStatus(HttpStatus.CREATED)
     fun createTicket(@RequestBody ticketDTO: TicketDTO?): TicketDTO {
         if (ticketDTO == null) throw NotValidException("Ticket was malformed")
-        return ticketService.createTicket(ticketDTO)
+        return ticketService.createTicket(ticketDTO).toDTO()
     }
 
     @PostMapping("/API/tickets/{ticketId}/{stateString}")
@@ -33,17 +33,23 @@ class TicketController(
     fun updateStatus(@PathVariable ticketId: Long, @PathVariable stateString: String): TicketDTO {
         try {
             val state = States.valueOf(stateString.uppercase())
-            return ticketService.updateStatus(ticketId, state)
+            return ticketService.updateStatus(ticketId, state).toDTO()
         } catch (e: IllegalArgumentException) {
             throw NotValidException("Invalid status")
         }
     }
 
     @PutMapping("API/tickets/{ticketId}")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     fun editTicket(@PathVariable ticketId: Long, @RequestBody ticketDTO: TicketDTO?): TicketDTO {
         if (ticketDTO == null) throw NotValidException("Ticket was malformed")
         if (ticketId != ticketDTO.id) throw NotValidException("Ticket id and path id doesn't match")
-        return ticketService.editTicket(ticketId, ticketDTO)
+        return ticketService.editTicket(ticketId, ticketDTO).toDTO()
+    }
+
+    @DeleteMapping("API/tickets/{ticketId}")
+    @ResponseStatus(HttpStatus.OK)
+    fun deleteTicket(@PathVariable ticketId: Long): TicketDTO {
+        return ticketService.deleteTicket(ticketId).toDTO()
     }
 }

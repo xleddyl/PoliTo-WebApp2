@@ -4,12 +4,15 @@ import it.polito.wa2.server.AbstractApplicationTest
 import it.polito.wa2.server.products.ProductDTO
 import it.polito.wa2.server.profiles.ProfileDTO
 import it.polito.wa2.server.profiles.Roles
+import it.polito.wa2.server.ticketing.messages.MessageDTO
 import it.polito.wa2.server.ticketing.tickets.States
 import it.polito.wa2.server.ticketing.tickets.TicketDTO
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import org.springframework.boot.test.web.client.getForEntity
 import org.springframework.http.HttpStatus
 import org.springframework.test.annotation.DirtiesContext
+import java.sql.Timestamp
 
 class MessagesTests : AbstractApplicationTest() {
     fun createTicket(): TicketDTO {
@@ -19,9 +22,9 @@ class MessagesTests : AbstractApplicationTest() {
         val states = mutableListOf(States.OPEN)
         val ticketDTO = TicketDTO(null, productDTO, customerDTO, technicianDTO, states, "description", 3, null)
 
-        // restTemplate.postForLocation("http://localhost:$port/API/profiles", customerDTO)
-        // restTemplate.postForLocation("http://localhost:$port/API/profiles", technicianDTO)
-        // restTemplate.postForLocation("http://localhost:$port/API/products", productDTO)
+        restTemplate.postForLocation("http://localhost:$port/API/profiles", customerDTO)
+        restTemplate.postForLocation("http://localhost:$port/API/profiles", technicianDTO)
+        restTemplate.postForLocation("http://localhost:$port/API/products", productDTO)
 
         val res = restTemplate.postForEntity("http://localhost:$port/API/tickets", ticketDTO, TicketDTO::class.java)
         Assertions.assertEquals(HttpStatus.CREATED, res.statusCode)
@@ -33,11 +36,43 @@ class MessagesTests : AbstractApplicationTest() {
         return ticket
     }
 
-    @Test
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
-    fun `test create message`() {
+    fun createMessage(): MessageDTO {
         val ticket = createTicket()
 
-        Assertions.assertEquals(true, true)
+        val timestamp = Timestamp.valueOf("2023-05-20 12:23:50")
+        val messageDTO = MessageDTO(null, ticket.id!!, true, timestamp, null, "Test Message")
+
+        val res = restTemplate.postForEntity(
+            "http://localhost:$port/API/tickets/${ticket.id}/messages",
+            messageDTO,
+            MessageDTO::class.java
+        )
+        Assertions.assertEquals(HttpStatus.CREATED, res.statusCode)
+        Assertions.assertNotNull(res.body)
+
+        val message = messageDTO.copy(id = res.body?.id)
+        Assertions.assertEquals(message, res.body)
+
+        return message
+    }
+
+    @Test
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
+    fun `test add message`() {
+        createMessage()
+    }
+
+    @Test
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
+    fun `test get message`() {
+        val messageDTO = createMessage()
+
+        val res = restTemplate.getForEntity(
+            "http://localhost:$port/API/tickets/${messageDTO.ticket}/messages/${messageDTO.id}",
+            MessageDTO::class.java
+        )
+        Assertions.assertEquals(HttpStatus.OK, res.statusCode)
+        Assertions.assertEquals(messageDTO, res.body)
+
     }
 }
