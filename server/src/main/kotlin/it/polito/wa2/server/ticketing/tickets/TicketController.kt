@@ -22,14 +22,14 @@ class TicketController(
         return ticketService.getById(ticketId).toDTO()
     }
 
-    @PostMapping("API/tickets")
+    @PostMapping("/tickets")
     @ResponseStatus(HttpStatus.CREATED)
     fun createTicket(@RequestBody ticketDTO: TicketDTO?): TicketDTO {
         if (ticketDTO == null) throw NotValidException("Ticket was malformed")
         return ticketService.createTicket(ticketDTO).toDTO()
     }
 
-    @PostMapping("/API/tickets/{ticketId}/{stateString}")
+    @PostMapping("/tickets/{ticketId}/{stateString}")
     @ResponseStatus(HttpStatus.CREATED)
     fun updateStatus(@PathVariable ticketId: Long, @PathVariable stateString: String): TicketDTO {
         try {
@@ -40,7 +40,7 @@ class TicketController(
         }
     }
 
-    @PutMapping("API/tickets/{ticketId}")
+    @PutMapping("/tickets/{ticketId}")
     @ResponseStatus(HttpStatus.OK)
     fun editTicket(@PathVariable ticketId: Long, @RequestBody ticketDTO: TicketDTO?): TicketDTO {
         if (ticketDTO == null) throw NotValidException("Ticket was malformed")
@@ -48,7 +48,7 @@ class TicketController(
         return ticketService.editTicket(ticketId, ticketDTO).toDTO()
     }
 
-    @DeleteMapping("API/tickets/{ticketId}")
+    @DeleteMapping("/tickets/{ticketId}")
     @ResponseStatus(HttpStatus.OK)
     fun deleteTicket(@PathVariable ticketId: Long): TicketDTO {
         return ticketService.deleteTicket(ticketId).toDTO()
