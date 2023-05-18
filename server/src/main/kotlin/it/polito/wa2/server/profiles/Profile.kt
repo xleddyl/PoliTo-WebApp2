@@ -14,5 +14,4 @@ class Profile(
     @Enumerated(value = EnumType.STRING)
     var role: Roles = Roles.CUSTOMER,
     var phone: String
-    // array of products
 )

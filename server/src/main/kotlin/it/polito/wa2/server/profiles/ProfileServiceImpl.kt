@@ -16,7 +16,7 @@ class ProfileServiceImpl(
     }
 
     override fun getByEmailP(email: String): Profile {
-        return profileRepository.findByIdOrNull(email)?: throw NotFoundException("User not found")
+        return profileRepository.findByIdOrNull(email) ?: throw NotFoundException("User not found")
     }
 
     override fun addProfile(profileDTO: ProfileDTO): ProfileDTO {

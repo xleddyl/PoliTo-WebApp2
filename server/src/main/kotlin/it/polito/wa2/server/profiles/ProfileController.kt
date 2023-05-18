@@ -6,22 +6,23 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
+@RequestMapping("/api")
 class ProfileController(private val profileService: ProfileService) {
 
-    @GetMapping("/API/profiles/{email}")
+    @GetMapping("/profiles/{email}")
     @ResponseStatus(HttpStatus.OK)
     fun getByEmail(@PathVariable email: String): ProfileDTO? {
         return profileService.getByEmail(email)
     }
 
-    @PostMapping("/API/profiles")
+    @PostMapping("/profiles")
     @ResponseStatus(HttpStatus.CREATED)
     fun addProfile(@RequestBody profileDTO: ProfileDTO?): ProfileDTO {
         if (profileDTO == null) throw NotValidException("Profile was malformed")
         return profileService.addProfile(profileDTO)
     }
 
-    @PutMapping("/API/profiles/{email}")
+    @PutMapping("/profiles/{email}")
     @ResponseStatus(HttpStatus.CREATED)
     fun editProfile(@RequestBody profileDTO: ProfileDTO?, @PathVariable email: String): ProfileDTO {
         if (profileDTO == null) throw NotFoundException("Profile not found")

@@ -9,7 +9,6 @@ import it.polito.wa2.server.ticketing.tickets.States
 import it.polito.wa2.server.ticketing.tickets.TicketDTO
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.web.client.getForEntity
 import org.springframework.http.HttpStatus
 import org.springframework.test.annotation.DirtiesContext
 import java.sql.Timestamp
@@ -22,11 +21,11 @@ class MessagesTests : AbstractApplicationTest() {
         val states = mutableListOf(States.OPEN)
         val ticketDTO = TicketDTO(null, productDTO, customerDTO, technicianDTO, states, "description", 3, null)
 
-        restTemplate.postForLocation("http://localhost:$port/API/profiles", customerDTO)
-        restTemplate.postForLocation("http://localhost:$port/API/profiles", technicianDTO)
-        restTemplate.postForLocation("http://localhost:$port/API/products", productDTO)
+        restTemplate.postForLocation("http://localhost:$port/api/profiles", customerDTO)
+        restTemplate.postForLocation("http://localhost:$port/api/profiles", technicianDTO)
+        restTemplate.postForLocation("http://localhost:$port/api/products", productDTO)
 
-        val res = restTemplate.postForEntity("http://localhost:$port/API/tickets", ticketDTO, TicketDTO::class.java)
+        val res = restTemplate.postForEntity("http://localhost:$port/api/tickets", ticketDTO, TicketDTO::class.java)
         Assertions.assertEquals(HttpStatus.CREATED, res.statusCode)
         Assertions.assertNotNull(res.body)
 
@@ -43,7 +42,7 @@ class MessagesTests : AbstractApplicationTest() {
         val messageDTO = MessageDTO(null, ticket.id!!, true, timestamp, null, "Test Message")
 
         val res = restTemplate.postForEntity(
-            "http://localhost:$port/API/tickets/${ticket.id}/messages",
+            "http://localhost:$port/api/tickets/${ticket.id}/messages",
             messageDTO,
             MessageDTO::class.java
         )
@@ -68,7 +67,7 @@ class MessagesTests : AbstractApplicationTest() {
         val messageDTO = createMessage()
 
         val res = restTemplate.getForEntity(
-            "http://localhost:$port/API/tickets/${messageDTO.ticket}/messages/${messageDTO.id}",
+            "http://localhost:$port/api/tickets/${messageDTO.ticket}/messages/${messageDTO.id}",
             MessageDTO::class.java
         )
         Assertions.assertEquals(HttpStatus.OK, res.statusCode)

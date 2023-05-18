@@ -14,10 +14,10 @@ class ProductsTests : AbstractApplicationTest() {
     fun `test create product`() {
         val productDTO = ProductDTO("ean", "sku", "name", "brand", "category", 1.0f)
 
-        restTemplate.postForLocation("http://localhost:$port/API/products", productDTO)
+        restTemplate.postForLocation("http://localhost:$port/api/products", productDTO)
 
         val retrievedProduct =
-            restTemplate.getForObject("http://localhost:$port/API/products/ean", ProductDTO::class.java)
+            restTemplate.getForObject("http://localhost:$port/api/products/ean", ProductDTO::class.java)
 
         Assertions.assertEquals(productDTO, retrievedProduct)
     }
@@ -29,12 +29,13 @@ class ProductsTests : AbstractApplicationTest() {
         val productDTO2 = ProductDTO("ean1", "sku", "name", "brand", "category", 1.0f)
         val productDTO3 = ProductDTO("ean2", "sku", "name", "brand", "category", 1.0f)
 
-        restTemplate.postForLocation("http://localhost:$port/API/products", productDTO1)
-        restTemplate.postForLocation("http://localhost:$port/API/products", productDTO2)
-        restTemplate.postForLocation("http://localhost:$port/API/products", productDTO3)
+        restTemplate.postForLocation("http://localhost:$port/api/products", productDTO1)
+        restTemplate.postForLocation("http://localhost:$port/api/products", productDTO2)
+        restTemplate.postForLocation("http://localhost:$port/api/products", productDTO3)
 
-        val rateResponse: ResponseEntity<List<ProductDTO>> = restTemplate.exchange("http://localhost:$port/API/products",
-            HttpMethod.GET, null, object : ParameterizedTypeReference<List<ProductDTO>>() {})
+        val rateResponse: ResponseEntity<List<ProductDTO>> =
+            restTemplate.exchange("http://localhost:$port/api/products",
+                HttpMethod.GET, null, object : ParameterizedTypeReference<List<ProductDTO>>() {})
         val rates: List<ProductDTO>? = rateResponse.body
 
         if (rates != null) {

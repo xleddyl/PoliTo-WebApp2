@@ -7,3 +7,26 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: validate
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/ticketing_app
+      client:
+        provider:
+          keycloack:
+            issuer-uri: http://localhost:8080/realms/ticketing_app
+            jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+            user-name-attribute: preferred_username
+        registration:
+          keycloack:
+            client-id: ticket-app-client
+            authorization-grant-type: authorization_code
+            scope: openid
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+server:
+  port: 8081

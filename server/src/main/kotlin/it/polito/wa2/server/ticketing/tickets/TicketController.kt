@@ -5,17 +5,18 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
+@RequestMapping("/api")
 class TicketController(
     private val ticketService: TicketService
 ) {
 
-    @GetMapping("API/tickets")
+    @GetMapping("/tickets")
     @ResponseStatus(HttpStatus.OK)
     fun getAll(): List<TicketDTO> {
         return ticketService.getAll().map { it.toDTO() }
     }
 
-    @GetMapping("API/tickets/{ticketId}")
+    @GetMapping("/tickets/{ticketId}")
     @ResponseStatus(HttpStatus.OK)
     fun getById(@PathVariable ticketId: Long): TicketDTO {
         return ticketService.getById(ticketId).toDTO()

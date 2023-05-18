@@ -8,7 +8,6 @@ import it.polito.wa2.server.ticketing.tickets.States
 import it.polito.wa2.server.ticketing.tickets.TicketDTO
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.web.client.exchange
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
@@ -22,11 +21,11 @@ class TicketsTests : AbstractApplicationTest() {
         val states = mutableListOf(States.OPEN)
         val ticketDTO = TicketDTO(null, productDTO, customerDTO, technicianDTO, states, "description", 3, null)
 
-        restTemplate.postForLocation("http://localhost:$port/API/profiles", customerDTO)
-        restTemplate.postForLocation("http://localhost:$port/API/profiles", technicianDTO)
-        restTemplate.postForLocation("http://localhost:$port/API/products", productDTO)
+        restTemplate.postForLocation("http://localhost:$port/api/profiles", customerDTO)
+        restTemplate.postForLocation("http://localhost:$port/api/profiles", technicianDTO)
+        restTemplate.postForLocation("http://localhost:$port/api/products", productDTO)
 
-        val res = restTemplate.postForEntity("http://localhost:$port/API/tickets", ticketDTO, TicketDTO::class.java)
+        val res = restTemplate.postForEntity("http://localhost:$port/api/tickets", ticketDTO, TicketDTO::class.java)
         Assertions.assertEquals(HttpStatus.CREATED, res.statusCode)
         Assertions.assertNotNull(res.body)
 
@@ -47,7 +46,7 @@ class TicketsTests : AbstractApplicationTest() {
     fun `test get ticket by id`() {
         val ticket = createTicket()
 
-        val res = restTemplate.getForEntity("http://localhost:$port/API/tickets/${ticket.id}", TicketDTO::class.java)
+        val res = restTemplate.getForEntity("http://localhost:$port/api/tickets/${ticket.id}", TicketDTO::class.java)
         Assertions.assertEquals(HttpStatus.OK, res.statusCode)
         Assertions.assertEquals(ticket, res.body)
     }
@@ -58,9 +57,8 @@ class TicketsTests : AbstractApplicationTest() {
         val ticket = createTicket().copy(priority = 0)
 
 
-
         val res = restTemplate.exchange(
-            "http://localhost:$port/API/tickets/${ticket.id}",
+            "http://localhost:$port/api/tickets/${ticket.id}",
             HttpMethod.PUT,
             HttpEntity(ticket),
             TicketDTO::class.java
@@ -76,7 +74,7 @@ class TicketsTests : AbstractApplicationTest() {
         val ticket = createTicket()
 
         val res = restTemplate.exchange(
-            "http://localhost:$port/API/tickets/${ticket.id}",
+            "http://localhost:$port/api/tickets/${ticket.id}",
             HttpMethod.DELETE,
             null,
             TicketDTO::class.java
@@ -93,7 +91,7 @@ class TicketsTests : AbstractApplicationTest() {
         val state = States.IN_PROGRESS
 
         val res = restTemplate.postForEntity(
-            "http://localhost:$port/API/tickets/${ticket.id}/${state}",
+            "http://localhost:$port/api/tickets/${ticket.id}/${state}",
             null,
             TicketDTO::class.java
         )

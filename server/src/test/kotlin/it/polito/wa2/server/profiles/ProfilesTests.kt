@@ -12,10 +12,10 @@ class ProfilesTests : AbstractApplicationTest() {
     fun `test create profile`() {
         val profileDTO = ProfileDTO("test@email.com", "Test Test", Roles.TECHNICIAN, "333333333")
 
-        restTemplate.postForLocation("http://localhost:$port/API/profiles", profileDTO)
+        restTemplate.postForLocation("http://localhost:$port/api/profiles", profileDTO)
 
         val retrievedProfile =
-            restTemplate.getForObject("http://localhost:$port/API/profiles/test@email.com", ProfileDTO::class.java)
+            restTemplate.getForObject("http://localhost:$port/api/profiles/test@email.com", ProfileDTO::class.java)
 
         Assertions.assertEquals(profileDTO, retrievedProfile)
     }
@@ -26,11 +26,11 @@ class ProfilesTests : AbstractApplicationTest() {
         val profileDTO = ProfileDTO("test@email.com", "Test Test", Roles.TECHNICIAN, "333333333")
         val newProfileDTO = ProfileDTO("test@email.com", "Testing Testing", Roles.CUSTOMER, "222222222")
 
-        restTemplate.postForLocation("http://localhost:$port/API/profiles", profileDTO)
-        restTemplate.put("http://localhost:$port/API/profiles/test@email.com", newProfileDTO)
+        restTemplate.postForLocation("http://localhost:$port/api/profiles", profileDTO)
+        restTemplate.put("http://localhost:$port/api/profiles/test@email.com", newProfileDTO)
 
         val retrievedProfile =
-            restTemplate.getForObject("http://localhost:$port/API/profiles/test@email.com", ProfileDTO::class.java)
+            restTemplate.getForObject("http://localhost:$port/api/profiles/test@email.com", ProfileDTO::class.java)
         Assertions.assertEquals(newProfileDTO, retrievedProfile)
     }
 
@@ -40,8 +40,8 @@ class ProfilesTests : AbstractApplicationTest() {
         val profileDTO = ProfileDTO("test@email.com", "Test Test", Roles.TECHNICIAN, "333333333")
         val newProfileDTO = ProfileDTO("test@email.com", "Mario Rossi", Roles.CUSTOMER, "666")
 
-        restTemplate.postForLocation("http://localhost:$port/API/profiles", profileDTO)
-        val res = restTemplate.postForEntity("http://localhost:$port/API/profiles", newProfileDTO, String::class.java)
+        restTemplate.postForLocation("http://localhost:$port/api/profiles", profileDTO)
+        val res = restTemplate.postForEntity("http://localhost:$port/api/profiles", newProfileDTO, String::class.java)
 
         Assertions.assertEquals(HttpStatus.CONFLICT, res.statusCode)
         Assertions.assertEquals(true, res.body?.contains("User already exists"))
