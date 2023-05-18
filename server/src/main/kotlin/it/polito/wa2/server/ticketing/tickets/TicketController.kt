@@ -1,14 +1,12 @@
 package it.polito.wa2.server.ticketing.tickets
 
-import it.polito.wa2.server.NotFoundException
 import it.polito.wa2.server.NotValidException
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-import java.lang.IllegalArgumentException
 
 @RestController
 class TicketController(
-        private val ticketService: TicketService
+    private val ticketService: TicketService
 ) {
 
     @GetMapping("API/tickets")

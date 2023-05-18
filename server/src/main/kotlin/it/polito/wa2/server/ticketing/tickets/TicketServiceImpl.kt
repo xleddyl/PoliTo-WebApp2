@@ -6,7 +6,6 @@ import it.polito.wa2.server.NotValidException
 import it.polito.wa2.server.products.ProductService
 import it.polito.wa2.server.profiles.ProfileService
 import it.polito.wa2.server.ticketing.messages.Message
-import it.polito.wa2.server.ticketing.messages.MessageService
 import jakarta.transaction.Transactional
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service

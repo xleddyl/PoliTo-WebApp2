@@ -58,6 +58,7 @@ class TicketsTests : AbstractApplicationTest() {
         val ticket = createTicket().copy(priority = 0)
 
 
+
         val res = restTemplate.exchange(
             "http://localhost:$port/API/tickets/${ticket.id}",
             HttpMethod.PUT,

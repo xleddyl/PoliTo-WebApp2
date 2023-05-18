@@ -1,13 +1,12 @@
 package it.polito.wa2.server.ticketing.messages
 
-import it.polito.wa2.server.NotFoundException
 import it.polito.wa2.server.NotValidException
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
 class MessageController(
-        private val messageService: MessageService
+    private val messageService: MessageService
 ) {
     @GetMapping("API/tickets/{ticketId}/messages")
     @ResponseStatus(HttpStatus.OK)

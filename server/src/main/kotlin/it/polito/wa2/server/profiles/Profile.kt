@@ -9,10 +9,10 @@ enum class Roles {
 @Entity
 @Table(name = "profiles")
 class Profile(
-        @Id var email: String,
-        var name: String,
-        @Enumerated(value = EnumType.STRING)
-        var role: Roles = Roles.CUSTOMER,
-        var phone: String
-        // array of products
+    @Id var email: String,
+    var name: String,
+    @Enumerated(value = EnumType.STRING)
+    var role: Roles = Roles.CUSTOMER,
+    var phone: String
+    // array of products
 )

@@ -23,13 +23,13 @@ fun Ticket.toDTO(): TicketDTO {
     val m = mutableSetOf<Long>()
     messages?.forEach { m.add(it.id!!) }
     return TicketDTO(
-            id,
-            product.toDTO(),
-            customer.toDTO(),
-            technician?.toDTO(),
-            statuses,
-            description,
-            priority,
-            m
+        id,
+        product.toDTO(),
+        customer.toDTO(),
+        technician?.toDTO(),
+        statuses,
+        description,
+        priority,
+        m
     )
 }

@@ -1,13 +1,12 @@
 package it.polito.wa2.server.products
 
-import it.polito.wa2.server.NotFoundException
 import it.polito.wa2.server.NotValidException
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
 class ProductController(
-        private val productService: ProductService
+    private val productService: ProductService
 ) {
 
     @PostMapping("/API/products")

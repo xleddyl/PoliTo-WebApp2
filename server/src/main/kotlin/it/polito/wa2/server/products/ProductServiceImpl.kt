@@ -25,7 +25,7 @@ class ProductServiceImpl(private val productRepository: ProductRepository) : Pro
     override fun addProduct(productDTO: ProductDTO): ProductDTO {
         if (productRepository.findByIdOrNull(productDTO.ean) != null) throw DuplicateException("Product already exist")
         return productRepository.save(
-                productDTO.fromDTO()
+            productDTO.fromDTO()
         ).toDTO()
     }
 }

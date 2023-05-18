@@ -20,7 +20,9 @@ class MessageServiceImpl(
 
     override fun getById(ticketId: Long, messageId: Long): Message {
         val ticket = ticketService.getById(ticketId)
+
         return messageRepository.findMessageByIdAndTicket(messageId, ticket)
+
             ?: throw NotFoundException("Message not found")
     }
 

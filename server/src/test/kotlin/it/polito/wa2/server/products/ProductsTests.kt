@@ -16,7 +16,8 @@ class ProductsTests : AbstractApplicationTest() {
 
         restTemplate.postForLocation("http://localhost:$port/API/products", productDTO)
 
-        val retrievedProduct = restTemplate.getForObject("http://localhost:$port/API/products/ean", ProductDTO::class.java)
+        val retrievedProduct =
+            restTemplate.getForObject("http://localhost:$port/API/products/ean", ProductDTO::class.java)
 
         Assertions.assertEquals(productDTO, retrievedProduct)
     }
