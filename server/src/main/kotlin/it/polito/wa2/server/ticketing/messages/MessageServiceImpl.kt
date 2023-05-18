@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service
 @Service
 @Transactional
 class MessageServiceImpl(
-        private val messageRepository: MessageRepository,
-        private val ticketService: TicketService
+    private val messageRepository: MessageRepository,
+    private val ticketService: TicketService
 ) : MessageService {
     override fun getAllForTicket(ticketId: Long): List<MessageDTO> {
         val ticket = ticketService.getById(ticketId)
@@ -21,21 +21,21 @@ class MessageServiceImpl(
     override fun getById(ticketId: Long, messageId: Long): MessageDTO {
         val ticket = ticketService.getById(ticketId)
         return messageRepository.findMessageByIdAndTicket(messageId, ticket.fromDTO())?.toDTO()
-                ?: throw NotFoundException("Message not found")
+            ?: throw NotFoundException("Message not found")
     }
 
     override fun addMessage(messageDTO: MessageDTO, ticketId: Long): MessageDTO {
         if (messageDTO.id != null && messageRepository.findByIdOrNull(messageDTO.id) != null) throw DuplicateException("Message id already exists")
         val ticket = ticketService.getById(ticketId)
         return messageRepository.save(
-                Message(
-                        messageDTO.id,
-                        ticket.fromDTO(),
-                        messageDTO.fromCustomer,
-                        messageDTO.timestamp,
-                        messageDTO.attachment,
-                        messageDTO.content
-                )
+            Message(
+                messageDTO.id,
+                ticket.fromDTO(),
+                messageDTO.fromCustomer,
+                messageDTO.timestamp,
+                messageDTO.attachment,
+                messageDTO.content
+            )
         ).toDTO()
     }
 }

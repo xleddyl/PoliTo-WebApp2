@@ -54,7 +54,8 @@ class TicketsTests : AbstractApplicationTest() {
     fun `test edit ticket`() {
         val ticket = createTicket().copy(priority = 0)
 
-        val res = restTemplate.postForEntity("http://localhost:$port/API/tickets/${ticket.id}", ticket, TicketDTO::class.java)
+        val res =
+            restTemplate.postForEntity("http://localhost:$port/API/tickets/${ticket.id}", ticket, TicketDTO::class.java)
 
         Assertions.assertEquals(HttpStatus.CREATED, res.statusCode)
         Assertions.assertEquals(ticket, res.body)

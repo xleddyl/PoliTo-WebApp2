@@ -16,7 +16,8 @@ class ProductsTests : AbstractApplicationTest() {
 
         restTemplate.postForLocation("http://localhost:$port/API/products", productDTO)
 
-        val retrievedProduct = restTemplate.getForObject("http://localhost:$port/API/products/ean", ProductDTO::class.java)
+        val retrievedProduct =
+            restTemplate.getForObject("http://localhost:$port/API/products/ean", ProductDTO::class.java)
 
         Assertions.assertEquals(productDTO, retrievedProduct)
     }
@@ -32,8 +33,9 @@ class ProductsTests : AbstractApplicationTest() {
         restTemplate.postForLocation("http://localhost:$port/API/products", productDTO2)
         restTemplate.postForLocation("http://localhost:$port/API/products", productDTO3)
 
-        val rateResponse: ResponseEntity<List<ProductDTO>> = restTemplate.exchange("http://localhost:$port/API/products",
-            HttpMethod.GET, null, object : ParameterizedTypeReference<List<ProductDTO>>() {})
+        val rateResponse: ResponseEntity<List<ProductDTO>> =
+            restTemplate.exchange("http://localhost:$port/API/products",
+                HttpMethod.GET, null, object : ParameterizedTypeReference<List<ProductDTO>>() {})
         val rates: List<ProductDTO>? = rateResponse.getBody()
 
         if (rates != null) {

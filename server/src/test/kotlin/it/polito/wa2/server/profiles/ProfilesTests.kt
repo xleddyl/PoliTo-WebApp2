@@ -14,7 +14,8 @@ class ProfilesTests : AbstractApplicationTest() {
 
         restTemplate.postForLocation("http://localhost:$port/API/profiles", profileDTO)
 
-        val retrievedProfile = restTemplate.getForObject("http://localhost:$port/API/profiles/test@email.com", ProfileDTO::class.java)
+        val retrievedProfile =
+            restTemplate.getForObject("http://localhost:$port/API/profiles/test@email.com", ProfileDTO::class.java)
 
         Assertions.assertEquals(profileDTO, retrievedProfile)
     }
@@ -28,7 +29,8 @@ class ProfilesTests : AbstractApplicationTest() {
         restTemplate.postForLocation("http://localhost:$port/API/profiles", profileDTO)
         restTemplate.put("http://localhost:$port/API/profiles/test@email.com", newProfileDTO)
 
-        val retrievedProfile = restTemplate.getForObject("http://localhost:$port/API/profiles/test@email.com", ProfileDTO::class.java)
+        val retrievedProfile =
+            restTemplate.getForObject("http://localhost:$port/API/profiles/test@email.com", ProfileDTO::class.java)
         Assertions.assertEquals(newProfileDTO, retrievedProfile)
     }
 
