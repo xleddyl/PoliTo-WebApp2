@@ -9,7 +9,14 @@ plugins {
     kotlin("plugin.jpa") version "1.7.22"
 }
 
-jib.to.image = "warocky/webapp2g04"
+jib {
+    to {
+        image = "ticketing"
+    }
+    container {
+        ports = listOf("8081")
+    }
+}
 
 group = "it.polito.wa2"
 version = "0.0.1-SNAPSHOT"
