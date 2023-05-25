@@ -1,0 +1,83 @@
+#bg {
+    background-color: #ececec54;
+    min-height: 100vh;
+}
+
+#largebg {
+    background-color: #f7f7f754;
+}
+
+#cardscontainer {
+    border-radius: 10px;
+    background-color: #FFFFFF;
+}
+
+#navlink:focus{
+    color:#0d6efdd0;
+    font-weight: 600;
+}
+
+#secondaryaccordion {
+    width: 300px;
+}
+
+.accordion-button {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+#smallgroups {
+    font-size: small;
+}
+
+
+#cardbody:hover{
+    background-color:#F7F7F7;
+}
+
+#infocontainer {
+    background-color:#F7F7F7;
+    border-radius: 30px;
+}
+
+#smallfont {
+    font-size: small;
+    font-style: normal;
+}
+
+
+#hplistgroup {
+    border-radius: 0px;
+    max-height: 370px;
+    margin-bottom: 10px;
+    overflow-y:scroll;
+}
+
+#hpitem:focus {
+    background-color: #0d6dfd37;
+}
+
+#linkingnavitem:focus {
+    background-color: #0d6dfd37;
+}
+
+#linkingnavitem:hover {
+    background-color: #0d6dfd15;
+}
+
+#startedHikeCard {
+    background-color: #3b88fc34;
+}
+
+#cardImg {
+    width:100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: 20% 50%;
+    border-radius: 7px;
+}
+
+#scrollablelg {
+    max-height: 200px;
+    overflow-y:scroll;
+}

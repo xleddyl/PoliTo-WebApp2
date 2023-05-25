@@ -1,121 +1,90 @@
 import {useState} from 'react'
-import {callAPI} from './api/API'
+//import {callAPI} from './api/API'
+
+import { BrowserRouter, Routes, Route, useNavigate, Navigate} from 'react-router-dom';
+import Home from './components/Home';
+import LoginForm from "./components/Login/Login";
+import SignIn from "./components/Login/RegPage";
+import Layout from "./components/Layout";
+
+
+import './css/styles.css';
+import './css/App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
-    const [open, setOpen] = useState(false)
-    const [method, setMethod] = useState('GET')
-    const [body, setBody] = useState('')
-    const [route, setRoute] = useState('')
-    const [error, setError] = useState('')
-    const [response, setResponse] = useState('')
-    const httpMethods = ['GET', 'POST', 'PUT', 'DELETE']
+    return(
+        <BrowserRouter>
+            <App2/>
+        </BrowserRouter>
+    )
+}
+function App2() {
 
-    const changeMethod = (m) => {
-        setOpen(false)
-        setMethod(m)
-        setBody('')
+    const [status,setStatus] = useState("undefined");
+    const [msg, setMsg] = useState("");
+    const [user, setUser] = useState(undefined);
+
+    const login = async (credentials) => {
+
+        /*try {
+            const user = await APILogin.logIn(credentials);
+            if(user.message !== undefined)
+            {
+                setMsg({message: user.message, type: "danger"});
+            } else {
+                setUser(user);
+                navigate(`/`);
+                setMsg({message: `Welcome ${user.username}!`, type: "success"})
+            }
+        }
+        catch (err) {
+            setMsg({message: err.message, type: "danger"});
+        }*/
     }
 
-    const makeRequest = async () => {
-        setError('')
-        setResponse('')
+    const logout = async () => {
+       /* await APILogin.logOut()
+        setUser(undefined);
+        setMsg({message: "You have been logged out!", type: "warning"})
+        navigate("/");*/
+    }
+    const addUser = async (email,password,role, name, surname,username)=>{
+
+        const user = {email,password,role, name, surname,username}
         try {
-            const parsedBody = body ? JSON.parse(body) : undefined
-            const response = await callAPI(method, route, parsedBody)
-            setResponse(response)
-        } catch (e) {
-            setError(e.toString())
+            //await APILogin.addUser(user);
+            setStatus("success");
+            setMsg({message: 'Check email to activate your account', type: "success"});
+
+        }
+        catch(error){
+            setStatus("error");
+
+            if(error.message.includes("Email already registered!") || error.message.includes("Username already used!"))
+                setMsg({message: 'User previously defined', type: "danger"});
+            else if(error.message.includes("Invalid value"))
+                setMsg({message: 'Error with format of data', type: "danger"});
+            else
+                setMsg({message: 'Sorry, something went wrong', type: "danger"});
+
+
         }
     }
 
+
+
+
     return (
-        <>
-            <div className='flex justify-center items-center h-80 w-screen'>
-                <div className='flex-col'>
-                    <div className='inline-flex'>
-                        <div id='method-selector'>
-                            <button
-                                type='button'
-                                onClick={(e) => setOpen(!open)}
-                                className={`text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg
-                        text-sm px-4 py-2.5 w-24 max-w-sm text-center inline-flex items-center active:ring-2
-                        active:outline-none active:ring-blue-400 ring-inset mr-2`}>
-                                {method}
-                            </button>
-                            <div
-                                id='dropdown'
-                                className={`${!open && 'hidden'
-                                } mt-2 bg-blue-500 divide-y divide-gray-100 rounded-lg shadow w-24 max-w-sm`}>
-                                <ul className='py-2 text-sm text-gray-700 dark:text-gray-200'>
-                                    {httpMethods
-                                        .filter((m) => m !== method)
-                                        .map((m) => (
-                                            <li key={m}>
-                                                <button
-                                                    className='w-full px-4 py-2 hover:bg-blue-600 text-left'
-                                                    onClick={() => changeMethod(m)}>
-                                                    {m}
-                                                </button>
-                                            </li>
-                                        ))}
-                                </ul>
-                            </div>
-                        </div>
-                        <div id='route-and-body'>
-                            <input
-                                type='text'
-                                className='w-80 rounded-md bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50'
-                                placeholder='specify a route'
-                                onChange={(e) => setRoute(e.target.value)}
-                            />
-                            {(method === 'POST' || method === 'PUT') && (
-                                <div>
-                        <textarea
-                            className='w-80 h-40 mt-2 resize-none rounded-md bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50'
-                            placeholder='specify a body (JSON)'
-                            onChange={(e) => setBody(e.target.value)}
-                            value={body}
-                        />
-                                </div>
-                            )}
-                        </div>
-                        <div>
-                            <button
-                                type='button'
-                                onClick={makeRequest}
-                                className={`text-white ring-2 ring-green-600 hover:bg-green-200 font-medium rounded-lg
-                        text-sm px-4 py-2.5 w-auto text-center inline-flex items-center focus:ring-2
-                        focus:outline-none active:ring-green-500 ml-5`}>
-                                <svg
-                                    fill='none'
-                                    stroke='#289550'
-                                    strokeWidth='2'
-                                    viewBox='0 0 24 24'
-                                    xmlns='http://www.w3.org/2000/svg'
-                                    className='w-5'>
-                                    <path
-                                        strokeLinecap='round'
-                                        strokeLinejoin='round'
-                                        d='M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5'></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="flex justify-center items-center">
-                {response &&
-                    <textarea
-                        className='w-96 h-40 mt-2 resize-none rounded-md bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50'
-                        defaultValue={JSON.stringify(response, null, 3)}/>
-                }
-                {error && (
-                    <div className='mt-1 font-semibold text-red-600 w-96 whitespace-pre-wrap'>
-                        {error}
-                    </div>
-                )}
-            </div>
-        </>
+       <Routes>
+           <Route element = {<Layout user = {user} logout = {logout}/>}>
+               <Route path="/" element={<Home />}/>
+               <Route path='/login' element={(!user && <LoginForm login={login} msg={msg} setMsg={setMsg}/>) || <Navigate replace to='/' />}/>
+               <Route path='/register' element={(!user && <SignIn addUser={addUser} status={status} setStatus={setStatus} msg={msg}/>) || <Navigate replace to='/' />} />
+           </Route>
+
+       </Routes>
     )
 }
 
