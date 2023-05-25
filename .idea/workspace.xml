@@ -4,16 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="[intellij]: edited .gitignore">
-      <change afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/authentication/JwtAuthConverter.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/authentication/JwtAuthConverterProperties.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/authentication/WebSecurityConfig.kt" afterDir="false" />
+    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="feat(keycloak): working keycloak??">
+      <change afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/SecurityConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_05_2023_10_06_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_05_2023_10_06__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_05_2023_10_29_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_05_2023_10_29_[Changes_by_Davide]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_05_2023_10_29__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_05_2023_10_29__Changes_by_Davide_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/docker/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/authentication/AuthenticationConfig.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/server/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/authentication/JwtAuthConverter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/authentication/JwtAuthConverterProperties.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/authentication/WebSecurityConfig.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yml" afterDir="false" />
     </list>
-    <list id="dfbe00be-0759-44de-94b6-fb5734b889d9" name="Changes by Davide" comment="Changes by Davide" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -102,6 +108,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
@@ -112,6 +119,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\edoal\Downloads\WebApp2\server\src\main\kotlin\it\polito\wa2\server\auth" />
+      <recent name="C:\Users\edoal\Downloads\WebApp2\server\src\main\kotlin\it\polito\wa2\server\security" />
       <recent name="C:\Users\edoal\Downloads\WebApp2\server\src\main\kotlin\it\polito\wa2\server\authentication" />
     </key>
   </component>
@@ -136,7 +145,8 @@
       <workItem from="1684070091108" duration="1407000" />
       <workItem from="1684392497893" duration="11553000" />
       <workItem from="1684741468751" duration="2733000" />
-      <workItem from="1684997645229" duration="9039000" />
+      <workItem from="1684997645229" duration="9124000" />
+      <workItem from="1685014748753" duration="13552000" />
     </task>
     <task id="LOCAL-00001" summary="feat(test): added some test and fixed some problems in services">
       <created>1683800085310</created>
@@ -208,7 +218,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684999746105</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="feat(keycloak): working keycloak??">
+      <created>1685008046800</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1685008046800</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -235,6 +252,7 @@
     <MESSAGE value="[intellij]: added configurations in .idea" />
     <MESSAGE value="[intellij]: shared .idea folder" />
     <MESSAGE value="[intellij]: edited .gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="[intellij]: edited .gitignore" />
+    <MESSAGE value="feat(keycloak): working keycloak??" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(keycloak): working keycloak??" />
   </component>
 </project>
