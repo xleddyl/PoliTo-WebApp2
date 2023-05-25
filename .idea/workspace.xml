@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="[intellij]: shared .idea folder" />
+    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="[intellij]: edited .gitignore">
+      <change afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/authentication/JwtAuthConverter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/authentication/JwtAuthConverterProperties.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/authentication/WebSecurityConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/docker/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/authentication/AuthenticationConfig.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yml" afterDir="false" />
+    </list>
     <list id="dfbe00be-0759-44de-94b6-fb5734b889d9" name="Changes by Davide" comment="Changes by Davide" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,10 +105,16 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "editor.preferences.tabs",
     "spring.configuration.checksum": "f388e2a0991e057a0316947c380806f0",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\edoal\Downloads\WebApp2\server\src\main\kotlin\it\polito\wa2\server\authentication" />
+    </key>
+  </component>
   <component name="RunManager" selected="Spring Boot.run server">
     <list>
       <item itemvalue="Docker.Docker compose" />
@@ -122,7 +136,7 @@
       <workItem from="1684070091108" duration="1407000" />
       <workItem from="1684392497893" duration="11553000" />
       <workItem from="1684741468751" duration="2733000" />
-      <workItem from="1684997645229" duration="1588000" />
+      <workItem from="1684997645229" duration="9039000" />
     </task>
     <task id="LOCAL-00001" summary="feat(test): added some test and fixed some problems in services">
       <created>1683800085310</created>
@@ -187,7 +201,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684999243687</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="[intellij]: edited .gitignore">
+      <created>1684999746105</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1684999746105</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -213,6 +234,7 @@
     <MESSAGE value="feat(jib): added jib integration" />
     <MESSAGE value="[intellij]: added configurations in .idea" />
     <MESSAGE value="[intellij]: shared .idea folder" />
-    <option name="LAST_COMMIT_MESSAGE" value="[intellij]: shared .idea folder" />
+    <MESSAGE value="[intellij]: edited .gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="[intellij]: edited .gitignore" />
   </component>
 </project>

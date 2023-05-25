@@ -8,7 +8,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=mysecretpassword
   keycloak:
-    image: 'keycloak:latest'
+    image: 'quay.io/keycloak/keycloak:latest'
     container_name: keycloak
     environment:
       - KEYCLOAK_ADMIN=admin
