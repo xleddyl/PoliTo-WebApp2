@@ -1,0 +1,45 @@
+Index: server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketController.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package it.polito.wa2.server.ticketing.tickets\r\n\r\nimport it.polito.wa2.server.NotValidException\r\nimport org.springframework.http.HttpStatus\r\nimport org.springframework.web.bind.annotation.*\r\n\r\n@RestController\r\nclass TicketController(\r\n    private val ticketService: TicketService\r\n) {\r\n\r\n    @GetMapping(\"API/tickets\")\r\n    @ResponseStatus(HttpStatus.OK)\r\n    fun getAll(): List<TicketDTO> {\r\n        return ticketService.getAll().map { it.toDTO() }\r\n    }\r\n\r\n    @GetMapping(\"API/tickets/{ticketId}\")\r\n    @ResponseStatus(HttpStatus.OK)\r\n    fun getById(@PathVariable ticketId: Long): TicketDTO {\r\n        return ticketService.getById(ticketId).toDTO()\r\n    }\r\n\r\n    @PostMapping(\"API/tickets\")\r\n    @ResponseStatus(HttpStatus.CREATED)\r\n    fun createTicket(@RequestBody ticketDTO: TicketDTO?): TicketDTO {\r\n        if (ticketDTO == null) throw NotValidException(\"Ticket was malformed\")\r\n        return ticketService.createTicket(ticketDTO).toDTO()\r\n    }\r\n\r\n    @PostMapping(\"/API/tickets/{ticketId}/{stateString}\")\r\n    @ResponseStatus(HttpStatus.CREATED)\r\n    fun updateStatus(@PathVariable ticketId: Long, @PathVariable stateString: String): TicketDTO {\r\n        try {\r\n            val state = States.valueOf(stateString.uppercase())\r\n            return ticketService.updateStatus(ticketId, state).toDTO()\r\n        } catch (e: IllegalArgumentException) {\r\n            throw NotValidException(\"Invalid status\")\r\n        }\r\n    }\r\n\r\n    @PutMapping(\"API/tickets/{ticketId}\")\r\n    @ResponseStatus(HttpStatus.OK)\r\n    fun editTicket(@PathVariable ticketId: Long, @RequestBody ticketDTO: TicketDTO?): TicketDTO {\r\n        if (ticketDTO == null) throw NotValidException(\"Ticket was malformed\")\r\n        if (ticketId != ticketDTO.id) throw NotValidException(\"Ticket id and path id doesn't match\")\r\n        return ticketService.editTicket(ticketId, ticketDTO).toDTO()\r\n    }\r\n\r\n    @DeleteMapping(\"API/tickets/{ticketId}\")\r\n    @ResponseStatus(HttpStatus.OK)\r\n    fun deleteTicket(@PathVariable ticketId: Long): TicketDTO {\r\n        return ticketService.deleteTicket(ticketId).toDTO()\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketController.kt b/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketController.kt
+--- a/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketController.kt	(revision 9579465c986c3fe556c739501e0ab1ab6f98a425)
++++ b/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketController.kt	(date 1684398366454)
+@@ -21,14 +21,14 @@
+         return ticketService.getById(ticketId).toDTO()
+     }
+ 
+-    @PostMapping("API/tickets")
++    @PostMapping("/tickets")
+     @ResponseStatus(HttpStatus.CREATED)
+     fun createTicket(@RequestBody ticketDTO: TicketDTO?): TicketDTO {
+         if (ticketDTO == null) throw NotValidException("Ticket was malformed")
+         return ticketService.createTicket(ticketDTO).toDTO()
+     }
+ 
+-    @PostMapping("/API/tickets/{ticketId}/{stateString}")
++    @PostMapping("/tickets/{ticketId}/{stateString}")
+     @ResponseStatus(HttpStatus.CREATED)
+     fun updateStatus(@PathVariable ticketId: Long, @PathVariable stateString: String): TicketDTO {
+         try {
+@@ -39,7 +39,7 @@
+         }
+     }
+ 
+-    @PutMapping("API/tickets/{ticketId}")
++    @PutMapping("/tickets/{ticketId}")
+     @ResponseStatus(HttpStatus.OK)
+     fun editTicket(@PathVariable ticketId: Long, @RequestBody ticketDTO: TicketDTO?): TicketDTO {
+         if (ticketDTO == null) throw NotValidException("Ticket was malformed")
+@@ -47,7 +47,7 @@
+         return ticketService.editTicket(ticketId, ticketDTO).toDTO()
+     }
+ 
+-    @DeleteMapping("API/tickets/{ticketId}")
++    @DeleteMapping("/tickets/{ticketId}")
+     @ResponseStatus(HttpStatus.OK)
+     fun deleteTicket(@PathVariable ticketId: Long): TicketDTO {
+         return ticketService.deleteTicket(ticketId).toDTO()

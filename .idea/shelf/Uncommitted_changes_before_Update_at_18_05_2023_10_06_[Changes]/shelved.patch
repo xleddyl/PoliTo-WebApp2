@@ -1,0 +1,62 @@
+Index: server/src/main/resources/application.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>spring:\r\n  datasource:\r\n    url: jdbc:postgresql://localhost:5432/ticket_app\r\n    username: postgres\r\n    password: mysecretpassword\r\n  jpa:\r\n    show-sql: true\r\n    hibernate:\r\n      ddl-auto: validate\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/server/src/main/resources/application.yml b/server/src/main/resources/application.yml
+--- a/server/src/main/resources/application.yml	(revision a04b754056912691002f6f07ea8607b1ba44d724)
++++ b/server/src/main/resources/application.yml	(date 1684396809569)
+@@ -7,3 +7,5 @@
+     show-sql: true
+     hibernate:
+       ddl-auto: validate
++server:
++  port: 8081
+\ No newline at end of file
+Index: server/src/main/kotlin/it/polito/wa2/server/authentication/AuthenticationConfiguration.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/server/src/main/kotlin/it/polito/wa2/server/authentication/AuthenticationConfiguration.kt b/server/src/main/kotlin/it/polito/wa2/server/authentication/AuthenticationConfiguration.kt
+new file mode 100644
+--- /dev/null	(date 1684395612246)
++++ b/server/src/main/kotlin/it/polito/wa2/server/authentication/AuthenticationConfiguration.kt	(date 1684395612246)
+@@ -0,0 +1,34 @@
++package it.polito.wa2.server.authentication
++
++import org.springframework.context.annotation.Bean
++import org.springframework.context.annotation.Configuration
++import org.springframework.security.core.userdetails.User
++import org.springframework.security.core.userdetails.UserDetailsService
++import org.springframework.security.crypto.factory.PasswordEncoderFactories
++import org.springframework.security.crypto.password.DelegatingPasswordEncoder
++import org.springframework.security.crypto.password.PasswordEncoder
++import org.springframework.security.provisioning.InMemoryUserDetailsManager
++
++@Configuration
++class AuthenticationConfiguration {
++
++    @Bean
++    fun userDetails(passwordEncoder: PasswordEncoder): UserDetailsService {
++        val u1 = User
++            .withUsername("u1")
++            .password(passwordEncoder.encode("p1"))
++            .authorities("ROLE_CUSTOMER")
++            .build()
++
++        val u2 = User
++            .withUsername("u2")
++            .password(passwordEncoder.encode("p2"))
++            .authorities("ROLE_CUSTOMER", "ROLE_ADMIN")
++            .build()
++
++        return InMemoryUserDetailsManager(u1, u2)
++    }
++
++    @Bean
++    fun passwordEncoder(): PasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder()
++}
+\ No newline at end of file
