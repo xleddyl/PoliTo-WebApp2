@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="feat(jib): added jib integration">
-      <change beforePath="$PROJECT_DIR$/server/src/main/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/docker/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yml" afterDir="false" />
-    </list>
+    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="[intellij]: shared .idea folder" />
     <list id="dfbe00be-0759-44de-94b6-fb5734b889d9" name="Changes by Davide" comment="Changes by Davide" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +122,7 @@
       <workItem from="1684070091108" duration="1407000" />
       <workItem from="1684392497893" duration="11553000" />
       <workItem from="1684741468751" duration="2733000" />
-      <workItem from="1684997645229" duration="1210000" />
+      <workItem from="1684997645229" duration="1588000" />
     </task>
     <task id="LOCAL-00001" summary="feat(test): added some test and fixed some problems in services">
       <created>1683800085310</created>
@@ -176,7 +173,21 @@
       <option name="project" value="LOCAL" />
       <updated>1684743620900</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="[intellij]: added configurations in .idea">
+      <created>1684998947539</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1684998947539</updated>
+    </task>
+    <task id="LOCAL-00009" summary="[intellij]: shared .idea folder">
+      <created>1684999243687</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1684999243687</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,6 +211,8 @@
     <MESSAGE value="feat(authentication): keycloack integration (not working)" />
     <MESSAGE value="Changes by Davide" />
     <MESSAGE value="feat(jib): added jib integration" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(jib): added jib integration" />
+    <MESSAGE value="[intellij]: added configurations in .idea" />
+    <MESSAGE value="[intellij]: shared .idea folder" />
+    <option name="LAST_COMMIT_MESSAGE" value="[intellij]: shared .idea folder" />
   </component>
 </project>
