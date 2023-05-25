@@ -14,12 +14,12 @@ spring:
           issuer-uri: http://localhost:8080/realms/ticketing_app
       client:
         provider:
-          keycloack:
+          keycloak:
             issuer-uri: http://localhost:8080/realms/ticketing_app
             jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
             user-name-attribute: preferred_username
         registration:
-          keycloack:
+          keycloak:
             client-id: ticket-app-client
             authorization-grant-type: authorization_code
             scope: openid

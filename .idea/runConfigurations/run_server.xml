@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="run server" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="server.main" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="it.polito.wa2.server.ServerApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

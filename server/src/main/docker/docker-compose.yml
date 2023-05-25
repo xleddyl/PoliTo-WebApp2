@@ -7,6 +7,12 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=mysecretpassword
+  keycloak:
+    image: 'keycloak:latest'
+    container_name: keycloak
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
   server:
     image: 'ticketing:latest'
     build:
@@ -14,6 +20,7 @@ services:
     container_name: server
     depends_on:
       - db
+      - keycloak
     environment:
       - 'SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres'
       - 'SPRING_DATASOURCE_USERNAME=postgres'
