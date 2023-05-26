@@ -13,6 +13,9 @@ services:
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KEYCLOAK_IMPORT=./imports:/opt/keycloak/imports
+    volumes:
+      - ./imports:/opt/keycloak/imports
   server:
     image: 'ticketing:latest'
     build:
