@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3.1'
 
 services:
   db:
@@ -31,12 +31,13 @@ services:
     build:
       context: .
     container_name: server
-    depends_on:
-      keycloak:
-        condition: service_healthy
-      db:
-        condition: service_started
     environment:
       - 'SPRING_JPA_HIBERNATE_DDL_AUTO=create'
     ports:
       - "8081:8081"
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 60s
+        max_attempts: 5
+        window: 60s
