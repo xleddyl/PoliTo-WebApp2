@@ -27,7 +27,8 @@ class KeycloakLogoutHandler(private val restTemplate: RestTemplate) : LogoutHand
         val builder = UriComponentsBuilder.fromUriString(endSessionEndpoint)
             .queryParam("id_token_hint", user.idToken.tokenValue)
 
-        val logoutResponse: ResponseEntity<String> = restTemplate.getForEntity(builder.toUriString(), String::class.java)
+        val logoutResponse: ResponseEntity<String> =
+            restTemplate.getForEntity(builder.toUriString(), String::class.java)
         if (logoutResponse.statusCode.is2xxSuccessful) {
             logger.info("Successfully logged out from Keycloak")
         } else {

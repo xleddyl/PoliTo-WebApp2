@@ -3,6 +3,8 @@ package it.polito.wa2.server.profiles
 import it.polito.wa2.server.NotFoundException
 import it.polito.wa2.server.NotValidException
 import org.springframework.http.HttpStatus
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -11,7 +13,8 @@ class ProfileController(private val profileService: ProfileService) {
 
     @GetMapping("/profiles/{email}")
     @ResponseStatus(HttpStatus.OK)
-    fun getByEmail(@PathVariable email: String): ProfileDTO? {
+    fun getByEmail(@PathVariable email: String, @AuthenticationPrincipal user: DefaultOAuth2User?): ProfileDTO? {
+        // controlla ruolo
         return profileService.getByEmail(email)
     }
 

@@ -23,18 +23,10 @@ class ProductController(
         return productService.addProduct(productDTO)
     }
 
-    /*
     @GetMapping("/products")
     @ResponseStatus(HttpStatus.OK)
     fun getAll(): List<ProductDTO> {
         return productService.getAll()
-    }
-    */
-
-    @GetMapping("/products")
-    @ResponseStatus(HttpStatus.OK)
-    fun getAll(@AuthenticationPrincipal user: DefaultOAuth2User?): String {
-        return user?.name ?: "null"
     }
 
     @GetMapping("/products/{ean}")
