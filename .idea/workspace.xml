@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="feat(keycloak): added keycloak to jib">
+    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="fix(jib): modified jib configurations">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/docker/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -236,7 +237,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685091348213</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="fix(jib): modified jib configurations">
+      <created>1685092040384</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1685092040384</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -267,6 +275,7 @@
     <MESSAGE value="feat(keycloak): working keycloak??" />
     <MESSAGE value="feat(keycloak): securing url is working + logout handler" />
     <MESSAGE value="feat(keycloak): added keycloak to jib" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(keycloak): added keycloak to jib" />
+    <MESSAGE value="fix(jib): modified jib configurations" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix(jib): modified jib configurations" />
   </component>
 </project>
