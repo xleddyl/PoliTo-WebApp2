@@ -19,7 +19,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "install": "npm run build; rm -r ../server/src/main/resources/static; mkdir ../server/src/main/resources/static; cp -a ./build/. ../server/src/main/resources/static/"
   },
   "eslintConfig": {
     "extends": [
