@@ -1,20 +1,19 @@
 package it.polito.wa2.server.products
 
+import io.micrometer.observation.annotation.Observed
 import it.polito.wa2.server.NotValidException
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
-import org.springframework.security.access.annotation.Secured
-import org.springframework.security.access.prepost.PreAuthorize
-import org.springframework.security.core.annotation.AuthenticationPrincipal
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User
 import org.springframework.web.bind.annotation.*
-import java.security.Principal
 
 @RestController
 @RequestMapping("/api")
+@Observed
 class ProductController(
     private val productService: ProductService
 ) {
+    val log: Logger = LoggerFactory.getLogger(this::class.java)
 
     @PostMapping("/products")
     @ResponseStatus(HttpStatus.CREATED)

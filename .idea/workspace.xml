@@ -4,10 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="fix(jib): modified jib configurations">
+    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="feat(observers): added grafana, prometheus, loki and tempo">
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/observer/grafana/provisioning/dashboards/dashboard.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/observer/grafana/provisioning/dashboards/logs_traces_metrics.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/observer/grafana/provisioning/datasources/datasource.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/observer/prometheus/prometheus.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/observer/tempo/tempo-local.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/tempo_cluster_seed.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/observer/ObserveConfiguration.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/resources/logback-spring.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9ecfdf06-4ec5-4418-9181-72341201fc58.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9ecfdf06-4ec5-4418-9181-72341201fc58.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/server/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/docker/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/docker/imports/realm-export.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/docker/imports/realm-export.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/static/static/css/main.0570aa3c.css" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/static/static/css/main.0570aa3c.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/test/kotlin/it/polito/wa2/server/ticketing/MessagesTests.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/kotlin/it/polito/wa2/server/ticketing/MessagesTests.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,10 +128,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\edoal\Downloads\WebApp2\server\src\main\docker\observer" />
+      <recent name="C:\Users\edoal\Downloads\WebApp2\server\src\main\resources" />
+      <recent name="C:\Users\edoal\Downloads\WebApp2\server\src\main\docker\grafana\provisioning\dashboards" />
       <recent name="C:\Users\Davide\Desktop\PoliTo\WAII\Labs\WA2\server\src\main\docker\imports" />
       <recent name="C:\Users\edoal\Downloads\WebApp2\server\src\main\kotlin\it\polito\wa2\server\auth" />
-      <recent name="C:\Users\edoal\Downloads\WebApp2\server\src\main\kotlin\it\polito\wa2\server\security" />
-      <recent name="C:\Users\edoal\Downloads\WebApp2\server\src\main\kotlin\it\polito\wa2\server\authentication" />
     </key>
   </component>
   <component name="RunManager" selected="Docker.Docker compose">
@@ -145,6 +162,9 @@
       <workItem from="1685035965661" duration="6473000" />
       <workItem from="1685083969366" duration="597000" />
       <workItem from="1685084743383" duration="3695000" />
+      <workItem from="1685102812264" duration="3091000" />
+      <workItem from="1685516446606" duration="2193000" />
+      <workItem from="1685518753916" duration="4002000" />
     </task>
     <task id="LOCAL-00001" summary="feat(test): added some test and fixed some problems in services">
       <created>1683800085310</created>
@@ -244,7 +264,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685092040384</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="fix(jib): modified jib configurations">
+      <created>1685095236458</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1685095236458</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -276,6 +303,7 @@
     <MESSAGE value="feat(keycloak): securing url is working + logout handler" />
     <MESSAGE value="feat(keycloak): added keycloak to jib" />
     <MESSAGE value="fix(jib): modified jib configurations" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix(jib): modified jib configurations" />
+    <MESSAGE value="feat(observers): added grafana, prometheus, loki and tempo" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(observers): added grafana, prometheus, loki and tempo" />
   </component>
 </project>
