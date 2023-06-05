@@ -20,4 +20,8 @@ class ServerExceptionHandler : ResponseEntityExceptionHandler() {
     @ExceptionHandler(DuplicateException::class)
     fun handleDuplicateException(e: DuplicateException) = ProblemDetail
         .forStatusAndDetail(HttpStatus.CONFLICT, e.message ?: "")
+
+    @ExceptionHandler(RuntimeException::class)
+    fun handleRuntimeException(e: RuntimeException) = ProblemDetail
+        .forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, e.message ?: "")
 }

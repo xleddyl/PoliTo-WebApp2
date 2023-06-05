@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="boh 5">
+    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="feat(signup): working signup">
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/imports/realm-export-2.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/docker/imports/realm-export.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ServerExceptionHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ServerExceptionHandler.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/AuthController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/AuthController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/KeycloakClientConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/KeycloakClientConfig.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yml" afterDir="false" />
     </list>
@@ -112,11 +116,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\edoal\Downloads\WebApp2\server\src\main\docker\imports" />
       <recent name="C:\Users\edoal\Downloads\WebApp2\server\src\main\docker\observer" />
       <recent name="C:\Users\edoal\Downloads\WebApp2\server\src\main\resources" />
       <recent name="C:\Users\edoal\Downloads\WebApp2\server\src\main\docker\grafana\provisioning\dashboards" />
       <recent name="C:\Users\Davide\Desktop\PoliTo\WAII\Labs\WA2\server\src\main\docker\imports" />
-      <recent name="C:\Users\edoal\Downloads\WebApp2\server\src\main\kotlin\it\polito\wa2\server\auth" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.run server">
@@ -153,7 +157,8 @@
       <workItem from="1685954102774" duration="748000" />
       <workItem from="1685955695243" duration="1521000" />
       <workItem from="1685957661925" duration="3204000" />
-      <workItem from="1685966624107" duration="8173000" />
+      <workItem from="1685966624107" duration="8560000" />
+      <workItem from="1685976408232" duration="6437000" />
     </task>
     <task id="LOCAL-00001" summary="feat(test): added some test and fixed some problems in services">
       <created>1683800085310</created>
@@ -323,7 +328,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685974089089</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="boh 6">
+      <created>1685975475794</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1685975475794</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -364,6 +376,8 @@
     <MESSAGE value="boh 3" />
     <MESSAGE value="boh 4" />
     <MESSAGE value="boh 5" />
-    <option name="LAST_COMMIT_MESSAGE" value="boh 5" />
+    <MESSAGE value="boh 6" />
+    <MESSAGE value="feat(signup): working signup" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(signup): working signup" />
   </component>
 </project>

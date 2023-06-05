@@ -9,15 +9,18 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import javax.ws.rs.core.Response
+import java.lang.RuntimeException
+import java.net.URI
 
 @RestController
 @RequestMapping("/api")
 // @Observed
 class AuthController(
     private val keycloak: Keycloak,
-    private val realm: String = "ticketing_app"
+    @Value("\${keycloak.realm}")
+    private val realm: String
 ) {
     class UserRequest(
         val username: String,
@@ -28,12 +31,15 @@ class AuthController(
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
-    fun register(@RequestBody request: UserRequest?): Response {
+    fun register(@RequestBody request: UserRequest?): ResponseEntity<URI> {
         if (request == null) throw NotValidException("User was malformed")
         val password = preparePasswordRepresentation(request.password)
         val user = prepareUserRepresentation(request, password)
+        val response = keycloak.realm(realm).users().create(user)
 
-        return keycloak.realm(realm).users().create(user)
+        if (response.status != 201) throw RuntimeException("${response.statusInfo}")
+
+        return ResponseEntity.created(response.location).build()
     }
 
     private fun preparePasswordRepresentation(
@@ -51,7 +57,8 @@ class AuthController(
         cR: CredentialRepresentation,
     ): UserRepresentation {
         val newUser = UserRepresentation()
-        newUser.username = request.username
+        newUser.username = request.username.split("@")[0]
+        newUser.email = request.username
         newUser.credentials = listOf(cR)
         newUser.isEnabled = true
         newUser.realmRoles = listOf("app_customer")

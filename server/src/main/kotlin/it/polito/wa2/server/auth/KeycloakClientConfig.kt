@@ -10,23 +10,24 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class KeycloakClientConfig(
-    private val clientId: String = "ticket-app-client",
-    private val authUrl: String = "http://localhost:8080",
-    private val realm: String = "ticketing_app"
+    @Value("\${keycloak.clientId}")
+    private val clientId: String,
+    @Value("\${keycloak.authUrl}")
+    private val authUrl: String,
+    @Value("\${keycloak.realm}")
+    private val realm: String,
+    @Value("\${keycloak.secret}")
+    private val secret: String
 ) {
 
     @Bean
     fun keycloak(): Keycloak {
         return KeycloakBuilder.builder()
+            .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
             .serverUrl(authUrl)
-            .grantType(OAuth2Constants.PASSWORD)
             .realm(realm)
             .clientId(clientId)
-            .username("admin")
-            .password("admin")
-            .resteasyClient(
-                ResteasyClientBuilder().connectionPoolSize(10).build()
-            )
+            .clientSecret(secret)
             .build()
     }
 }

@@ -18,10 +18,17 @@ spring:
             client-id: ticket-app-client
             authorization-grant-type: authorization_code
             scope: openid
+            client-secret: oT3nPViRBUuOez1GoJfFpfn7nQMgbDbh
         provider:
           keycloak:
             issuer-uri: http://localhost:8080/realms/ticketing_app
             user-name-attribute: preferred_username
+
+keycloak:
+  realm: ticketing_app
+  clientId: ticket-app-client
+  authUrl: http://localhost:8080
+  secret: oT3nPViRBUuOez1GoJfFpfn7nQMgbDbh
 
 #management:
 #  tracing:
