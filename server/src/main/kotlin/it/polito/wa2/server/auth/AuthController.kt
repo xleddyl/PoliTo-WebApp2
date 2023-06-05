@@ -30,13 +30,11 @@ class AuthController(
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
     fun register(@RequestBody request: UserRequest?): Response {
-        if (request == null) throw NotValidException("Product was malformed")
+        if (request == null) throw NotValidException("User was malformed")
         val password = preparePasswordRepresentation(request.password)
-        // val role = keycloak.realm(realm).roles().get("app_customer").toRepresentation()
         val user = prepareUserRepresentation(request, password)
 
         return keycloak.realm(realm).users().create(user)
-        // keycloak.realm(realm).users().get(user.id).roles().realmLevel().add(listOf(role))
     }
 
     private fun preparePasswordRepresentation(

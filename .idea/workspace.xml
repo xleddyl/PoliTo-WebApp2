@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="boh 3">
+    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="boh 4">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/AuthController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/AuthController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/SecurityConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/SecurityConfig.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +152,7 @@
       <workItem from="1685954102774" duration="748000" />
       <workItem from="1685955695243" duration="1521000" />
       <workItem from="1685957661925" duration="3204000" />
-      <workItem from="1685966624107" duration="5389000" />
+      <workItem from="1685966624107" duration="6718000" />
     </task>
     <task id="LOCAL-00001" summary="feat(test): added some test and fixed some problems in services">
       <created>1683800085310</created>
@@ -309,7 +308,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685968270641</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="boh 4">
+      <created>1685972537913</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1685972537913</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -348,6 +354,7 @@
     <MESSAGE value="boh" />
     <MESSAGE value="boh 2" />
     <MESSAGE value="boh 3" />
-    <option name="LAST_COMMIT_MESSAGE" value="boh 3" />
+    <MESSAGE value="boh 4" />
+    <option name="LAST_COMMIT_MESSAGE" value="boh 4" />
   </component>
 </project>
