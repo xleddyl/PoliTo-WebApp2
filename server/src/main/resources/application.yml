@@ -38,11 +38,6 @@ spring:
 #          server:
 #            requests: true
 
-keycloak:
-  resource: ticket-app-client
-  auth-server-url: http://localhost:8080/realms/ticketing_app/protocol/openid-connect/auth
-  realm: ticketing_app
-
 #logging:
 #  pattern:
 #    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"

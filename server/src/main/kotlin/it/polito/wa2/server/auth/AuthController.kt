@@ -17,8 +17,7 @@ import javax.ws.rs.core.Response
 // @Observed
 class AuthController(
     private val keycloak: Keycloak,
-    @Value("\${keycloak.realm}")
-    private val realm: String
+    private val realm: String = "ticketing_app"
 ) {
     class UserRequest(
         val username: String,
