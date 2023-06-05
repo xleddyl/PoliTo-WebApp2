@@ -12,7 +12,7 @@ export default function Signup() {
         "POST",
         "/signup",
         { email, password },
-        ""
+        "/api"
       );
       console.log(response);
     } catch (e) {
