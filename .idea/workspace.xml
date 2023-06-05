@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="feat(observers): added grafana, prometheus, loki and tempo">
-      <change afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/AuthController.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/KeycloakClientConfig.kt" afterDir="false" />
+    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="feat(signup): added signup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/design.md" beforeDir="false" afterPath="$PROJECT_DIR$/design.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/server/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/observer/ObserveConfiguration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/observer/ObserveConfiguration.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -153,6 +150,7 @@
       <workItem from="1685516446606" duration="2193000" />
       <workItem from="1685518753916" duration="4106000" />
       <workItem from="1685948623234" duration="2614000" />
+      <workItem from="1685954102774" duration="686000" />
     </task>
     <task id="LOCAL-00001" summary="feat(test): added some test and fixed some problems in services">
       <created>1683800085310</created>
@@ -266,7 +264,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685523088176</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="feat(signup): added signup">
+      <created>1685954179602</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1685954179602</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -299,6 +304,7 @@
     <MESSAGE value="feat(keycloak): added keycloak to jib" />
     <MESSAGE value="fix(jib): modified jib configurations" />
     <MESSAGE value="feat(observers): added grafana, prometheus, loki and tempo" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(observers): added grafana, prometheus, loki and tempo" />
+    <MESSAGE value="feat(signup): added signup" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(signup): added signup" />
   </component>
 </project>
