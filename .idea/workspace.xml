@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="feat(signup): added signup">
+    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="commented all grafana stuff">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/observer/ObserveConfiguration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/observer/ObserveConfiguration.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +148,8 @@
       <workItem from="1685516446606" duration="2193000" />
       <workItem from="1685518753916" duration="4106000" />
       <workItem from="1685948623234" duration="2614000" />
-      <workItem from="1685954102774" duration="686000" />
+      <workItem from="1685954102774" duration="748000" />
+      <workItem from="1685955695243" duration="1255000" />
     </task>
     <task id="LOCAL-00001" summary="feat(test): added some test and fixed some problems in services">
       <created>1683800085310</created>
@@ -271,7 +270,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685954179602</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="commented all grafana stuff">
+      <created>1685954820742</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1685954820742</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -305,6 +311,7 @@
     <MESSAGE value="fix(jib): modified jib configurations" />
     <MESSAGE value="feat(observers): added grafana, prometheus, loki and tempo" />
     <MESSAGE value="feat(signup): added signup" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(signup): added signup" />
+    <MESSAGE value="commented all grafana stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="commented all grafana stuff" />
   </component>
 </project>
