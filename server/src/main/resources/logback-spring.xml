@@ -25,4 +25,4 @@
         </root>
         <logger name="feign" level="DEBUG"/>
     -->
-        </configuration>
+</configuration>

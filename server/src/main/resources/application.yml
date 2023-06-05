@@ -6,7 +6,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
   security:
     oauth2:
       resourceserver:
@@ -23,20 +23,20 @@ spring:
             issuer-uri: http://localhost:8080/realms/ticketing_app
             user-name-attribute: preferred_username
 
-# management:
-#   tracing:
-#     sampling:
-#       probability: 1.0 # sampling all in dev, reduce it in prod to save loading
-#   endpoints:
-#     web:
-#       exposure:
-#         include: prometheus
-#   metrics:
-#     distribution:
-#       percentiles-histogram:
-#         http:
-#           server:
-#             requests: true
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
 
 keycloak:
   resource: ticket-app-client

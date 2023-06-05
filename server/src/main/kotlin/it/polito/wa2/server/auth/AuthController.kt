@@ -10,19 +10,18 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import javax.ws.rs.core.Response
 
-class UserRequest(
-    val username: String,
-    val password: String
-)
-
 @RestController
 @RequestMapping("/api")
-//@Observed
+@Observed
 class AuthController(
     private val keycloak: Keycloak,
     @Value("\${keycloak.realm}")
     private val realm: String
 ) {
+    inner class UserRequest(
+        val username: String,
+        val password: String
+    )
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
@@ -46,6 +45,7 @@ class AuthController(
         cR.value = password
         return cR
     }
+
     private fun prepareUserRepresentation(
         request: UserRequest,
         cR: CredentialRepresentation,

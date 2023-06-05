@@ -44,9 +44,9 @@ class SecurityConfiguration(private val keycloakLogoutHandler: KeycloakLogoutHan
             .requestMatchers(HttpMethod.GET, "/api/tickets/*/messages/*").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
             .requestMatchers(HttpMethod.POST, "/api/tickets/*/messages").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
 
-            .requestMatchers("/api/signup").permitAll()
+            .requestMatchers(HttpMethod.POST, "/api/signup").permitAll()
 
-            .anyRequest().permitAll()
+            .anyRequest().authenticated()
         http.oauth2Login(withDefaults())
             .logout().addLogoutHandler(keycloakLogoutHandler)
         http.oauth2ResourceServer().jwt()
@@ -91,8 +91,3 @@ class SecurityConfiguration(private val keycloakLogoutHandler: KeycloakLogoutHan
 
 
 }
-
-// https://stackoverflow.com/questions/68316407/use-keycloak-for-only-authentication-and-use-custom-filter-for-authorization-sp
-// https://www.baeldung.com/spring-boot-keycloak
-// https://medium.com/geekculture/using-keycloak-with-spring-boot-3-0-376fa9f60e0b
-// https://stackoverflow.com/questions/30788105/spring-security-hasrole-not-working

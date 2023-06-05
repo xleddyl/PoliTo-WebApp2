@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
 class ReactAppController {
-    @RequestMapping(value = ["/", "/{x:[\\w\\-]+}", "/{x:^(?!api$).*$}/*/{y:[\\w\\-]+}", "/error"])
+    @RequestMapping(value = ["/", "/{x:[\\w\\-]+}"])
     fun getIndex(request: HttpServletRequest?): String {
         return "/index.html"
     }
