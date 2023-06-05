@@ -5,25 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="feat(observers): added grafana, prometheus, loki and tempo">
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/observer/grafana/provisioning/dashboards/dashboard.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/observer/grafana/provisioning/dashboards/logs_traces_metrics.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/observer/grafana/provisioning/datasources/datasource.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/observer/prometheus/prometheus.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/observer/tempo/tempo-local.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/tempo_cluster_seed.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/observer/ObserveConfiguration.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/resources/logback-spring.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9ecfdf06-4ec5-4418-9181-72341201fc58.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9ecfdf06-4ec5-4418-9181-72341201fc58.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/AuthController.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/KeycloakClientConfig.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/design.md" beforeDir="false" afterPath="$PROJECT_DIR$/design.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/server/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/docker/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/docker/imports/realm-export.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/docker/imports/realm-export.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/resources/static/static/css/main.0570aa3c.css" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/static/static/css/main.0570aa3c.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/kotlin/it/polito/wa2/server/ticketing/MessagesTests.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/kotlin/it/polito/wa2/server/ticketing/MessagesTests.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +151,8 @@
       <workItem from="1685084743383" duration="3695000" />
       <workItem from="1685102812264" duration="3091000" />
       <workItem from="1685516446606" duration="2193000" />
-      <workItem from="1685518753916" duration="4002000" />
+      <workItem from="1685518753916" duration="4106000" />
+      <workItem from="1685948623234" duration="2614000" />
     </task>
     <task id="LOCAL-00001" summary="feat(test): added some test and fixed some problems in services">
       <created>1683800085310</created>
@@ -271,7 +259,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685095236458</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="feat(observers): added grafana, prometheus, loki and tempo">
+      <created>1685523088176</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1685523088176</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

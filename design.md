@@ -54,3 +54,4 @@ Message (
 | GET    | /tickets/{id}/messages      |     -      | get all the messages for a specific ticket |      Y      |  MANAGER(all), TECHNICIAN(himself), CUSTOMER (himself)  |
 | GET    | /tickets/{id}/messages/{id} |     -      | get message by id for a specific ticket    |      Y      |  MANAGER(all), TECHNICIAN(himself), CUSTOMER (himself)  |
 | POST   | /tickets/{id}/messages      | MessageDTO | create message for a specific ticket       |      Y      |  MANAGER(all), TECHNICIAN(himself), CUSTOMER (himself)  |
+| ------ | --------------------------- | ---------- | ------------------------------------------ | ----------- | ------------------------------------------------------- |
