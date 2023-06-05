@@ -5,6 +5,8 @@ import it.polito.wa2.server.NotValidException
 import org.keycloak.admin.client.Keycloak
 import org.keycloak.representations.idm.CredentialRepresentation
 import org.keycloak.representations.idm.UserRepresentation
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -18,10 +20,12 @@ class AuthController(
     @Value("\${keycloak.realm}")
     private val realm: String
 ) {
-    inner class UserRequest(
+    class UserRequest(
         val username: String,
         val password: String
     )
+
+    val log: Logger = LoggerFactory.getLogger(this::class.java)
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
@@ -30,7 +34,6 @@ class AuthController(
         val password = preparePasswordRepresentation(request.password)
         // val role = keycloak.realm(realm).roles().get("app_customer").toRepresentation()
         val user = prepareUserRepresentation(request, password)
-        println(user)
 
         return keycloak.realm(realm).users().create(user)
         // keycloak.realm(realm).users().get(user.id).roles().realmLevel().add(listOf(role))
@@ -54,7 +57,7 @@ class AuthController(
         newUser.username = request.username
         newUser.credentials = listOf(cR)
         newUser.isEnabled = true
-        newUser.realmRoles.add("app_customer")
+        newUser.realmRoles = listOf("app_customer")
         return newUser
     }
 }

@@ -4,18 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="boh">
+    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="boh 3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/server/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/SinglePageAppConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/SinglePageAppConfig.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/AuthController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/AuthController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/SecurityConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/SecurityConfig.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/observer/ObserveConfiguration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/observer/ObserveConfiguration.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/ProfileController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/ProfileController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/messages/MessageController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/messages/MessageController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,7 +153,7 @@
       <workItem from="1685954102774" duration="748000" />
       <workItem from="1685955695243" duration="1521000" />
       <workItem from="1685957661925" duration="3204000" />
-      <workItem from="1685966624107" duration="1267000" />
+      <workItem from="1685966624107" duration="5389000" />
     </task>
     <task id="LOCAL-00001" summary="feat(test): added some test and fixed some problems in services">
       <created>1683800085310</created>
@@ -303,7 +295,21 @@
       <option name="project" value="LOCAL" />
       <updated>1685960938329</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="boh 2">
+      <created>1685968109056</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1685968109056</updated>
+    </task>
+    <task id="LOCAL-00022" summary="boh 3">
+      <created>1685968270641</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1685968270641</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -340,6 +346,8 @@
     <MESSAGE value="commented all grafana stuff" />
     <MESSAGE value="new design document" />
     <MESSAGE value="boh" />
-    <option name="LAST_COMMIT_MESSAGE" value="boh" />
+    <MESSAGE value="boh 2" />
+    <MESSAGE value="boh 3" />
+    <option name="LAST_COMMIT_MESSAGE" value="boh 3" />
   </component>
 </project>

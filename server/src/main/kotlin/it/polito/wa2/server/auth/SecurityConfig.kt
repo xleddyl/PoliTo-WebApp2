@@ -28,6 +28,8 @@ class SecurityConfiguration(private val keycloakLogoutHandler: KeycloakLogoutHan
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
+            .csrf().disable()
+
             .authorizeHttpRequests()
 
             .requestMatchers("/api/products*").hasRole(MANAGER)
@@ -45,9 +47,9 @@ class SecurityConfiguration(private val keycloakLogoutHandler: KeycloakLogoutHan
             .requestMatchers(HttpMethod.GET, "/api/tickets/*/messages/*").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
             .requestMatchers(HttpMethod.POST, "/api/tickets/*/messages").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
 
-            .requestMatchers(HttpMethod.POST, "/api/signup").permitAll()
+            .requestMatchers("/api/signup").permitAll()
 
-            .anyRequest().permitAll()
+            .anyRequest().authenticated()
         http.oauth2Login(withDefaults())
             .logout().addLogoutHandler(keycloakLogoutHandler)
         http.oauth2ResourceServer().jwt()
