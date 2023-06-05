@@ -45,6 +45,7 @@ function App() {
                 open={open}
                 method={method}
                 setBody={setBody}
+                setRoute={setRoute}
                 makeRequest={makeRequest}
                 httpMethods={httpMethods}
                 response={response}
