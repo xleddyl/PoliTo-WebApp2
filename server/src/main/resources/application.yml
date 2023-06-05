@@ -23,29 +23,29 @@ spring:
             issuer-uri: http://localhost:8080/realms/ticketing_app
             user-name-attribute: preferred_username
 
-management:
-  tracing:
-    sampling:
-      probability: 1.0
-  endpoints:
-    web:
-      exposure:
-        include: prometheus
-  metrics:
-    distribution:
-      percentiles-histogram:
-        http:
-          server:
-            requests: true
+#management:
+#  tracing:
+#    sampling:
+#      probability: 1.0
+#  endpoints:
+#    web:
+#      exposure:
+#        include: prometheus
+#  metrics:
+#    distribution:
+#      percentiles-histogram:
+#        http:
+#          server:
+#            requests: true
 
 keycloak:
   resource: ticket-app-client
   auth-server-url: http://localhost:8080/realms/ticketing_app/protocol/openid-connect/auth
   realm: ticketing_app
 
-logging:
-  pattern:
-    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+#logging:
+#  pattern:
+#    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
 
 server:
   port: 8081

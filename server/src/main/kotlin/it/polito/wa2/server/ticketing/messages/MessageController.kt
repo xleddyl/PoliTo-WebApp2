@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api")
-@Observed
+// @Observed
 class MessageController(
     private val messageService: MessageService
 ) {

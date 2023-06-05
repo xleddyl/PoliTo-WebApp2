@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api")
-@Observed
+// Observed
 class ProfileController(private val profileService: ProfileService) {
 
     @GetMapping("/profiles/{email}")

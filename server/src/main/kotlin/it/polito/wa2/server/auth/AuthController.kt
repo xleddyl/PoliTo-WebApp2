@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response
 
 @RestController
 @RequestMapping("/api")
-@Observed
+// @Observed
 class AuthController(
     private val keycloak: Keycloak,
     @Value("\${keycloak.realm}")
