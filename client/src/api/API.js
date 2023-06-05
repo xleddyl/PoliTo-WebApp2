@@ -3,8 +3,11 @@ export async function callAPI(method, route, body = undefined, prefix = '') {
 
     try {
         const response = await fetch(url, {
+            headers: {
+                "Content-type": "application/json"
+            },
             method,
-            body
+            body: JSON.stringify(body)
         })
 
         if (response.ok) {
