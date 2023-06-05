@@ -2,6 +2,7 @@ package it.polito.wa2.server.auth
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.Customizer.withDefaults
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -17,17 +18,32 @@ import java.util.stream.Collectors
 @Configuration
 @EnableWebSecurity
 class SecurityConfiguration(private val keycloakLogoutHandler: KeycloakLogoutHandler) {
-    val CUSTOMER = "app_customer"
+    private val CUSTOMER = "app_customer"
+    private val MANAGER = "app_manager"
+    private val TECHNICIAN = "app_technician"
 
     private val REALM_ACCESS_CLAIM = "realm_access"
     private val ROLES_CLAIM = "roles"
-
 
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
             .authorizeHttpRequests()
-            .requestMatchers("/api/products").hasRole(CUSTOMER)
+            .requestMatchers("/api/products*").hasRole(MANAGER)
+
+            .requestMatchers("/api/profiles/*").hasAnyRole(MANAGER, CUSTOMER, TECHNICIAN)
+
+            .requestMatchers(HttpMethod.GET, "/api/tickets").hasRole(MANAGER)
+            .requestMatchers(HttpMethod.GET, "/api/tickets/*").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
+            .requestMatchers(HttpMethod.POST, "/api/tickets").hasAnyRole(MANAGER, CUSTOMER)
+            .requestMatchers(HttpMethod.POST, "/api/tickets/*/*").hasAnyRole(MANAGER, TECHNICIAN)
+            .requestMatchers(HttpMethod.PUT, "/api/tickets/*").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
+            .requestMatchers(HttpMethod.DELETE, "/api/tickets/*").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
+
+            .requestMatchers(HttpMethod.GET, "/api/tickets/*/messages").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
+            .requestMatchers(HttpMethod.GET, "/api/tickets/*/messages/*").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
+            .requestMatchers(HttpMethod.POST, "/api/tickets/*/messages").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
+
             .anyRequest().authenticated()
         http.oauth2Login(withDefaults())
             .logout().addLogoutHandler(keycloakLogoutHandler)
