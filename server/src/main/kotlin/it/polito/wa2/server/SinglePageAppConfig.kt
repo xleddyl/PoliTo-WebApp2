@@ -4,6 +4,15 @@ import jakarta.servlet.http.HttpServletRequest
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 
+
+@Controller
+class ReactAppController {
+    @RequestMapping(value = ["/", "/{x:[\\w\\-]+}"])
+    fun getIndex(request: HttpServletRequest?): String {
+        return "/index.html"
+    }
+}
+
 /*
 @Configuration
 class SinglePageAppConfig : WebMvcConfigurer {
