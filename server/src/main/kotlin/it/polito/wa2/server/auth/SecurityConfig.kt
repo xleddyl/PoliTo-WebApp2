@@ -44,9 +44,9 @@ class SecurityConfiguration(private val keycloakLogoutHandler: KeycloakLogoutHan
             .requestMatchers(HttpMethod.GET, "/api/tickets/*/messages/*").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
             .requestMatchers(HttpMethod.POST, "/api/tickets/*/messages").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
 
-            .requestMatchers(HttpMethod.POST, "/signup").permitAll()
+            .requestMatchers("/api/signup").permitAll()
 
-            .anyRequest().authenticated()
+            .anyRequest().permitAll()
         http.oauth2Login(withDefaults())
             .logout().addLogoutHandler(keycloakLogoutHandler)
         http.oauth2ResourceServer().jwt()

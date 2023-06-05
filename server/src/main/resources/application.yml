@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://db:5432/postgres
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: mysecretpassword
   jpa:
@@ -11,7 +11,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak:8080/realms/ticketing_app
+          issuer-uri: http://localhost:8080/realms/ticketing_app
       client:
         registration:
           keycloak:
@@ -20,7 +20,7 @@ spring:
             scope: openid
         provider:
           keycloak:
-            issuer-uri: http://keycloak:8080/realms/ticketing_app
+            issuer-uri: http://localhost:8080/realms/ticketing_app
             user-name-attribute: preferred_username
 
 # management:

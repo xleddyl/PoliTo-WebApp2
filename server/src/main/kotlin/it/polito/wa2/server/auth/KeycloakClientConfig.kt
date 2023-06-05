@@ -20,10 +20,12 @@ class KeycloakClientConfig (
     @Bean
     fun keycloak(): Keycloak {
         return KeycloakBuilder.builder()
-            .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
+            //.grantType(OAuth2Constants.CLIENT_CREDENTIALS)
             .serverUrl(authUrl)
             .realm(realm)
             .clientId(clientId)
+            .username("admin")
+            .password("admin")
             .build()
     }
 }

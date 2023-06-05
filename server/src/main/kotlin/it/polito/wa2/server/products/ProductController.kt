@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api")
-@Observed
+//@Observed
 class ProductController(
     private val productService: ProductService
 ) {
-    val log: Logger = LoggerFactory.getLogger(this::class.java)
+    //val log: Logger = LoggerFactory.getLogger(this::class.java)
 
     @PostMapping("/products")
     @ResponseStatus(HttpStatus.CREATED)
