@@ -1,5 +1,5 @@
-export async function callAPI(method, route, body = undefined) {
-    const url = '/API' + route
+export async function callAPI(method, route, body = undefined, prefix = '') {
+    const url = prefix + route
 
     try {
         const response = await fetch(url, {
