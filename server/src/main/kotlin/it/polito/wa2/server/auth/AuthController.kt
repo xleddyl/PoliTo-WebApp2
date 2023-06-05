@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.*
 import javax.ws.rs.core.Response
 
 @RestController
-@Observed
+@RequestMapping("/api")
+// @Observed
 class AuthController(
     private val keycloak: Keycloak,
     @Value("\${keycloak.realm}")
     private val realm: String
 ) {
-    class UserRequest(
+    inner class UserRequest(
         val username: String,
         val password: String
     )
@@ -29,6 +30,7 @@ class AuthController(
         val password = preparePasswordRepresentation(request.password)
         // val role = keycloak.realm(realm).roles().get("app_customer").toRepresentation()
         val user = prepareUserRepresentation(request, password)
+        println(user)
 
         return keycloak.realm(realm).users().create(user)
         // keycloak.realm(realm).users().get(user.id).roles().realmLevel().add(listOf(role))
@@ -43,6 +45,7 @@ class AuthController(
         cR.value = password
         return cR
     }
+
     private fun prepareUserRepresentation(
         request: UserRequest,
         cR: CredentialRepresentation,
