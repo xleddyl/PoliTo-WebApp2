@@ -8,9 +8,9 @@ export default function Signup() {
   const [error, setError] = useState("");
 
   const signup = async (e, username, password) => {
-    e.preventDefault()
-    setResponse('')
-    setError('')
+    e.preventDefault();
+    setResponse("");
+    setError("");
     try {
       const response = await callAPI(
         "POST",
@@ -18,11 +18,11 @@ export default function Signup() {
         { username, password },
         "/api"
       );
-      console.log(response)
-      setResponse("SUCCESS")
+      console.log(response);
+      setResponse("success: " + response);
     } catch (e) {
-      console.log(e)
-      setError("Something bad happened")
+      console.log(e);
+      setError("Something bad happened: " + e);
     }
   };
 
@@ -72,7 +72,18 @@ export default function Signup() {
                     value={password || ""}
                   />
                 </div>
-
+                <div className="flex justify-center items-center">
+                  {response && (
+                    <div className="mt-1 font-semibold text-green-600 w-96 whitespace-pre-wrap">
+                      {response}
+                    </div>
+                  )}
+                  {error && (
+                    <div className="mt-1 font-semibold text-red-600 w-96 whitespace-pre-wrap">
+                      {error}
+                    </div>
+                  )}
+                </div>
                 <button
                   type="submit"
                   className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
@@ -85,20 +96,6 @@ export default function Signup() {
           </div>
         </div>
       </section>
-        <div className="flex justify-center items-center">
-        {response && (
-          <div
-            className="mt-1 font-semibold text-green-600 w-96 whitespace-pre-wrap"
-          >
-            {response}
-          </div>
-        )}
-        {error && (
-          <div className="mt-1 font-semibold text-red-600 w-96 whitespace-pre-wrap">
-            {error}
-          </div>
-        )}
-      </div>
     </>
   );
 }
