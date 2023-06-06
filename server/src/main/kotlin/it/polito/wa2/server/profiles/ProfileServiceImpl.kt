@@ -1,5 +1,6 @@
 package it.polito.wa2.server.profiles
 
+import io.micrometer.observation.annotation.Observed
 import it.polito.wa2.server.DuplicateException
 import it.polito.wa2.server.NotFoundException
 import jakarta.transaction.Transactional
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service
 
 @Service
 @Transactional
+@Observed
 class ProfileServiceImpl(
     private val profileRepository: ProfileRepository
 ) : ProfileService {

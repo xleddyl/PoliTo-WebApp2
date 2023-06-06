@@ -13,8 +13,6 @@ services:
       - "14268"  # jaeger ingest
       - "9411:9411" # zipkin
     hostname: tempo
-    deploy:
-      replicas: 0
 
   loki:
     image: 'grafana/loki:latest'
@@ -28,8 +26,6 @@ services:
       - JAEGER_SAMPLER_TYPE=const
       - JAEGER_SAMPLER_PARAM=1
     hostname: loki
-    deploy:
-      replicas: 0
 
   prometheus:
     image: 'prom/prometheus:latest'
@@ -42,8 +38,6 @@ services:
     ports:
       - "9090:9090"
     hostname: prometheus
-    deploy:
-      replicas: 0
 
   grafana:
     image: 'grafana/grafana:latest'
@@ -58,8 +52,6 @@ services:
     ports:
       - "3000:3000"
     hostname: grafana
-    deploy:
-      replicas: 0
 
   db:
     image: 'postgres:latest'
@@ -95,5 +87,3 @@ services:
     ports:
       - "8081:8081"
     hostname: server
-    deploy:
-      replicas: 0

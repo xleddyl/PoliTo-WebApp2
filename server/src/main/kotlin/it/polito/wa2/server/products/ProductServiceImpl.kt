@@ -1,5 +1,6 @@
 package it.polito.wa2.server.products
 
+import io.micrometer.observation.annotation.Observed
 import it.polito.wa2.server.DuplicateException
 import it.polito.wa2.server.NotFoundException
 import jakarta.transaction.Transactional
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service
 
 @Service
 @Transactional
+@Observed
 class ProductServiceImpl(private val productRepository: ProductRepository) : ProductService {
     override fun getAll(): List<ProductDTO> {
         return productRepository.findAll().map { it.toDTO() }
