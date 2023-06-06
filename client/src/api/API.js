@@ -11,7 +11,11 @@ export async function callAPI(method, route, body = undefined, prefix = '') {
         })
 
         if (response.ok) {
-            return await response.json()
+            if (response.headers.get("'Content-type") == "application/json") {
+                return await response.json()
+            } else {
+                return await response.text()
+            }
         } else {
             throw new TypeError(await response.text())
         }

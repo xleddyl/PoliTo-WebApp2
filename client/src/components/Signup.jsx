@@ -4,9 +4,13 @@ import { callAPI } from "../api/API";
 export default function Signup() {
   const [username, setUsername] = useState(undefined);
   const [password, setPassword] = useState(undefined);
+  const [response, setResponse] = useState("");
+  const [error, setError] = useState("");
 
   const signup = async (e, username, password) => {
     e.preventDefault()
+    setResponse('')
+    setError('')
     try {
       const response = await callAPI(
         "POST",
@@ -14,9 +18,9 @@ export default function Signup() {
         { username, password },
         "/api"
       );
-      console.log(response);
+      setResponse(response)
     } catch (e) {
-      console.log(e);
+      setError(error)
     }
   };
 
@@ -78,6 +82,20 @@ export default function Signup() {
             </div>
           </div>
         </div>
+        <div className="flex justify-center items-center">
+        {response && (
+          <div
+            className="mt-1 font-semibold text-green-600 w-96 whitespace-pre-wrap"
+          >
+            {response}
+          </div>
+        )}
+        {error && (
+          <div className="mt-1 font-semibold text-red-600 w-96 whitespace-pre-wrap">
+            {error}
+          </div>
+        )}
+      </div>
       </section>
     </>
   );

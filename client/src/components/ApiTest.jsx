@@ -21,7 +21,7 @@ export default function ApiTest({
         <button
           type="submit"
           className="w-full bg-gray-600 rounded-md px-5 py-2 m-3 text-white font-medium"
-          onClick={(e) => navigate('/login')}
+          onClick={() => window.location.replace('/login')}
         >
           Login
         </button>
@@ -35,7 +35,7 @@ export default function ApiTest({
         <button
           type="submit"
           className="w-full bg-gray-600 rounded-md px-5 py-2 m-3 text-white font-medium"
-          onClick={(e) => navigate('/logout')}
+          onClick={() => window.location.replace('/logout')}
         >
           Logout
         </button>
