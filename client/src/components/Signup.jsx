@@ -18,9 +18,11 @@ export default function Signup() {
         { username, password },
         "/api"
       );
-      setResponse(response)
+      console.log(response)
+      setResponse("SUCCESS")
     } catch (e) {
-      setError(error)
+      console.log(e)
+      setError("Something bad happened")
     }
   };
 
@@ -82,6 +84,7 @@ export default function Signup() {
             </div>
           </div>
         </div>
+      </section>
         <div className="flex justify-center items-center">
         {response && (
           <div
@@ -96,7 +99,6 @@ export default function Signup() {
           </div>
         )}
       </div>
-      </section>
     </>
   );
 }
