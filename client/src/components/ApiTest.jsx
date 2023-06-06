@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 export default function ApiTest({
   setOpen,
   changeMethod,
@@ -11,8 +13,33 @@ export default function ApiTest({
   response,
   error,
 }) {
+  const navigate = useNavigate()
+
   return (
     <>
+      <div className="flex flex-row">
+        <button
+          type="submit"
+          className="w-full bg-gray-600 rounded-md px-5 py-2 m-3 text-white font-medium"
+          onClick={(e) => navigate('/login')}
+        >
+          Login
+        </button>
+        <button
+          type="submit"
+          className="w-full bg-gray-600 rounded-md px-5 py-2 m-3 text-white font-medium"
+          onClick={(e) => navigate('/signup')}
+        >
+          Register
+        </button>
+        <button
+          type="submit"
+          className="w-full bg-gray-600 rounded-md px-5 py-2 m-3 text-white font-medium"
+          onClick={(e) => navigate('/logout')}
+        >
+          Logout
+        </button>
+      </div>
       <div className="flex justify-center items-center h-80 w-screen">
         <div className="flex-col">
           <div className="inline-flex">
