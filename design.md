@@ -56,3 +56,4 @@ Message (
 | POST   | /tickets/{id}/messages      | MessageDTO  | create message for a specific ticket       |      Y      |  MANAGER(all), TECHNICIAN(himself), CUSTOMER (himself)  |
 | ------ | --------------------------- | ----------- | ------------------------------------------ | ----------- | ------------------------------------------------------- |
 | POST   | /signup                     | UserRequest | create a new user in keycloak              |      Y      |                                                         |
+| POST   | /createExpert               | UserRequest | create a new technician                    |      Y      |                         MANAGER                         |

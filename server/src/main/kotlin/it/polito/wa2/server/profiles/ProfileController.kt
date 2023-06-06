@@ -1,6 +1,5 @@
 package it.polito.wa2.server.profiles
 
-import io.micrometer.observation.annotation.Observed
 import it.polito.wa2.server.NotFoundException
 import it.polito.wa2.server.NotValidException
 import org.springframework.http.HttpStatus

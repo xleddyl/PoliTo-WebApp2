@@ -1,4 +1,4 @@
-package it.polito.wa2.server.auth
+package it.polito.wa2.server.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -14,14 +14,13 @@ import org.springframework.security.oauth2.core.user.OAuth2UserAuthority
 import org.springframework.security.web.SecurityFilterChain
 import java.util.stream.Collectors
 
+val CUSTOMER = "app_customer"
+val MANAGER = "app_manager"
+val TECHNICIAN = "app_technician"
 
 @Configuration
 @EnableWebSecurity
 class SecurityConfiguration(private val keycloakLogoutHandler: KeycloakLogoutHandler) {
-    private val CUSTOMER = "app_customer"
-    private val MANAGER = "app_manager"
-    private val TECHNICIAN = "app_technician"
-
     private val REALM_ACCESS_CLAIM = "realm_access"
     private val ROLES_CLAIM = "roles"
 
@@ -48,8 +47,9 @@ class SecurityConfiguration(private val keycloakLogoutHandler: KeycloakLogoutHan
             .requestMatchers(HttpMethod.POST, "/api/tickets/*/messages").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
 
             .requestMatchers("/api/signup").permitAll()
+            .requestMatchers("/api/createExpert").hasRole(MANAGER)
 
-            .anyRequest().authenticated()
+            .anyRequest().permitAll()
         http.oauth2Login(withDefaults())
             .logout().addLogoutHandler(keycloakLogoutHandler)
         http.oauth2ResourceServer().jwt()

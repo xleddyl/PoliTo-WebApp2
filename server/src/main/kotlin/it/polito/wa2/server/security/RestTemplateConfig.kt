@@ -1,4 +1,4 @@
-package it.polito.wa2.server.auth
+package it.polito.wa2.server.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

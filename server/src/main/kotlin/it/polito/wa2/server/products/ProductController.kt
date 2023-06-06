@@ -1,6 +1,5 @@
 package it.polito.wa2.server.products
 
-import io.micrometer.observation.annotation.Observed
 import it.polito.wa2.server.NotValidException
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*

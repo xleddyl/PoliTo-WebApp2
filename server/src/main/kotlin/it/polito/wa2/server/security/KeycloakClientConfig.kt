@@ -1,6 +1,5 @@
-package it.polito.wa2.server.auth
+package it.polito.wa2.server.security
 
-import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder
 import org.keycloak.OAuth2Constants
 import org.keycloak.admin.client.Keycloak
 import org.keycloak.admin.client.KeycloakBuilder
