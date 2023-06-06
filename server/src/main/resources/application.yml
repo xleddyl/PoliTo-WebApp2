@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://host.docker.internal:5432/postgres
     username: postgres
     password: mysecretpassword
   jpa:
@@ -11,7 +11,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/ticketing_app
+          issuer-uri: http://host.docker.internal:8080/realms/ticketing_app
       client:
         registration:
           keycloak:
@@ -21,13 +21,13 @@ spring:
             client-secret: oT3nPViRBUuOez1GoJfFpfn7nQMgbDbh
         provider:
           keycloak:
-            issuer-uri: http://localhost:8080/realms/ticketing_app
+            issuer-uri: http://host.docker.internal:8080/realms/ticketing_app
             user-name-attribute: preferred_username
 
 keycloak:
   realm: ticketing_app
   clientId: ticket-app-client
-  authUrl: http://localhost:8080
+  authUrl: http://host.docker.internal:8080
   secret: oT3nPViRBUuOez1GoJfFpfn7nQMgbDbh
 
 management:

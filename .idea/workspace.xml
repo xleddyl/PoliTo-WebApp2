@@ -4,14 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="feat(createExpert): createExpert functionality">
+    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="fix(Observers): fixed some problems with observers">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/SinglePageAppConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/SinglePageAppConfig.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/ProfileController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/ProfileController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/security/aut/AuthController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/security/aut/AuthController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/messages/MessageController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/messages/MessageController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/server/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/docker/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/docker/observer/prometheus/prometheus.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/docker/observer/prometheus/prometheus.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/logback-spring.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/logback-spring.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,7 +125,7 @@
       <recent name="it.polito.wa2.server.security.aut" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.run server">
+  <component name="RunManager" selected="Docker.Docker compose">
     <list>
       <item itemvalue="Docker.Docker compose" />
       <item itemvalue="Gradle.jib Docker Build" />
@@ -164,7 +163,8 @@
       <workItem from="1685976408232" duration="6437000" />
       <workItem from="1685985546665" duration="32000" />
       <workItem from="1686036743999" duration="1538000" />
-      <workItem from="1686039385221" duration="1356000" />
+      <workItem from="1686039385221" duration="1735000" />
+      <workItem from="1686041792677" duration="5497000" />
     </task>
     <task id="LOCAL-00001" summary="feat(test): added some test and fixed some problems in services">
       <created>1683800085310</created>
@@ -348,7 +348,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686038233420</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="fix(Observers): fixed some problems with observers">
+      <created>1686041143353</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1686041143353</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -367,7 +374,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="feat(test): added some test and fixed some problems in services" />
     <MESSAGE value="fix(test): fixed some test" />
     <MESSAGE value="feat(authentication): added auth module" />
     <MESSAGE value="feat(authentication): keycloack integration (not working)" />
@@ -392,6 +398,7 @@
     <MESSAGE value="boh 6" />
     <MESSAGE value="feat(signup): working signup" />
     <MESSAGE value="feat(createExpert): createExpert functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(createExpert): createExpert functionality" />
+    <MESSAGE value="fix(Observers): fixed some problems with observers" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix(Observers): fixed some problems with observers" />
   </component>
 </project>

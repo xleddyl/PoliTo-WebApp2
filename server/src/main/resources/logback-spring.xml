@@ -2,6 +2,7 @@
 <configuration>
     <springProperty scope="context" name="appName" source="spring.application.name"/>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
     <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
         <http>
             <url>http://${LOKI_HOST:-localhost}:3100/loki/api/v1/push</url>
@@ -21,4 +22,5 @@
         <appender-ref ref="LOKI"/>
     </root>
     <logger name="feign" level="DEBUG"/>
+
 </configuration>

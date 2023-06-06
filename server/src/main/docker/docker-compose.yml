@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.4'
 
 services:
 
@@ -12,7 +12,8 @@ services:
     ports:
       - "14268"  # jaeger ingest
       - "9411:9411" # zipkin
-    hostname: tempo
+    deploy:
+      replicas: 0
 
   loki:
     image: 'grafana/loki:latest'
@@ -25,7 +26,8 @@ services:
       - JAEGER_ENDPOINT=http://tempo:14268/api/traces # send traces to Tempo
       - JAEGER_SAMPLER_TYPE=const
       - JAEGER_SAMPLER_PARAM=1
-    hostname: loki
+    deploy:
+      replicas: 0
 
   prometheus:
     image: 'prom/prometheus:latest'
@@ -37,7 +39,8 @@ services:
       - ./observer/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     ports:
       - "9090:9090"
-    hostname: prometheus
+    deploy:
+      replicas: 0
 
   grafana:
     image: 'grafana/grafana:latest'
@@ -51,7 +54,8 @@ services:
       - GF_AUTH_DISABLE_LOGIN_FORM=true
     ports:
       - "3000:3000"
-    hostname: grafana
+    deploy:
+      replicas: 0
 
   db:
     image: 'postgres:latest'
@@ -61,7 +65,6 @@ services:
       - POSTGRES_PASSWORD=mysecretpassword
     ports:
       - '5432:5432'
-    hostname: db
 
   keycloak:
     image: 'quay.io/keycloak/keycloak:latest'
@@ -75,15 +78,16 @@ services:
       - KEYCLOAK_IMPORT=/opt/keycloak/data/import
     ports:
       - '8080:8080'
-    hostname: keycloak
 
   server:
     image: 'ticketing:latest'
     build:
       context: .
     container_name: server
-    environment:
-      - 'SPRING_JPA_HIBERNATE_DDL_AUTO=create'
     ports:
       - "8081:8081"
-    hostname: server
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - db
+      - keycloak
