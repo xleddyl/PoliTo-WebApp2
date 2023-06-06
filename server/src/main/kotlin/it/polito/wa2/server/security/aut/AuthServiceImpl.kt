@@ -1,5 +1,6 @@
 package it.polito.wa2.server.security.aut
 
+import io.micrometer.observation.annotation.Observed
 import it.polito.wa2.server.DuplicateException
 import it.polito.wa2.server.security.CUSTOMER
 import jakarta.transaction.Transactional
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service
 
 @Service
 @Transactional
+@Observed
 class AuthServiceImpl(
     private val keycloak: Keycloak,
     @Value("\${keycloak.realm}")

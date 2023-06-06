@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api")
-// @Observed
 class ProductController(
     private val productService: ProductService
 ) {

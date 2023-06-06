@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="feat(signup): working signup">
-      <change afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/AuthService.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/AuthServiceImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9ecfdf06-4ec5-4418-9181-72341201fc58.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9ecfdf06-4ec5-4418-9181-72341201fc58.xml" afterDir="false" />
+    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="feat(createExpert): createExpert functionality">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/design.md" beforeDir="false" afterPath="$PROJECT_DIR$/design.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/AuthController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/AuthController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/SecurityConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/auth/SecurityConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/SinglePageAppConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/SinglePageAppConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/ProfileController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/ProfileController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/security/aut/AuthController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/security/aut/AuthController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/messages/MessageController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/messages/MessageController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketController.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,6 +122,9 @@
       <recent name="C:\Users\edoal\Downloads\WebApp2\server\src\main\docker\grafana\provisioning\dashboards" />
       <recent name="C:\Users\Davide\Desktop\PoliTo\WAII\Labs\WA2\server\src\main\docker\imports" />
     </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="it.polito.wa2.server.security.aut" />
+    </key>
   </component>
   <component name="RunManager" selected="Spring Boot.run server">
     <list>
@@ -160,7 +163,8 @@
       <workItem from="1685966624107" duration="8560000" />
       <workItem from="1685976408232" duration="6437000" />
       <workItem from="1685985546665" duration="32000" />
-      <workItem from="1686036743999" duration="489000" />
+      <workItem from="1686036743999" duration="1538000" />
+      <workItem from="1686039385221" duration="1356000" />
     </task>
     <task id="LOCAL-00001" summary="feat(test): added some test and fixed some problems in services">
       <created>1683800085310</created>
@@ -337,7 +341,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685975475794</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="feat(createExpert): createExpert functionality">
+      <created>1686038233420</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1686038233420</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -380,6 +391,7 @@
     <MESSAGE value="boh 5" />
     <MESSAGE value="boh 6" />
     <MESSAGE value="feat(signup): working signup" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(signup): working signup" />
+    <MESSAGE value="feat(createExpert): createExpert functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(createExpert): createExpert functionality" />
   </component>
 </project>

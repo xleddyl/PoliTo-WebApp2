@@ -1,5 +1,6 @@
 package it.polito.wa2.server.ticketing.tickets
 
+import io.micrometer.observation.annotation.Observed
 import it.polito.wa2.server.DuplicateException
 import it.polito.wa2.server.NotFoundException
 import it.polito.wa2.server.NotValidException
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service
 
 @Service
 @Transactional
+@Observed
 class TicketServiceImpl(
     private val ticketRepository: TicketRepository,
     private val profileService: ProfileService,

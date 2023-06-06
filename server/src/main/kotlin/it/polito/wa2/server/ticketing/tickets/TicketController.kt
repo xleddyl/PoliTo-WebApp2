@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api")
-// @Observed
 class TicketController(
     private val ticketService: TicketService
 ) {
