@@ -4,11 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="fix(Observers): fixed some problems with observers">
+    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="feat: signup">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9ecfdf06-4ec5-4418-9181-72341201fc58.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9ecfdf06-4ec5-4418-9181-72341201fc58.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9ecfdf06-4ec5-4418-9181-72341201fc58/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9ecfdf06-4ec5-4418-9181-72341201fc58/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9ecfdf06-4ec5-4418-9181-72341201fc58/storage_v2/_src_/database/ticket_app.bq6QfA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9ecfdf06-4ec5-4418-9181-72341201fc58/storage_v2/_src_/database/ticket_app.bq6QfA/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9ecfdf06-4ec5-4418-9181-72341201fc58/storage_v2/_src_/database/ticket_app.bq6QfA/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/server/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/docker/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/docker/observer/prometheus/prometheus.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/docker/observer/prometheus/prometheus.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/resources/logback-spring.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/logback-spring.xml" afterDir="false" />
     </list>
@@ -99,7 +104,7 @@
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/edoal/Downloads/WebApp2/server/src/main/docker/docker-compose.yml&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Davide/Desktop/PoliTo/WAII/Labs/WA2/server/src/main/resources/schema.sql&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -165,6 +170,8 @@
       <workItem from="1686036743999" duration="1538000" />
       <workItem from="1686039385221" duration="1735000" />
       <workItem from="1686041792677" duration="5497000" />
+      <workItem from="1686225532034" duration="1222000" />
+      <workItem from="1686231171958" duration="3165000" />
     </task>
     <task id="LOCAL-00001" summary="feat(test): added some test and fixed some problems in services">
       <created>1683800085310</created>

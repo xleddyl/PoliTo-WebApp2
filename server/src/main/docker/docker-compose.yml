@@ -12,8 +12,6 @@ services:
     ports:
       - "14268"  # jaeger ingest
       - "9411:9411" # zipkin
-    deploy:
-      replicas: 0
 
   loki:
     image: 'grafana/loki:latest'
@@ -26,8 +24,6 @@ services:
       - JAEGER_ENDPOINT=http://tempo:14268/api/traces # send traces to Tempo
       - JAEGER_SAMPLER_TYPE=const
       - JAEGER_SAMPLER_PARAM=1
-    deploy:
-      replicas: 0
 
   prometheus:
     image: 'prom/prometheus:latest'
@@ -39,8 +35,6 @@ services:
       - ./observer/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     ports:
       - "9090:9090"
-    deploy:
-      replicas: 0
 
   grafana:
     image: 'grafana/grafana:latest'
@@ -54,8 +48,6 @@ services:
       - GF_AUTH_DISABLE_LOGIN_FORM=true
     ports:
       - "3000:3000"
-    deploy:
-      replicas: 0
 
   db:
     image: 'postgres:latest'
