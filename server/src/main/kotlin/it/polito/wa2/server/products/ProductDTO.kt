@@ -7,13 +7,4 @@ data class ProductDTO(
     val brand: String,
     val category: String,
     val price: Float
-) {
-    fun fromDTO(): Product {
-        return Product(ean, sku, name, brand, category, price)
-    }
-
-}
-
-fun Product.toDTO(): ProductDTO {
-    return ProductDTO(ean, sku, name, brand, category, price)
-}
+)

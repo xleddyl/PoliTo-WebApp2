@@ -3,6 +3,7 @@ package it.polito.wa2.server.ticketing.messages
 import it.polito.wa2.server.ticketing.tickets.Ticket
 import jakarta.persistence.*
 import java.sql.Timestamp
+import java.util.*
 
 @Entity
 @Table(name = "messages")
@@ -15,7 +16,11 @@ class Message(
     var fromCustomer: Boolean,
     @Temporal(TemporalType.TIMESTAMP)
     var timestamp: Timestamp,
-    @Lob
-    var attachment: ByteArray?,
-    var content: String
+    var attachment: String,
+    var content: String,
+    var new: Boolean
 )
+
+fun Message.toDTO(): MessageDTO {
+    return MessageDTO(id, ticket.id!!, fromCustomer, timestamp, attachment, content, new)
+}

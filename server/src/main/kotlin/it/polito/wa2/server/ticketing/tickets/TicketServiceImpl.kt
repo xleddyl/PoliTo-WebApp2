@@ -5,7 +5,11 @@ import it.polito.wa2.server.DuplicateException
 import it.polito.wa2.server.NotFoundException
 import it.polito.wa2.server.NotValidException
 import it.polito.wa2.server.products.ProductService
-import it.polito.wa2.server.profiles.ProfileService
+import it.polito.wa2.server.products.fromDTO
+import it.polito.wa2.server.profiles.customer.CustomerService
+import it.polito.wa2.server.profiles.customer.fromDTO
+import it.polito.wa2.server.profiles.technician.TechnicianService
+import it.polito.wa2.server.profiles.technician.fromDTO
 import it.polito.wa2.server.ticketing.messages.Message
 import jakarta.transaction.Transactional
 import org.springframework.data.repository.findByIdOrNull
@@ -16,7 +20,8 @@ import org.springframework.stereotype.Service
 @Observed
 class TicketServiceImpl(
     private val ticketRepository: TicketRepository,
-    private val profileService: ProfileService,
+    private val customerService: CustomerService,
+    private val technicianService: TechnicianService,
     private val productService: ProductService
 ) : TicketService {
     override fun getAll(): List<Ticket> {
@@ -31,18 +36,18 @@ class TicketServiceImpl(
     override fun createTicket(ticketDTO: TicketDTO): Ticket {
         if (ticketDTO.id != null && ticketRepository.findByIdOrNull(ticketDTO.id) != null) throw DuplicateException("Ticket id already exists")
         if (ticketDTO.statuses.size != 1 && ticketDTO.statuses.first() != States.OPEN) throw NotValidException("Ticket status is invalid")
-        val customer = profileService.getByEmailP(ticketDTO.customer.email)
-        val technician = ticketDTO.technician?.email?.let { profileService.getByEmailP(it) }
-        val product = productService.getByIdP(ticketDTO.product.ean)
+        val customer =
+            customerService.getByEmail(ticketDTO.customer.email) ?: throw NotValidException("User does not exists")
+        val technician = ticketDTO.technician?.email?.let { technicianService.getByEmail(it) }
+        val product = productService.getById(ticketDTO.product.ean)
 
         val messages = mutableSetOf<Message>()
 
         return ticketRepository.save(
             Ticket(
-                //id = ticketDTO.id,
-                product = product,
-                customer = customer,
-                technician = technician,
+                product = product.fromDTO(),
+                customer = customer.fromDTO(),
+                technician = technician?.fromDTO(),
                 statuses = ticketDTO.statuses,
                 description = ticketDTO.description,
                 priority = ticketDTO.priority,
@@ -53,21 +58,16 @@ class TicketServiceImpl(
 
     override fun editTicket(ticketId: Long, ticketDTO: TicketDTO): Ticket {
         val ticket = getById(ticketId)
-        val customer = profileService.getByEmailP(ticketDTO.customer.email)
-        val technician = ticketDTO.technician?.email?.let { profileService.getByEmailP(it) }
-        val product = productService.getByIdP(ticketDTO.product.ean)
-        val messages = mutableSetOf<Message>()
-        /*ticketDTO.messages?.forEach {
-            messages.add(
-                messageService.getById(ticketId, it)
-            )
-        }*/
+        val customer =
+            customerService.getByEmail(ticketDTO.customer.email) ?: throw NotValidException("User does not exists")
+        val technician = ticketDTO.technician?.email?.let { technicianService.getByEmail(it) }
+        val product = productService.getById(ticketDTO.product.ean)
         return ticketRepository.save(
             Ticket(
                 id = ticket.id,
-                product = product,
-                customer = customer,
-                technician = technician,
+                product = product.fromDTO(),
+                customer = customer.fromDTO(),
+                technician = technician?.fromDTO(),
                 statuses = ticketDTO.statuses,
                 description = ticketDTO.description,
                 priority = ticketDTO.priority,

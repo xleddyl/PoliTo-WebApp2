@@ -38,7 +38,8 @@ class MessageServiceImpl(
                 fromCustomer = messageDTO.fromCustomer,
                 timestamp = messageDTO.timestamp,
                 attachment = messageDTO.attachment,
-                content = messageDTO.content
+                content = messageDTO.content,
+                new = messageDTO.new
             )
         )
     }

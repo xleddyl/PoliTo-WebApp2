@@ -10,18 +10,34 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 class ServerExceptionHandler : ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(NotFoundException::class)
-    fun handleNotFoundException(e: NotFoundException) = ProblemDetail
-        .forStatusAndDetail(HttpStatus.NOT_FOUND, e.message ?: "")
+    fun handleNotFoundException(e: NotFoundException): ProblemDetail {
+        val d = ProblemDetail.forStatus(HttpStatus.NOT_FOUND)
+        d.title = "Not Found"
+        d.detail = e.message
+        return d
+    }
 
     @ExceptionHandler(NotValidException::class)
-    fun handleNotFoundException(e: NotValidException) = ProblemDetail
-        .forStatusAndDetail(HttpStatus.UNPROCESSABLE_ENTITY, e.message ?: "")
+    fun handleNotFoundException(e: NotValidException): ProblemDetail {
+        val d = ProblemDetail.forStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+        d.title = "Unprocessable Entity"
+        d.detail = e.message
+        return d
+    }
 
     @ExceptionHandler(DuplicateException::class)
-    fun handleDuplicateException(e: DuplicateException) = ProblemDetail
-        .forStatusAndDetail(HttpStatus.CONFLICT, e.message ?: "")
+    fun handleDuplicateException(e: DuplicateException): ProblemDetail {
+        val d = ProblemDetail.forStatus(HttpStatus.CONFLICT)
+        d.title = "Conflict"
+        d.detail = e.message
+        return d
+    }
 
     @ExceptionHandler(RuntimeException::class)
-    fun handleRuntimeException(e: RuntimeException) = ProblemDetail
-        .forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, e.message ?: "")
+    fun handleRuntimeException(e: RuntimeException): ProblemDetail {
+        val d = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+        d.title = "Internal Server Error"
+        d.detail = e.message
+        return d
+    }
 }

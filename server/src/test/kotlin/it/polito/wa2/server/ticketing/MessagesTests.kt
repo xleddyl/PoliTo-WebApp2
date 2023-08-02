@@ -2,8 +2,8 @@ package it.polito.wa2.server.ticketing
 
 import it.polito.wa2.server.AbstractApplicationTest
 import it.polito.wa2.server.products.ProductDTO
-import it.polito.wa2.server.profiles.ProfileDTO
-import it.polito.wa2.server.profiles.Roles
+import it.polito.wa2.server.profiles.customer.CustomerDTO
+import it.polito.wa2.server.profiles.technician.TechnicianDTO
 import it.polito.wa2.server.ticketing.messages.MessageDTO
 import it.polito.wa2.server.ticketing.tickets.States
 import it.polito.wa2.server.ticketing.tickets.TicketDTO
@@ -15,8 +15,8 @@ import java.sql.Timestamp
 
 class MessagesTests : AbstractApplicationTest() {
     fun createTicket(): TicketDTO {
-        val customerDTO = ProfileDTO("customer@email.com", "customer customer", Roles.CUSTOMER, "222222222")
-        val technicianDTO = ProfileDTO("technician@email.com", "technician tech", Roles.TECHNICIAN, "333333333")
+        val customerDTO = CustomerDTO("customer@email.com", "customer customer", "222222222", "aaaa")
+        val technicianDTO = TechnicianDTO("technician@email.com", "technician tech", "333333333", "bbbb")
         val productDTO = ProductDTO("ean", "sku", "name", "brand", "category", 1.0f)
         val states = mutableListOf(States.OPEN)
         val ticketDTO = TicketDTO(null, productDTO, customerDTO, technicianDTO, states, "description", 3, null)
@@ -39,7 +39,7 @@ class MessagesTests : AbstractApplicationTest() {
         val ticket = createTicket()
 
         val timestamp = Timestamp.valueOf("2023-05-20 12:23:50")
-        val messageDTO = MessageDTO(null, ticket.id!!, true, timestamp, null, "Test Message")
+        val messageDTO = MessageDTO(null, ticket.id!!, true, timestamp, "", "Test Message", false)
 
         val res = restTemplate.postForEntity(
             "http://localhost:$port/api/tickets/${ticket.id}/messages",

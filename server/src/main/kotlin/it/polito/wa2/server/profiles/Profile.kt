@@ -1,16 +1,7 @@
 package it.polito.wa2.server.profiles
 
-import jakarta.persistence.*
-
-enum class Roles {
-    CUSTOMER, ADMIN, MANAGER, TECHNICIAN
-}
+import jakarta.persistence.Id
+import jakarta.persistence.MappedSuperclass
 
 @MappedSuperclass
-open class Profile(
-    @Id var email: String,
-    var name: String,
-    //@Enumerated(value = EnumType.STRING)
-    //var role: Roles = Roles.CUSTOMER,
-    var phone: String
-)
+open class Profile(@Id var email: String, var name: String, var phone: String)

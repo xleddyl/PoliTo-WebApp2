@@ -2,7 +2,6 @@ package it.polito.wa2.server.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.HttpMethod
 import org.springframework.security.config.Customizer.withDefaults
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -31,23 +30,23 @@ class SecurityConfiguration(private val keycloakLogoutHandler: KeycloakLogoutHan
 
             .authorizeHttpRequests()
 
-            .requestMatchers("/api/products*").hasRole(MANAGER)
+            //.requestMatchers("/api/products*").hasRole(MANAGER)
 
-            .requestMatchers("/api/profiles/*").hasAnyRole(MANAGER, CUSTOMER, TECHNICIAN)
+            //.requestMatchers("/api/profiles/*").hasAnyRole(MANAGER, CUSTOMER, TECHNICIAN)
 
-            .requestMatchers(HttpMethod.GET, "/api/tickets").hasRole(MANAGER)
-            .requestMatchers(HttpMethod.GET, "/api/tickets/*").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
-            .requestMatchers(HttpMethod.POST, "/api/tickets").hasAnyRole(MANAGER, CUSTOMER)
-            .requestMatchers(HttpMethod.POST, "/api/tickets/*/*").hasAnyRole(MANAGER, TECHNICIAN)
-            .requestMatchers(HttpMethod.PUT, "/api/tickets/*").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
-            .requestMatchers(HttpMethod.DELETE, "/api/tickets/*").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
+            //.requestMatchers(HttpMethod.GET, "/api/tickets").hasRole(MANAGER)
+            //.requestMatchers(HttpMethod.GET, "/api/tickets/*").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
+            //.requestMatchers(HttpMethod.POST, "/api/tickets").hasAnyRole(MANAGER, CUSTOMER)
+            //.requestMatchers(HttpMethod.POST, "/api/tickets/*/*").hasAnyRole(MANAGER, TECHNICIAN)
+            //.requestMatchers(HttpMethod.PUT, "/api/tickets/*").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
+            //.requestMatchers(HttpMethod.DELETE, "/api/tickets/*").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
 
-            .requestMatchers(HttpMethod.GET, "/api/tickets/*/messages").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
-            .requestMatchers(HttpMethod.GET, "/api/tickets/*/messages/*").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
-            .requestMatchers(HttpMethod.POST, "/api/tickets/*/messages").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
+            //.requestMatchers(HttpMethod.GET, "/api/tickets/*/messages").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
+            //.requestMatchers(HttpMethod.GET, "/api/tickets/*/messages/*").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
+            //.requestMatchers(HttpMethod.POST, "/api/tickets/*/messages").hasAnyRole(MANAGER, TECHNICIAN, CUSTOMER)
 
-            .requestMatchers("/api/signup").permitAll()
-            .requestMatchers("/api/createExpert").hasRole(MANAGER)
+            //.requestMatchers("/api/signup").permitAll()
+            //.requestMatchers("/api/createExpert").hasRole(MANAGER)
 
             .anyRequest().permitAll()
         http.oauth2Login(withDefaults())

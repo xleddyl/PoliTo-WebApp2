@@ -1,8 +1,8 @@
 package it.polito.wa2.server.products
 
-import it.polito.wa2.server.NotValidException
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api")
@@ -12,8 +12,7 @@ class ProductController(
 
     @PostMapping("/products")
     @ResponseStatus(HttpStatus.CREATED)
-    fun addProduct(@RequestBody productDTO: ProductDTO?): ProductDTO {
-        if (productDTO == null) throw NotValidException("Product was malformed")
+    fun addProduct(@Valid @RequestBody productDTO: ProductDTO): ProductDTO {
         return productService.addProduct(productDTO)
     }
 

@@ -3,9 +3,9 @@
     <springProperty scope="context" name="ticketing" source="spring.application.name"/>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
+    <!--
     <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
         <http>
-           <!--  <url>http://${LOKI_HOST:-localhost}:3100/loki/api/v1/push</url> -->
             <url>http://loki:3100/loki/api/v1/push</url>
         </http>
         <format>
@@ -23,5 +23,5 @@
         <appender-ref ref="LOKI"/>
     </root>
     <logger name="feign" level="DEBUG"/>
-
+    -->
 </configuration>

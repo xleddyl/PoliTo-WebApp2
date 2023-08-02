@@ -3,6 +3,7 @@ package it.polito.wa2.server.ticketing.tickets
 import it.polito.wa2.server.NotValidException
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api")
@@ -24,8 +25,7 @@ class TicketController(
 
     @PostMapping("/tickets")
     @ResponseStatus(HttpStatus.CREATED)
-    fun createTicket(@RequestBody ticketDTO: TicketDTO?): TicketDTO {
-        if (ticketDTO == null) throw NotValidException("Ticket was malformed")
+    fun createTicket(@Valid @RequestBody ticketDTO: TicketDTO): TicketDTO {
         return ticketService.createTicket(ticketDTO).toDTO()
     }
 
@@ -42,9 +42,8 @@ class TicketController(
 
     @PutMapping("/tickets/{ticketId}")
     @ResponseStatus(HttpStatus.OK)
-    fun editTicket(@PathVariable ticketId: Long, @RequestBody ticketDTO: TicketDTO?): TicketDTO {
-        if (ticketDTO == null) throw NotValidException("Ticket was malformed")
-        if (ticketId != ticketDTO.id) throw NotValidException("Ticket id and path id doesn't match")
+    fun editTicket(@PathVariable ticketId: Long, @Valid @RequestBody ticketDTO: TicketDTO): TicketDTO {
+        if (ticketId != ticketDTO.id) throw NotValidException("Ticket id and path id don't match")
         return ticketService.editTicket(ticketId, ticketDTO).toDTO()
     }
 

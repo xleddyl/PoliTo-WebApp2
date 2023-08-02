@@ -3,6 +3,7 @@ package it.polito.wa2.server.ticketing.messages
 import it.polito.wa2.server.NotValidException
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api")
@@ -23,9 +24,8 @@ class MessageController(
 
     @PostMapping("/tickets/{ticketId}/messages")
     @ResponseStatus(HttpStatus.CREATED)
-    fun addMessageForTicket(@RequestBody messageDTO: MessageDTO?, @PathVariable ticketId: Long): MessageDTO {
-        if (messageDTO == null) throw NotValidException("Message was malformed")
-        if (messageDTO.ticket != ticketId) throw NotValidException("Message id and path id doesn't match")
+    fun addMessageForTicket(@Valid @RequestBody messageDTO: MessageDTO, @PathVariable ticketId: Long): MessageDTO {
+        if (messageDTO.ticket != ticketId) throw NotValidException("Message id and path id don't match")
         return messageService.addMessage(messageDTO, ticketId).toDTO()
     }
 
