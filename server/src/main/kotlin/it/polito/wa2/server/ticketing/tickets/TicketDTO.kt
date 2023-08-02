@@ -3,7 +3,7 @@ package it.polito.wa2.server.ticketing.tickets
 import it.polito.wa2.server.products.ProductDTO
 import it.polito.wa2.server.products.toDTO
 import it.polito.wa2.server.profiles.ProfileDTO
-import it.polito.wa2.server.profiles.toDTO
+import it.polito.wa2.server.profiles.customer.toDTO
 
 data class TicketDTO(
     val id: Long?,

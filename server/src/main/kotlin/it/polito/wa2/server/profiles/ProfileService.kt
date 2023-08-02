@@ -6,7 +6,7 @@ import it.polito.wa2.server.NotFoundException
 
 interface ProfileService {
     @Throws(NotFoundException::class)
-    fun getByEmail(email: String): ProfileDTO
+    fun getByEmail(email: String): ProfileDTO?
 
     @Throws(NotFoundException::class)
     fun getByEmailP(email: String): Profile

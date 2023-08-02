@@ -6,12 +6,11 @@ enum class Roles {
     CUSTOMER, ADMIN, MANAGER, TECHNICIAN
 }
 
-@Entity
-@Table(name = "profiles")
-class Profile(
+@MappedSuperclass
+open class Profile(
     @Id var email: String,
     var name: String,
-    @Enumerated(value = EnumType.STRING)
-    var role: Roles = Roles.CUSTOMER,
+    //@Enumerated(value = EnumType.STRING)
+    //var role: Roles = Roles.CUSTOMER,
     var phone: String
 )

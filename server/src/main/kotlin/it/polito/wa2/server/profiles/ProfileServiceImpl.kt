@@ -27,7 +27,7 @@ class ProfileServiceImpl(
             Profile(
                 email = profileDTO.email,
                 name = profileDTO.name,
-                role = profileDTO.role,
+                //role = profileDTO.role,
                 phone = profileDTO.phone
             )
         ).toDTO()
@@ -39,7 +39,7 @@ class ProfileServiceImpl(
             Profile(
                 email = email,
                 name = profileDTO.name,
-                role = profileDTO.role,
+                //role = profileDTO.role,
                 phone = profileDTO.phone
             )
         ).toDTO()
