@@ -2,6 +2,7 @@ package it.polito.wa2.server.security.aut
 
 import io.micrometer.observation.annotation.Observed
 import it.polito.wa2.server.DuplicateException
+import it.polito.wa2.server.profiles.UserDetail
 import it.polito.wa2.server.security.CUSTOMER
 import jakarta.transaction.Transactional
 import org.keycloak.admin.client.Keycloak
@@ -18,7 +19,7 @@ class AuthServiceImpl(
     @Value("\${keycloak.realm}")
     private val realm: String
 ) : AuthService {
-    override fun createUser(userRequest: UserRequest, roles: List<String>) {
+    override fun createUser(userRequest: UserRequest, roles: List<String>, userDetail: UserDetail) {
         val password = preparePasswordRepresentation(userRequest.password)
         val user = prepareUserRepresentation(userRequest, password, listOf(CUSTOMER))
         val response = keycloak.realm(realm).users().create(user)

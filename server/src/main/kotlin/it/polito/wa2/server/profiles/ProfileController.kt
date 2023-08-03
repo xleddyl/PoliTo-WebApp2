@@ -60,7 +60,7 @@ class ProfileController(
 
     @PutMapping("/profiles/{email}")
     @ResponseStatus(HttpStatus.CREATED)
-    fun editProfile(@RequestBody profileDTO: Any, @PathVariable email: String): Any {
+    fun editProfile(@RequestBody profileDTO: Any, @PathVariable email: String, @AuthenticationPrincipal user: DefaultOAuth2User?): Any {
         return when (profileDTO) {
             is CustomerDTO -> {
                 if (profileDTO.email != email) throw NotValidException("Profile id and path id don't match")

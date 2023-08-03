@@ -6,6 +6,7 @@ import it.polito.wa2.server.NotFoundException
 import it.polito.wa2.server.NotValidException
 import it.polito.wa2.server.products.ProductService
 import it.polito.wa2.server.products.fromDTO
+import it.polito.wa2.server.profiles.UserDetail
 import it.polito.wa2.server.profiles.customer.CustomerService
 import it.polito.wa2.server.profiles.customer.fromDTO
 import it.polito.wa2.server.profiles.technician.TechnicianService
@@ -24,16 +25,16 @@ class TicketServiceImpl(
     private val technicianService: TechnicianService,
     private val productService: ProductService
 ) : TicketService {
-    override fun getAll(): List<Ticket> {
+    override fun getAll(userDetail: UserDetail): List<Ticket> {
         return ticketRepository.findAll()
     }
 
-    override fun getById(ticketId: Long): Ticket {
+    override fun getById(ticketId: Long, userDetail: UserDetail): Ticket {
         val t = ticketRepository.findByIdOrNull(ticketId)
         return t ?: throw NotFoundException("Ticket not found")
     }
 
-    override fun createTicket(ticketDTO: TicketDTO): Ticket {
+    override fun createTicket(ticketDTO: TicketDTO, userDetail: UserDetail): Ticket {
         if (ticketDTO.id != null && ticketRepository.findByIdOrNull(ticketDTO.id) != null) throw DuplicateException("Ticket id already exists")
         if (ticketDTO.statuses.size != 1 && ticketDTO.statuses.first() != States.OPEN) throw NotValidException("Ticket status is invalid")
         val customer =
@@ -56,10 +57,9 @@ class TicketServiceImpl(
         )
     }
 
-    override fun editTicket(ticketId: Long, ticketDTO: TicketDTO): Ticket {
+    override fun editTicket(ticketId: Long, ticketDTO: TicketDTO, userDetail: UserDetail): Ticket {
         val ticket = getById(ticketId)
-        val customer =
-            customerService.getByEmail(ticketDTO.customer.email) ?: throw NotValidException("User does not exists")
+        val customer = customerService.getByEmail(ticketDTO.customer.email) ?: throw NotValidException("User does not exists")
         val technician = ticketDTO.technician?.email?.let { technicianService.getByEmail(it) }
         val product = productService.getById(ticketDTO.product.ean)
         return ticketRepository.save(
@@ -76,13 +76,13 @@ class TicketServiceImpl(
         )
     }
 
-    override fun deleteTicket(ticketId: Long): Ticket {
+    override fun deleteTicket(ticketId: Long, userDetail: UserDetail): Ticket {
         val ticket = getById(ticketId)
         ticketRepository.deleteById(ticketId)
         return ticket
     }
 
-    override fun updateStatus(ticketId: Long, state: States): Ticket {
+    override fun updateStatus(ticketId: Long, state: States, userDetail: UserDetail): Ticket {
         // OPEN -> RESOLVED -> REOPENED -> IN PROGRESS -> OPEN
         val ticket = getById(ticketId)
         when (ticket.statuses.last()) {

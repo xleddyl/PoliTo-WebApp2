@@ -14,19 +14,19 @@ class MessageController(
 ) {
     @GetMapping("/tickets/{ticketId}/messages")
     @ResponseStatus(HttpStatus.OK)
-    fun getAllForTicket(@PathVariable ticketId: Long): List<MessageDTO> {
+    fun getAllForTicket(@PathVariable ticketId: Long, @AuthenticationPrincipal user: DefaultOAuth2User?): List<MessageDTO> {
         return messageService.getAllForTicket(ticketId).map { it.toDTO() }
     }
 
     @GetMapping("/tickets/{ticketId}/messages/{messageId}")
     @ResponseStatus(HttpStatus.OK)
-    fun getMessageByIdForTicket(@PathVariable ticketId: Long, @PathVariable messageId: Long): MessageDTO {
+    fun getMessageByIdForTicket(@PathVariable ticketId: Long, @PathVariable messageId: Long, @AuthenticationPrincipal user: DefaultOAuth2User?): MessageDTO {
         return messageService.getById(ticketId, messageId).toDTO()
     }
 
     @PostMapping("/tickets/{ticketId}/messages")
     @ResponseStatus(HttpStatus.CREATED)
-    fun addMessageForTicket(@Valid @RequestBody messageDTO: MessageDTO, @PathVariable ticketId: Long): MessageDTO {
+    fun addMessageForTicket(@Valid @RequestBody messageDTO: MessageDTO, @PathVariable ticketId: Long, @AuthenticationPrincipal user: DefaultOAuth2User?): MessageDTO {
         if (messageDTO.ticket != ticketId) throw NotValidException("Message id and path id don't match")
         return messageService.addMessage(messageDTO, ticketId).toDTO()
     }

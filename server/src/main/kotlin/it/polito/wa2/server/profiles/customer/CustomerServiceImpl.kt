@@ -20,7 +20,7 @@ import javax.ws.rs.BadRequestException
 class CustomerServiceImpl(
     private val customerRepository: CustomerRepository,
 ) : CustomerService {
-    override fun getAll(): List<CustomerDTO> {
+    override fun getAll(userDetail: UserDetail): List<CustomerDTO> {
         return customerRepository.findAll().map { it.toDTO() }
     }
 
@@ -31,7 +31,7 @@ class CustomerServiceImpl(
 
     }
 
-    override fun addProfile(customerDTO: CustomerDTO): CustomerDTO {
+    override fun addProfile(customerDTO: CustomerDTO, userDetail: UserDetail): CustomerDTO {
         if (customerRepository.findByIdOrNull(customerDTO.email) != null) throw DuplicateException("User already exists")
         return customerRepository.save(
             Customer(
@@ -43,7 +43,7 @@ class CustomerServiceImpl(
         ).toDTO()
     }
 
-    override fun editProfile(customerDTO: CustomerDTO, email: String): CustomerDTO {
+    override fun editProfile(customerDTO: CustomerDTO, email: String, userDetail: UserDetail): CustomerDTO {
         if (customerRepository.findByIdOrNull(email) == null) throw NotFoundException("User not found")
         return customerRepository.save(
             Customer(

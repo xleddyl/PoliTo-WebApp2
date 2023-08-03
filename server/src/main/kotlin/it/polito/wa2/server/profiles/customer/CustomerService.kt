@@ -10,16 +10,11 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User
 
 
 interface CustomerService {
-    @PreAuthorize("hasRole('app_manager') or hasRole('app_customer')")
-    fun getAll(): List<CustomerDTO>
+    fun getAll(userDetail: UserDetail): List<CustomerDTO>
 
     fun getByEmail(email: String, userDetail: UserDetail): CustomerDTO?
 
-    @Throws(DuplicateException::class)
-    @PreAuthorize("hasRole('app_manager') or hasRole('app_customer')")
-    fun addProfile(customerDTO: CustomerDTO): CustomerDTO
+    fun addProfile(customerDTO: CustomerDTO, userDetail: UserDetail): CustomerDTO
 
-    @Throws(NotFoundException::class)
-    @PreAuthorize("hasRole('app_manager') or hasRole('app_customer')")
-    fun editProfile(customerDTO: CustomerDTO, email: String): CustomerDTO
+    fun editProfile(customerDTO: CustomerDTO, email: String, userDetail: UserDetail): CustomerDTO
 }

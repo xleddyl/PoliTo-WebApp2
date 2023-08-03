@@ -2,22 +2,16 @@ package it.polito.wa2.server.profiles.technician
 
 import it.polito.wa2.server.DuplicateException
 import it.polito.wa2.server.NotFoundException
+import it.polito.wa2.server.profiles.UserDetail
 import org.springframework.security.access.prepost.PreAuthorize
 
 
 interface TechnicianService {
-    @PreAuthorize("hasRole('app_manager') or hasRole('app_customer')")
-    fun getAll(): List<TechnicianDTO>
+    fun getAll(userDetail: UserDetail): List<TechnicianDTO>
 
-    @Throws(NotFoundException::class)
-    @PreAuthorize("hasRole('app_manager') or hasRole('app_technician')")
-    fun getByEmail(email: String): TechnicianDTO?
+    fun getByEmail(email: String, userDetail: UserDetail): TechnicianDTO?
 
-    @Throws(DuplicateException::class)
-    @PreAuthorize("hasRole('app_manager') or hasRole('app_technician')")
-    fun addProfile(technicianDTO: TechnicianDTO): TechnicianDTO
+    fun addProfile(technicianDTO: TechnicianDTO, userDetail: UserDetail): TechnicianDTO
 
-    @Throws(NotFoundException::class)
-    @PreAuthorize("hasRole('app_manager') or hasRole('app_technician')")
-    fun editProfile(technicianDTO: TechnicianDTO, email: String): TechnicianDTO
+    fun editProfile(technicianDTO: TechnicianDTO, email: String, userDetail: UserDetail): TechnicianDTO
 }
