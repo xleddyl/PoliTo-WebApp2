@@ -6,13 +6,10 @@ import it.polito.wa2.server.profiles.customer.CustomerService
 import it.polito.wa2.server.profiles.technician.TechnicianDTO
 import it.polito.wa2.server.profiles.technician.TechnicianService
 import it.polito.wa2.server.profiles.manager.ManagerService
-import it.polito.wa2.server.security.aut.UserRole
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User
 import org.springframework.web.bind.annotation.*
-import javax.validation.Valid
 import javax.ws.rs.BadRequestException
 
 @RestController
@@ -20,26 +17,42 @@ import javax.ws.rs.BadRequestException
 class ProfileController(
     private val customerService: CustomerService,
     private val technicianService: TechnicianService,
-    private val managerService: ManagerService
+    private val managerService: ManagerService,
 ) {
+
+
     @GetMapping("/profiles")
     @ResponseStatus(HttpStatus.OK)
     fun getAll(@AuthenticationPrincipal user: DefaultOAuth2User?): List<Any> {
-        return customerService.getAll() + technicianService.getAll() + managerService.getAll()
+        val userDetail = getUserDetail(user)
+        return when (getUserDetail(user)) {
+            UserRoles.MANAGER -> customerService.getAll(userDetail) + technicianService.getAll(userDetail) + managerService.getAll(userDetail)
+            else -> throw BadRequestException()
+        }
+
     }
 
     @GetMapping("/profiles/{email}")
     @ResponseStatus(HttpStatus.OK)
-    fun getByEmail(@PathVariable email: String, @UserRole userRole: UserRoles): Any? {
-        return userRole
-        // return customerService.getByEmail(email) ?: technicianService.getByEmail(email)
+    fun getByEmail(@PathVariable email: String, @AuthenticationPrincipal user: DefaultOAuth2User?): Any? {
+       val userRole = getUserDetail(user)
+        return try {
+            customerService.getByEmail(email, userRole)
+        } catch (_: Exception) {
+            try {
+                technicianService.getByEmail(email, userRole)
+            } catch (_: Exception) {
+                managerService.getByEmail(email, userRole)
+            }
+        }
     }
 
     @PostMapping("/profiles")
     @ResponseStatus(HttpStatus.CREATED)
-    fun addProfile(@RequestBody profileDTO: Any): Any {
+    fun addProfile(@RequestBody profileDTO: Any, @AuthenticationPrincipal user: DefaultOAuth2User?): Any {
+        val userRole = getUserRole(user)
         return when (profileDTO) {
-            is CustomerDTO -> customerService.addProfile(profileDTO)
+            is CustomerDTO &&  -> customerService.addProfile(profileDTO)
             is TechnicianDTO -> technicianService.addProfile(profileDTO)
             else -> throw BadRequestException()
         }
@@ -53,10 +66,12 @@ class ProfileController(
                 if (profileDTO.email != email) throw NotValidException("Profile id and path id don't match")
                 customerService.editProfile(profileDTO, email)
             }
+
             is TechnicianDTO -> {
                 if (profileDTO.email != email) throw NotValidException("Profile id and path id don't match")
                 technicianService.editProfile(profileDTO, email)
             }
+
             else -> throw BadRequestException()
         }
     }
