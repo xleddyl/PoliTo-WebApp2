@@ -4,14 +4,10 @@ import io.micrometer.observation.annotation.Observed
 import it.polito.wa2.server.DuplicateException
 import it.polito.wa2.server.NotFoundException
 import it.polito.wa2.server.NotValidException
-import it.polito.wa2.server.products.ProductService
-import it.polito.wa2.server.products.fromDTO
-import it.polito.wa2.server.profiles.UserDetail
-import it.polito.wa2.server.profiles.customer.CustomerService
-import it.polito.wa2.server.profiles.customer.fromDTO
-import it.polito.wa2.server.profiles.technician.TechnicianService
-import it.polito.wa2.server.profiles.technician.fromDTO
-import it.polito.wa2.server.ticketing.messages.Message
+import it.polito.wa2.server.products.ProductRepository
+import it.polito.wa2.server.profiles.customer.CustomerRepository
+import it.polito.wa2.server.profiles.technician.TechnicianRepository
+import it.polito.wa2.server.security.aut.UserDetail
 import jakarta.transaction.Transactional
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -21,70 +17,73 @@ import org.springframework.stereotype.Service
 @Observed
 class TicketServiceImpl(
     private val ticketRepository: TicketRepository,
-    private val customerService: CustomerService,
-    private val technicianService: TechnicianService,
-    private val productService: ProductService
+    private val customerRepository: CustomerRepository,
+    private val technicianRepository: TechnicianRepository,
+    private val productRepository: ProductRepository
 ) : TicketService {
-    override fun getAll(userDetail: UserDetail): List<Ticket> {
-        return ticketRepository.findAll()
+    override fun getAll(userDetail: UserDetail): List<TicketDTO> {
+        // TODO("solo il customer o il technician relativi al ticket o tutti i manager")  ???
+
+        return ticketRepository.findAll().map { it.toDTO() }
     }
 
-    override fun getById(ticketId: Long, userDetail: UserDetail): Ticket {
-        val t = ticketRepository.findByIdOrNull(ticketId)
-        return t ?: throw NotFoundException("Ticket not found")
+    override fun getById(ticketId: Long, userDetail: UserDetail): TicketDTO {
+        // TODO("solo il customer o il technician relativi al ticket o tutti i manager")  ???
+
+        return ticketRepository.findByIdOrNull(ticketId)?.toDTO() ?: throw NotFoundException("Ticket not found")
     }
 
-    override fun createTicket(ticketDTO: TicketDTO, userDetail: UserDetail): Ticket {
-        if (ticketDTO.id != null && ticketRepository.findByIdOrNull(ticketDTO.id) != null) throw DuplicateException("Ticket id already exists")
+    override fun createTicket(ticketDTO: TicketDTO, userDetail: UserDetail): TicketDTO {
+        // TODO("solo il customer o il manager")  ???
+
+        if (ticketRepository.findByIdOrNull(ticketDTO.id) != null) throw DuplicateException("Ticket already exists")
         if (ticketDTO.statuses.size != 1 && ticketDTO.statuses.first() != States.OPEN) throw NotValidException("Ticket status is invalid")
-        val customer =
-            customerService.getByEmail(ticketDTO.customer.email) ?: throw NotValidException("User does not exists")
-        val technician = ticketDTO.technician?.email?.let { technicianService.getByEmail(it) }
-        val product = productService.getById(ticketDTO.product.ean)
-
-        val messages = mutableSetOf<Message>()
-
         return ticketRepository.save(
             Ticket(
-                product = product.fromDTO(),
-                customer = customer.fromDTO(),
-                technician = technician?.fromDTO(),
+                product = productRepository.findByIdOrNull(ticketDTO.product)
+                    ?: throw NotValidException("Product does not exists"),
+                customer = customerRepository.findByIdOrNull(ticketDTO.customer)
+                    ?: throw NotValidException("Customer does not exists"),
+                technician = technicianRepository.findByIdOrNull(ticketDTO.technician)
+                    ?: throw NotValidException("Technician does not exists"),
                 statuses = ticketDTO.statuses,
                 description = ticketDTO.description,
                 priority = ticketDTO.priority,
-                messages = messages
+                messages = mutableSetOf() // starting with empty list of messages
             )
-        )
+        ).toDTO()
     }
 
-    override fun editTicket(ticketId: Long, ticketDTO: TicketDTO, userDetail: UserDetail): Ticket {
-        val ticket = getById(ticketId)
-        val customer = customerService.getByEmail(ticketDTO.customer.email) ?: throw NotValidException("User does not exists")
-        val technician = ticketDTO.technician?.email?.let { technicianService.getByEmail(it) }
-        val product = productService.getById(ticketDTO.product.ean)
+    override fun editTicket(ticketDTO: TicketDTO, userDetail: UserDetail): TicketDTO {
+        // TODO("solo il customer o il manager")  ???
+
+        val ticket = ticketRepository.findByIdOrNull(ticketDTO.id) ?: throw DuplicateException("Ticket does not exists")
         return ticketRepository.save(
             Ticket(
-                id = ticket.id,
-                product = product.fromDTO(),
-                customer = customer.fromDTO(),
-                technician = technician?.fromDTO(),
+                product = productRepository.findByIdOrNull(ticketDTO.product)
+                    ?: throw NotValidException("Product does not exists"),
+                customer = customerRepository.findByIdOrNull(ticketDTO.customer)
+                    ?: throw NotValidException("Customer does not exists"),
+                technician = technicianRepository.findByIdOrNull(ticketDTO.technician)
+                    ?: throw NotValidException("Technician does not exists"),
                 statuses = ticketDTO.statuses,
                 description = ticketDTO.description,
                 priority = ticketDTO.priority,
-                messages = ticket.messages
+                messages = ticket.messages // messages preserved, to edit messages use the MessageService
             )
-        )
+        ).toDTO()
     }
 
-    override fun deleteTicket(ticketId: Long, userDetail: UserDetail): Ticket {
-        val ticket = getById(ticketId)
-        ticketRepository.deleteById(ticketId)
-        return ticket
+    override fun deleteTicket(ticketId: Long, userDetail: UserDetail) {
+        // TODO("solo il customer o il manager")  ???
+        return ticketRepository.deleteById(ticketId)
     }
 
-    override fun updateStatus(ticketId: Long, state: States, userDetail: UserDetail): Ticket {
+    override fun updateStatus(ticketId: Long, state: States, userDetail: UserDetail): TicketDTO {
         // OPEN -> RESOLVED -> REOPENED -> IN PROGRESS -> OPEN
-        val ticket = getById(ticketId)
+        // TODO("solo il technician e il manager")  ???
+
+        val ticket = ticketRepository.findByIdOrNull(ticketId) ?: throw DuplicateException("Ticket does not exists")
         when (ticket.statuses.last()) {
             States.OPEN -> {
                 if (state != States.RESOLVED && state != States.CLOSED && state != States.IN_PROGRESS) throw NotValidException(
@@ -111,9 +110,6 @@ class TicketServiceImpl(
             }
         }
         ticket.statuses.add(state)
-        return ticketRepository.save(
-            ticket
-        )
+        return ticketRepository.save(ticket).toDTO()
     }
-
 }

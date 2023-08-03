@@ -1,15 +1,13 @@
 package it.polito.wa2.server.ticketing.messages
 
-import it.polito.wa2.server.DuplicateException
-import it.polito.wa2.server.NotFoundException
-import it.polito.wa2.server.profiles.UserDetail
-import org.springframework.security.access.prepost.PreAuthorize
+import it.polito.wa2.server.security.aut.UserDetail
 
 
 interface MessageService {
-    fun getAllForTicket(ticketId: Long, userDetail: UserDetail): List<Message>
 
-    fun getById(ticketId: Long, messageId: Long, userDetail: UserDetail): Message
+    fun getAllForTicket(ticketId: Long, userDetail: UserDetail): List<MessageDTO>
 
-    fun addMessage(messageDTO: MessageDTO, ticketId: Long, userDetail: UserDetail): Message
+    fun getById(ticketId: Long, messageId: Long, userDetail: UserDetail): MessageDTO
+
+    fun addMessage(messageDTO: MessageDTO, ticketId: Long, userDetail: UserDetail): MessageDTO
 }

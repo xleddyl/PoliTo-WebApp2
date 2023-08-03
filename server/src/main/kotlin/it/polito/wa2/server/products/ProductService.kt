@@ -1,9 +1,6 @@
 package it.polito.wa2.server.products
 
-import it.polito.wa2.server.DuplicateException
-import it.polito.wa2.server.NotFoundException
-import it.polito.wa2.server.profiles.UserDetail
-import org.springframework.security.access.prepost.PreAuthorize
+import it.polito.wa2.server.security.aut.UserDetail
 
 interface ProductService {
     fun getAll(userDetail: UserDetail): List<ProductDTO>

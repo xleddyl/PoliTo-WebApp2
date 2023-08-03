@@ -2,8 +2,11 @@ package it.polito.wa2.server.security.aut
 
 import io.micrometer.observation.annotation.Observed
 import it.polito.wa2.server.DuplicateException
-import it.polito.wa2.server.profiles.UserDetail
+import it.polito.wa2.server.UnauthorizedException
+import it.polito.wa2.server.profiles.UserRoles
 import it.polito.wa2.server.security.CUSTOMER
+import it.polito.wa2.server.security.MANAGER
+import it.polito.wa2.server.security.TECHNICIAN
 import jakarta.transaction.Transactional
 import org.keycloak.admin.client.Keycloak
 import org.keycloak.representations.idm.CredentialRepresentation
@@ -20,6 +23,11 @@ class AuthServiceImpl(
     private val realm: String
 ) : AuthService {
     override fun createUser(userRequest: UserRequest, roles: List<String>, userDetail: UserDetail) {
+        if (userDetail.role == UserRoles.TECHNICIAN) throw UnauthorizedException("Unauthorized") // un technician non può aggiungere utenti
+        if (userDetail.role == UserRoles.CUSTOMER && (roles.contains(TECHNICIAN) || roles.contains(MANAGER))) throw UnauthorizedException(
+            "Unauthorized"
+        ) // un customer può aggiungere solo dei customer
+
         val password = preparePasswordRepresentation(userRequest.password)
         val user = prepareUserRepresentation(userRequest, password, listOf(CUSTOMER))
         val response = keycloak.realm(realm).users().create(user)

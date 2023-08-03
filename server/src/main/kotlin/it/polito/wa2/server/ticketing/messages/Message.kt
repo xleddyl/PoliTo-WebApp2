@@ -11,12 +11,12 @@ class Message(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
-    @ManyToOne
+    @ManyToOne(cascade = [CascadeType.ALL])
     var ticket: Ticket,
     var fromCustomer: Boolean,
     @Temporal(TemporalType.TIMESTAMP)
     var timestamp: Timestamp,
-    var attachment: String,
+    var attachment: String, //Base64
     var content: String,
     var new: Boolean
 )

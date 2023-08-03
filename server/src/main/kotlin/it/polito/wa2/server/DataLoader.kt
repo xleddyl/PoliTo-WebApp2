@@ -21,13 +21,20 @@ class DataLoader(
 
     @PostConstruct
     fun loadData() {
-        customerRepository.save(Customer("user01@polito.it", "Rosa Olinda", "+00 190283947", "via dalla galera 12"))
-        managerRepository.save(Manager("user02@polito.it", "Michele Misteri", "+00 287465392", 1))
-        technicianRepository.save(Technician("user03@polito.it", "Pietro Piccioni", "+00 192740387", "poesie"))
-        customerRepository.save(Customer("user04@polito.it", "Giuseppe Boschetti", "+00 985129374", "via degli ignoti 9"))
+        val customer1 = customerRepository.save(Customer("user01@polito.it", "Rosa Olinda", "+00 190283947", "via dalla galera 12"))
+        val manager = managerRepository.save(Manager("user02@polito.it", "Michele Misteri", "+00 287465392", 1))
+        val technician = technicianRepository.save(Technician("user03@polito.it", "Pietro Piccioni", "+00 192740387", "poesie", manager=manager))
+        val customer2 = customerRepository.save(
+            Customer(
+                "user04@polito.it",
+                "Giuseppe Boschetti",
+                "+00 985129374",
+                "via degli ignoti 9"
+            )
+        )
 
-        productRepository.save(Product("0000001", "spa-01", "Sword", "Blacksmith&Co", "Weapons", 10.45F))
-        productRepository.save(Product("0000002", "spa-02", "LightSaber", "Blacksmith&Co", "Weapons", 10.45F))
-        productRepository.save(Product("0000003", "spa-03", "MachineGun", "Blacksmith&Co", "Weapons", 10.45F))
+        val product1 = productRepository.save(Product("0000001", "spa-01", "Sword", "Blacksmith&Co", "Weapons", 10.45F))
+        val product2 = productRepository.save(Product("0000002", "spa-02", "LightSaber", "Blacksmith&Co", "Weapons", 10.45F))
+        val product3 = productRepository.save(Product("0000003", "spa-03", "MachineGun", "Blacksmith&Co", "Weapons", 10.45F))
     }
 }

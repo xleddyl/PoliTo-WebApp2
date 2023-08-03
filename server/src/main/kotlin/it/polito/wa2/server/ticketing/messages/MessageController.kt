@@ -1,6 +1,7 @@
 package it.polito.wa2.server.ticketing.messages
 
 import it.polito.wa2.server.NotValidException
+import it.polito.wa2.server.security.aut.getUserDetail
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User
@@ -14,21 +15,32 @@ class MessageController(
 ) {
     @GetMapping("/tickets/{ticketId}/messages")
     @ResponseStatus(HttpStatus.OK)
-    fun getAllForTicket(@PathVariable ticketId: Long, @AuthenticationPrincipal user: DefaultOAuth2User?): List<MessageDTO> {
-        return messageService.getAllForTicket(ticketId).map { it.toDTO() }
+    fun getAllForTicket(
+        @PathVariable ticketId: Long,
+        @AuthenticationPrincipal user: DefaultOAuth2User?
+    ): List<MessageDTO> {
+        return messageService.getAllForTicket(ticketId, getUserDetail(user))
     }
 
     @GetMapping("/tickets/{ticketId}/messages/{messageId}")
     @ResponseStatus(HttpStatus.OK)
-    fun getMessageByIdForTicket(@PathVariable ticketId: Long, @PathVariable messageId: Long, @AuthenticationPrincipal user: DefaultOAuth2User?): MessageDTO {
-        return messageService.getById(ticketId, messageId).toDTO()
+    fun getMessageByIdForTicket(
+        @PathVariable ticketId: Long,
+        @PathVariable messageId: Long,
+        @AuthenticationPrincipal user: DefaultOAuth2User?
+    ): MessageDTO {
+        return messageService.getById(ticketId, messageId, getUserDetail(user))
     }
 
     @PostMapping("/tickets/{ticketId}/messages")
     @ResponseStatus(HttpStatus.CREATED)
-    fun addMessageForTicket(@Valid @RequestBody messageDTO: MessageDTO, @PathVariable ticketId: Long, @AuthenticationPrincipal user: DefaultOAuth2User?): MessageDTO {
+    fun addMessageForTicket(
+        @Valid @RequestBody messageDTO: MessageDTO,
+        @PathVariable ticketId: Long,
+        @AuthenticationPrincipal user: DefaultOAuth2User?
+    ): MessageDTO {
         if (messageDTO.ticket != ticketId) throw NotValidException("Message id and path id don't match")
-        return messageService.addMessage(messageDTO, ticketId).toDTO()
+        return messageService.addMessage(messageDTO, ticketId, getUserDetail(user))
     }
 
 }

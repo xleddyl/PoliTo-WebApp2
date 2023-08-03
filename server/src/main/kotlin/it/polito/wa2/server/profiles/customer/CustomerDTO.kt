@@ -5,7 +5,9 @@ data class CustomerDTO(
     val email: String,
     val name: String,
     val phone: String,
-    val address: String
+    val address: String,
+    val products: List<String>?,
+    val tickets: List<Long>?
 )
 
 

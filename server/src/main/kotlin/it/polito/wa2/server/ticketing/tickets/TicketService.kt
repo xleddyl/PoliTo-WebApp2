@@ -1,21 +1,17 @@
 package it.polito.wa2.server.ticketing.tickets
 
-import it.polito.wa2.server.DuplicateException
-import it.polito.wa2.server.NotFoundException
-import it.polito.wa2.server.NotValidException
-import it.polito.wa2.server.profiles.UserDetail
-import org.springframework.security.access.prepost.PreAuthorize
+import it.polito.wa2.server.security.aut.UserDetail
 
 interface TicketService {
-    fun getAll(userDetail: UserDetail): List<Ticket>
+    fun getAll(userDetail: UserDetail): List<TicketDTO>
 
-    fun getById(ticketId: Long, userDetail: UserDetail): Ticket
+    fun getById(ticketId: Long, userDetail: UserDetail): TicketDTO
 
-    fun createTicket(ticketDTO: TicketDTO, userDetail: UserDetail): Ticket
+    fun createTicket(ticketDTO: TicketDTO, userDetail: UserDetail): TicketDTO
 
-    fun editTicket(ticketId: Long, ticketDTO: TicketDTO, userDetail: UserDetail): Ticket
+    fun editTicket(ticketDTO: TicketDTO, userDetail: UserDetail): TicketDTO
 
-    fun deleteTicket(ticketId: Long, userDetail: UserDetail): Ticket
+    fun deleteTicket(ticketId: Long, userDetail: UserDetail)
 
-    fun updateStatus(ticketId: Long, state: States, userDetail: UserDetail): Ticket
+    fun updateStatus(ticketId: Long, state: States, userDetail: UserDetail): TicketDTO
 }

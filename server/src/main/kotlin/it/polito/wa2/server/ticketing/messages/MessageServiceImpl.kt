@@ -3,8 +3,8 @@ package it.polito.wa2.server.ticketing.messages
 import io.micrometer.observation.annotation.Observed
 import it.polito.wa2.server.DuplicateException
 import it.polito.wa2.server.NotFoundException
-import it.polito.wa2.server.profiles.UserDetail
-import it.polito.wa2.server.ticketing.tickets.TicketService
+import it.polito.wa2.server.security.aut.UserDetail
+import it.polito.wa2.server.ticketing.tickets.TicketRepository
 import jakarta.transaction.Transactional
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -14,34 +14,34 @@ import org.springframework.stereotype.Service
 @Observed
 class MessageServiceImpl(
     private val messageRepository: MessageRepository,
-    private val ticketService: TicketService
+    private val ticketRepository: TicketRepository
 ) : MessageService {
-    override fun getAllForTicket(ticketId: Long, userDetail: UserDetail): List<Message> {
-        val ticket = ticketService.getById(ticketId)
-        return messageRepository.findMessagesByTicket(ticket)
+    override fun getAllForTicket(ticketId: Long, userDetail: UserDetail): List<MessageDTO> {
+        // TODO("solo il customer o il technician relativi al ticket o tutti i manager")  ???
+
+        return messageRepository.findMessagesByTicketId(ticketId).map { it.toDTO() }
     }
 
-    override fun getById(ticketId: Long, messageId: Long, userDetail: UserDetail): Message {
-        val ticket = ticketService.getById(ticketId)
+    override fun getById(ticketId: Long, messageId: Long, userDetail: UserDetail): MessageDTO {
+        // TODO("solo il customer o il technician relativi al ticket o tutti i manager")  ???
 
-        return messageRepository.findMessageByIdAndTicket(messageId, ticket)
-
+        return messageRepository.findMessageByIdAndTicketId(messageId, ticketId)?.toDTO()
             ?: throw NotFoundException("Message not found")
     }
 
-    override fun addMessage(messageDTO: MessageDTO, ticketId: Long, userDetail: UserDetail): Message {
+    override fun addMessage(messageDTO: MessageDTO, ticketId: Long, userDetail: UserDetail): MessageDTO {
+        // TODO("solo il customer o il technician relativi al ticket o tutti i manager")  ???
+
         if (messageDTO.id != null && messageRepository.findByIdOrNull(messageDTO.id) != null) throw DuplicateException("Message id already exists")
-        val ticket = ticketService.getById(ticketId)
         return messageRepository.save(
             Message(
-                //id = messageDTO.id,
-                ticket = ticket,
+                ticket = ticketRepository.findByIdOrNull(ticketId) ?: throw NotFoundException("Ticket not found"),
                 fromCustomer = messageDTO.fromCustomer,
                 timestamp = messageDTO.timestamp,
                 attachment = messageDTO.attachment,
                 content = messageDTO.content,
                 new = messageDTO.new
             )
-        )
+        ).toDTO()
     }
 }

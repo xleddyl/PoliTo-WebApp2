@@ -17,12 +17,12 @@ class AuthController(
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
     fun createCustomer(@Valid @RequestBody request: UserRequest, @AuthenticationPrincipal user: DefaultOAuth2User?) {
-        authService.createUser(request, listOf(CUSTOMER))
+        authService.createUser(request, listOf(CUSTOMER), getUserDetail(user))
     }
 
     @PostMapping("/createExpert")
     @ResponseStatus(HttpStatus.CREATED)
     fun createTechnician(@Valid @RequestBody request: UserRequest, @AuthenticationPrincipal user: DefaultOAuth2User?) {
-        authService.createUser(request, listOf(TECHNICIAN))
+        authService.createUser(request, listOf(TECHNICIAN), getUserDetail(user))
     }
 }

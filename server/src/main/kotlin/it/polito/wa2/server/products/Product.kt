@@ -1,7 +1,9 @@
 package it.polito.wa2.server.products
 
+import it.polito.wa2.server.profiles.customer.Customer
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
+import jakarta.persistence.ManyToMany
 import jakarta.persistence.Table
 
 @Entity
@@ -12,13 +14,11 @@ class Product(
     var name: String,
     var brand: String,
     var category: String,
-    var price: Float
+    var price: Float,
+    @ManyToMany(mappedBy = "products")
+    var customers: MutableSet<Customer> = mutableSetOf()
 )
 
 fun Product.toDTO(): ProductDTO {
     return ProductDTO(ean, sku, name, brand, category, price)
-}
-
-fun ProductDTO.fromDTO(): Product {
-    return Product(ean, sku, name, brand, category, price)
 }

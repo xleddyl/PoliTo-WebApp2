@@ -40,4 +40,20 @@ class ServerExceptionHandler : ResponseEntityExceptionHandler() {
         d.detail = e.message
         return d
     }
+
+    @ExceptionHandler(UnauthorizedException::class)
+    fun handleUnauthorizedException(e: RuntimeException): ProblemDetail {
+        val d = ProblemDetail.forStatus(HttpStatus.UNAUTHORIZED)
+        d.title = "Non Authorized"
+        d.detail = e.message
+        return d
+    }
+
+    @ExceptionHandler(BadRequestException::class)
+    fun handleBadRequestException(e: RuntimeException): ProblemDetail {
+        val d = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST)
+        d.title = "Bad Request"
+        d.detail = e.message
+        return d
+    }
 }

@@ -1,11 +1,8 @@
 package it.polito.wa2.server.ticketing.tickets
 
 import it.polito.wa2.server.products.Product
-import it.polito.wa2.server.products.toDTO
 import it.polito.wa2.server.profiles.customer.Customer
-import it.polito.wa2.server.profiles.customer.toDTO
 import it.polito.wa2.server.profiles.technician.Technician
-import it.polito.wa2.server.profiles.technician.toDTO
 import it.polito.wa2.server.ticketing.messages.Message
 import jakarta.persistence.*
 
@@ -29,21 +26,19 @@ class Ticket(
     var statuses: MutableList<States> = mutableListOf(States.OPEN),
     var description: String,
     var priority: Int,
-    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "ticket")
-    var messages: MutableSet<Message>?
+    @OneToMany(mappedBy = "ticket")
+    var messages: MutableSet<Message> = mutableSetOf()
 )
 
 fun Ticket.toDTO(): TicketDTO {
-    val m = mutableSetOf<Long>()
-    messages?.forEach { m.add(it.id!!) }
     return TicketDTO(
         id,
-        product.toDTO(),
-        customer.toDTO(),
-        technician?.toDTO(),
+        product.ean,
+        customer.email,
+        technician?.email,
         statuses,
         description,
         priority,
-        m
+        messages.map { it.id!! }
     )
 }
