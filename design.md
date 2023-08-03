@@ -40,6 +40,7 @@ Message (
 | GET    | /products                   |      -      | get all products                           |      Y      |                         MANAGER                         |
 | GET    | /products/{ean}             |      -      | get product by ean                         |      Y      |                         MANAGER                         |
 | ------ | --------------------------- | ----------- | ------------------------------------------ | ----------- | ------------------------------------------------------- |
+| GET    | /profiles/                  |      -      | get all profiles                           |      Y      |                      MANAGER (all)                      |
 | GET    | /profiles/{email}           |      -      | get profile by email                       |      Y      | MANAGER (all), CUSTOMER (himself), TECHNICIAN (himself) |
 | POST   | /profiles                   | ProfileDTO  | create profile                             |      Y      |              MANAGER, CUSTOMER, TECHNICIAN              |
 | PUT    | /profiles/{email}           | ProfileDTO  | edit profile                               |      Y      |    MANAGER, CUSTOMER (himself), TECHNICIAN (himself)    |

@@ -3,6 +3,7 @@ package it.polito.wa2.server.profiles.technician
 import io.micrometer.observation.annotation.Observed
 import it.polito.wa2.server.DuplicateException
 import it.polito.wa2.server.NotFoundException
+import it.polito.wa2.server.products.toDTO
 import jakarta.transaction.Transactional
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -13,6 +14,10 @@ import org.springframework.stereotype.Service
 class TechnicianServiceImpl(
     private val technicianRepository: TechnicianRepository
 ) : TechnicianService {
+    override fun getAll(): List<TechnicianDTO> {
+        return technicianRepository.findAll().map { it.toDTO() }
+    }
+
     override fun getByEmail(email: String): TechnicianDTO {
         return technicianRepository.findByIdOrNull(email)?.toDTO() ?: throw NotFoundException("User not found")
     }

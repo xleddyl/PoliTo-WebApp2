@@ -6,6 +6,9 @@ import org.springframework.security.access.prepost.PreAuthorize
 
 
 interface CustomerService {
+    @PreAuthorize("hasRole('app_manager') or hasRole('app_customer')")
+    fun getAll(): List<CustomerDTO>
+
     @Throws(NotFoundException::class)
     @PreAuthorize("hasRole('app_manager') or hasRole('app_customer')")
     fun getByEmail(email: String): CustomerDTO?

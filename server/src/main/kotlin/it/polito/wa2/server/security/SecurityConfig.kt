@@ -1,14 +1,17 @@
 package it.polito.wa2.server.security
 
+import it.polito.wa2.server.profiles.UserRoles
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.Customizer.withDefaults
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper
 import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User
 import org.springframework.security.oauth2.core.user.OAuth2UserAuthority
 import org.springframework.security.web.SecurityFilterChain
 import java.util.stream.Collectors
@@ -90,6 +93,4 @@ class SecurityConfiguration(private val keycloakLogoutHandler: KeycloakLogoutHan
     private fun generateAuthoritiesFromClaim(roles: Collection<String>): Collection<GrantedAuthority> {
         return roles.stream().map { role -> SimpleGrantedAuthority("ROLE_$role") }.collect(Collectors.toList())
     }
-
-
 }

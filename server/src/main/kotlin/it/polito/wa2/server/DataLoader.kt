@@ -21,17 +21,10 @@ class DataLoader(
 
     @PostConstruct
     fun loadData() {
-        customerRepository.save(Customer("Rosa Olinda", "user01@polito.it", "+00 190283947", "via dalla galera 12"))
-        managerRepository.save(Manager("Michele Misteri", "user02@polito.it", "+00 287465392", 1))
-        technicianRepository.save(Technician("Pietro Piccioni", "user03@polito.it", "+00 192740387", "poesie"))
-        customerRepository.save(
-            Customer(
-                "Giuseppe Boschetti",
-                "user04@polito.it",
-                "+00 985129374",
-                "via degli ignoti 9"
-            )
-        )
+        customerRepository.save(Customer("user01@polito.it", "Rosa Olinda", "+00 190283947", "via dalla galera 12"))
+        managerRepository.save(Manager("user02@polito.it", "Michele Misteri", "+00 287465392", 1))
+        technicianRepository.save(Technician("user03@polito.it", "Pietro Piccioni", "+00 192740387", "poesie"))
+        customerRepository.save(Customer("user04@polito.it", "Giuseppe Boschetti", "+00 985129374", "via degli ignoti 9"))
 
         productRepository.save(Product("0000001", "spa-01", "Sword", "Blacksmith&Co", "Weapons", 10.45F))
         productRepository.save(Product("0000002", "spa-02", "LightSaber", "Blacksmith&Co", "Weapons", 10.45F))

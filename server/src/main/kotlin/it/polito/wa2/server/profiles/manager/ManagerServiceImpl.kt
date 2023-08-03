@@ -3,6 +3,8 @@ package it.polito.wa2.server.profiles.manager
 import io.micrometer.observation.annotation.Observed
 import it.polito.wa2.server.DuplicateException
 import it.polito.wa2.server.NotFoundException
+import it.polito.wa2.server.profiles.technician.TechnicianDTO
+import it.polito.wa2.server.profiles.technician.toDTO
 import jakarta.transaction.Transactional
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -13,6 +15,10 @@ import org.springframework.stereotype.Service
 class ManagerServiceImpl(
     private val managerRepository: ManagerRepository
 ) : ManagerService {
+    override fun getAll(): List<ManagerDTO> {
+        return managerRepository.findAll().map { it.toDTO() }
+    }
+
     override fun getByEmail(email: String): ManagerDTO {
         return managerRepository.findByIdOrNull(email)?.toDTO() ?: throw NotFoundException("User not found")
     }

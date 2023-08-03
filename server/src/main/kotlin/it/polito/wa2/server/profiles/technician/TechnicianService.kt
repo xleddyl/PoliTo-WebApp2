@@ -6,6 +6,9 @@ import org.springframework.security.access.prepost.PreAuthorize
 
 
 interface TechnicianService {
+    @PreAuthorize("hasRole('app_manager') or hasRole('app_customer')")
+    fun getAll(): List<TechnicianDTO>
+
     @Throws(NotFoundException::class)
     @PreAuthorize("hasRole('app_manager') or hasRole('app_technician')")
     fun getByEmail(email: String): TechnicianDTO?
