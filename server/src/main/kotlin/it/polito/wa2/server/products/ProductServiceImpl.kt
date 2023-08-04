@@ -17,6 +17,7 @@ class ProductServiceImpl(
     private val productRepository: ProductRepository
 ) : ProductService {
     override fun getAll(userDetail: UserDetail): List<ProductDTO> {
+        // tutti vedono il listone dei prodotti
         return productRepository.findAll().map { it.toDTO() }
     }
 
@@ -36,7 +37,7 @@ class ProductServiceImpl(
                 brand = productDTO.brand,
                 category = productDTO.category,
                 price = productDTO.price,
-                customers = mutableSetOf() // new product is not associated with any customer
+                purchases = mutableSetOf() // new product is not associated with any customer
             )
         ).toDTO()
     }

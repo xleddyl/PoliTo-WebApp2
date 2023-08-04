@@ -4,8 +4,8 @@ import io.micrometer.observation.annotation.Observed
 import it.polito.wa2.server.DuplicateException
 import it.polito.wa2.server.NotFoundException
 import it.polito.wa2.server.UnauthorizedException
-import it.polito.wa2.server.products.ProductRepository
 import it.polito.wa2.server.profiles.UserRoles
+import it.polito.wa2.server.purchase.PurchaseRepository
 import it.polito.wa2.server.security.aut.UserDetail
 import it.polito.wa2.server.ticketing.tickets.TicketRepository
 import jakarta.transaction.Transactional
@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service
 @Observed
 class CustomerServiceImpl(
     private val customerRepository: CustomerRepository,
-    private val productRepository: ProductRepository,
-    private val ticketRepository: TicketRepository
+    private val ticketRepository: TicketRepository,
+    private val purchaseRepository: PurchaseRepository
 ) : CustomerService {
     override fun getAll(userDetail: UserDetail): List<CustomerDTO> {
         if (userDetail.role != UserRoles.MANAGER) throw UnauthorizedException("Unauthorized") // solo un manager può vedere tutti i customer
@@ -28,14 +28,14 @@ class CustomerServiceImpl(
 
     override fun getByEmail(email: String, userDetail: UserDetail): CustomerDTO {
         if (userDetail.role == UserRoles.TECHNICIAN) throw UnauthorizedException("Unauthorized") // un technician non può vedere i customer
-        if (userDetail.role == UserRoles.CUSTOMER || userDetail.email != email) throw UnauthorizedException("Unauthorized") // un customer può vedere solo se stesso
+        if (userDetail.role == UserRoles.CUSTOMER && userDetail.email != email) throw UnauthorizedException("Unauthorized") // un customer può vedere solo se stesso
 
         return customerRepository.findByIdOrNull(email)?.toDTO() ?: throw NotFoundException("User not found")
     }
 
     override fun addProfile(customerDTO: CustomerDTO, userDetail: UserDetail): CustomerDTO {
         if (userDetail.role == UserRoles.TECHNICIAN) throw UnauthorizedException("Unauthorized") // un technician non può aggiungere i customer
-        if (userDetail.role == UserRoles.CUSTOMER || userDetail.email != customerDTO.email) throw UnauthorizedException(
+        if (userDetail.role == UserRoles.CUSTOMER && userDetail.email != customerDTO.email) throw UnauthorizedException(
             "Unauthorized"
         ) // un customer può aggiungere solo se stesso
 
@@ -46,7 +46,7 @@ class CustomerServiceImpl(
                 name = customerDTO.name,
                 phone = customerDTO.phone,
                 address = customerDTO.address,
-                products = productRepository.getAllByListOfId(customerDTO.products ?: emptyList()).toMutableSet(),
+                purchases = purchaseRepository.getAllByListOfId(customerDTO.purchases ?: emptyList()).toMutableSet(),
                 tickets = ticketRepository.getAllByListOfId(customerDTO.tickets ?: emptyList()).toMutableSet(),
             )
         ).toDTO()
@@ -54,7 +54,7 @@ class CustomerServiceImpl(
 
     override fun editProfile(customerDTO: CustomerDTO, userDetail: UserDetail): CustomerDTO {
         if (userDetail.role == UserRoles.TECHNICIAN) throw UnauthorizedException("Unauthorized") // un technician non può modificare i customer
-        if (userDetail.role == UserRoles.CUSTOMER || userDetail.email != customerDTO.email) throw UnauthorizedException(
+        if (userDetail.role == UserRoles.CUSTOMER && userDetail.email != customerDTO.email) throw UnauthorizedException(
             "Unauthorized"
         ) // un customer può modificare solo se stesso
 
@@ -65,7 +65,7 @@ class CustomerServiceImpl(
                 name = customerDTO.name,
                 phone = customerDTO.phone,
                 address = customerDTO.address,
-                products = productRepository.getAllByListOfId(customerDTO.products ?: emptyList()).toMutableSet(),
+                purchases = purchaseRepository.getAllByListOfId(customerDTO.purchases ?: emptyList()).toMutableSet(),
                 tickets = ticketRepository.getAllByListOfId(customerDTO.tickets ?: emptyList()).toMutableSet(),
             )
         ).toDTO()

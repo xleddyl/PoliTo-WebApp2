@@ -35,14 +35,14 @@ class ProfileController(
     @GetMapping("/profiles/{email}")
     @ResponseStatus(HttpStatus.OK)
     fun getByEmail(@PathVariable email: String, @AuthenticationPrincipal user: DefaultOAuth2User?): Any? {
-        val userRole = getUserDetail(user)
+        val userDetail = getUserDetail(user)
         return try {
-            customerService.getByEmail(email, userRole)
+            customerService.getByEmail(email, userDetail)
         } catch (_: Exception) {
             try {
-                technicianService.getByEmail(email, userRole)
+                technicianService.getByEmail(email, userDetail)
             } catch (_: Exception) {
-                managerService.getByEmail(email, userRole)
+                managerService.getByEmail(email, userDetail)
             }
         }
     }
@@ -50,11 +50,11 @@ class ProfileController(
     @PostMapping("/profiles")
     @ResponseStatus(HttpStatus.CREATED)
     fun addProfile(@RequestBody profileDTO: Any, @AuthenticationPrincipal user: DefaultOAuth2User?): Any {
-        val userRole = getUserDetail(user)
+        val userDetail = getUserDetail(user)
         return when (profileDTO) {
-            is CustomerDTO -> customerService.addProfile(profileDTO, userRole)
-            is TechnicianDTO -> technicianService.addProfile(profileDTO, userRole)
-            is ManagerDTO -> managerService.addProfile(profileDTO, userRole)
+            is CustomerDTO -> customerService.addProfile(profileDTO, userDetail)
+            is TechnicianDTO -> technicianService.addProfile(profileDTO, userDetail)
+            is ManagerDTO -> managerService.addProfile(profileDTO, userDetail)
             else -> throw BadRequestException("Bad Request")
         }
     }
@@ -66,21 +66,21 @@ class ProfileController(
         @PathVariable email: String,
         @AuthenticationPrincipal user: DefaultOAuth2User?
     ): Any {
-        val userRole = getUserDetail(user)
+        val userDetail = getUserDetail(user)
         return when (profileDTO) {
             is CustomerDTO -> {
                 if (profileDTO.email != email) throw NotValidException("Profile id and path id don't match")
-                customerService.editProfile(profileDTO, userRole)
+                customerService.editProfile(profileDTO, userDetail)
             }
 
             is TechnicianDTO -> {
                 if (profileDTO.email != email) throw NotValidException("Profile id and path id don't match")
-                technicianService.editProfile(profileDTO, userRole)
+                technicianService.editProfile(profileDTO, userDetail)
             }
 
             is ManagerDTO -> {
                 if (profileDTO.email != email) throw NotValidException("Profile id and path id don't match")
-                managerService.editProfile(profileDTO, userRole)
+                managerService.editProfile(profileDTO, userDetail)
             }
 
             else -> throw BadRequestException("Bad Request")
