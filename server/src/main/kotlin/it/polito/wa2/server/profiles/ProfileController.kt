@@ -8,6 +8,7 @@ import it.polito.wa2.server.profiles.manager.ManagerDTO
 import it.polito.wa2.server.profiles.manager.ManagerService
 import it.polito.wa2.server.profiles.technician.TechnicianDTO
 import it.polito.wa2.server.profiles.technician.TechnicianService
+import it.polito.wa2.server.purchase.PurchaseDTO
 import it.polito.wa2.server.security.aut.getUserDetail
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -85,5 +86,11 @@ class ProfileController(
 
             else -> throw BadRequestException("Bad Request")
         }
+    }
+
+    @GetMapping("/profiles/{email}/purchases")
+    @ResponseStatus(HttpStatus.OK)
+    fun getCustomerPurchases( @PathVariable email: String, @AuthenticationPrincipal user: DefaultOAuth2User?): List<PurchaseDTO> {
+        return customerService.getPurchases(email, getUserDetail(user))
     }
 }

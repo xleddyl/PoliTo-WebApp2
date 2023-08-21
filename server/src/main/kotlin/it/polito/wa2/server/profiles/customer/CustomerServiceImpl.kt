@@ -5,7 +5,9 @@ import it.polito.wa2.server.DuplicateException
 import it.polito.wa2.server.NotFoundException
 import it.polito.wa2.server.UnauthorizedException
 import it.polito.wa2.server.profiles.UserRoles
+import it.polito.wa2.server.purchase.PurchaseDTO
 import it.polito.wa2.server.purchase.PurchaseRepository
+import it.polito.wa2.server.purchase.toDTO
 import it.polito.wa2.server.security.aut.UserDetail
 import it.polito.wa2.server.ticketing.tickets.TicketRepository
 import jakarta.transaction.Transactional
@@ -31,6 +33,14 @@ class CustomerServiceImpl(
         if (userDetail.role == UserRoles.CUSTOMER && userDetail.email != email) throw UnauthorizedException("Unauthorized") // un customer può vedere solo se stesso
 
         return customerRepository.findByIdOrNull(email)?.toDTO() ?: throw NotFoundException("User not found")
+    }
+
+    override fun getPurchases(email: String, userDetail: UserDetail): List<PurchaseDTO> {
+        if (userDetail.role == UserRoles.TECHNICIAN) throw UnauthorizedException("Unauthorized") // un technician non può vedere i customer
+        if (userDetail.role == UserRoles.CUSTOMER && userDetail.email != email) throw UnauthorizedException("Unauthorized") // un customer può vedere solo se stesso
+
+        return customerRepository.findByIdOrNull(email)?.purchases?.map { it.toDTO() }
+            ?: throw NotFoundException("User not found")
     }
 
     override fun addProfile(customerDTO: CustomerDTO, userDetail: UserDetail): CustomerDTO {

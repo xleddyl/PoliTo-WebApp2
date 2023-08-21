@@ -1,5 +1,6 @@
 package it.polito.wa2.server.products
 
+import it.polito.wa2.server.purchase.PurchaseDTO
 import it.polito.wa2.server.security.aut.getUserDetail
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -32,5 +33,14 @@ class ProductController(
     @ResponseStatus(HttpStatus.OK)
     fun getById(@PathVariable ean: String, @AuthenticationPrincipal user: DefaultOAuth2User?): ProductDTO? {
         return productService.getById(ean, getUserDetail(user))
+    }
+
+    @GetMapping("/products/{ean}/purchases")
+    @ResponseStatus(HttpStatus.OK)
+    fun getProductPurchases(
+        @PathVariable ean: String,
+        @AuthenticationPrincipal user: DefaultOAuth2User?
+    ): List<PurchaseDTO> {
+        return productService.getPurchases(ean, getUserDetail(user))
     }
 }

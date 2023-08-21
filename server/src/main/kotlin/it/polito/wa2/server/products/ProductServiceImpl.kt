@@ -5,6 +5,8 @@ import it.polito.wa2.server.DuplicateException
 import it.polito.wa2.server.NotFoundException
 import it.polito.wa2.server.UnauthorizedException
 import it.polito.wa2.server.profiles.UserRoles
+import it.polito.wa2.server.purchase.PurchaseDTO
+import it.polito.wa2.server.purchase.toDTO
 import it.polito.wa2.server.security.aut.UserDetail
 import jakarta.transaction.Transactional
 import org.springframework.data.repository.findByIdOrNull
@@ -23,6 +25,11 @@ class ProductServiceImpl(
 
     override fun getById(ean: String, userDetail: UserDetail): ProductDTO {
         return productRepository.findByIdOrNull(ean)?.toDTO() ?: throw NotFoundException("Product not found")
+    }
+
+    override fun getPurchases(ean: String, userDetail: UserDetail): List<PurchaseDTO> {
+        if (userDetail.role != UserRoles.MANAGER) throw UnauthorizedException("Unauthorized") // solo un manager può vedere gli acquisti di un prodotto
+        return productRepository.findByIdOrNull(ean)?.purchases?.map { it.toDTO() }?: throw NotFoundException("Product purchases not found")
     }
 
     override fun addProduct(productDTO: ProductDTO, userDetail: UserDetail): ProductDTO {
