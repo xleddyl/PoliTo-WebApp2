@@ -27,7 +27,7 @@ class PurchaseServiceImpl(
     override fun getAllByEmail(email: String, userDetail: UserDetail): List<PurchaseDTO> {
         if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
         if (userDetail.role == UserRoles.TECHNICIAN) throw UnauthorizedException("Unauthorized") // un technician non può vedere gli acquisti dei customer
-        if (userDetail.role == UserRoles.CUSTOMER || userDetail.email != email) throw UnauthorizedException("Unauthorized") // un customer può vedere solo i propri acquisti
+        if (userDetail.role == UserRoles.CUSTOMER && userDetail.email != email) throw UnauthorizedException("Unauthorized") // un customer può vedere solo i propri acquisti
 
         return purchaseRepository.findByCustomerEmail(email).map { it.toDTO() }
     }
