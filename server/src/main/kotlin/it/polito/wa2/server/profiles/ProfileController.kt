@@ -2,6 +2,7 @@ package it.polito.wa2.server.profiles
 
 import it.polito.wa2.server.BadRequestException
 import it.polito.wa2.server.NotValidException
+import it.polito.wa2.server.UnauthorizedException
 import it.polito.wa2.server.profiles.customer.CustomerDTO
 import it.polito.wa2.server.profiles.customer.CustomerService
 import it.polito.wa2.server.profiles.manager.ManagerDTO
@@ -39,11 +40,23 @@ class ProfileController(
         val userDetail = getUserDetail(user)
         return try {
             customerService.getByEmail(email, userDetail)
-        } catch (_: Exception) {
-            try {
-                technicianService.getByEmail(email, userDetail)
-            } catch (_: Exception) {
-                managerService.getByEmail(email, userDetail)
+        } catch (e: Exception) {
+            if (e !is UnauthorizedException) {
+                try {
+                    technicianService.getByEmail(email, userDetail)
+                } catch (e: Exception) {
+                    if (e !is UnauthorizedException) {
+                        try {
+                            managerService.getByEmail(email, userDetail)
+                        } catch (e: Exception) {
+                            throw e
+                        }
+                    } else {
+                        throw e
+                    }
+                }
+            } else {
+                throw e
             }
         }
     }

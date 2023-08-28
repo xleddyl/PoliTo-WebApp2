@@ -29,6 +29,7 @@ class CustomerServiceImpl(
     }
 
     override fun getByEmail(email: String, userDetail: UserDetail): CustomerDTO {
+        if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
         if (userDetail.role == UserRoles.TECHNICIAN) throw UnauthorizedException("Unauthorized") // un technician non può vedere i customer
         if (userDetail.role == UserRoles.CUSTOMER && userDetail.email != email) throw UnauthorizedException("Unauthorized") // un customer può vedere solo se stesso
 
@@ -36,6 +37,7 @@ class CustomerServiceImpl(
     }
 
     override fun getPurchases(email: String, userDetail: UserDetail): List<PurchaseDTO> {
+        if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
         if (userDetail.role == UserRoles.TECHNICIAN) throw UnauthorizedException("Unauthorized") // un technician non può vedere i customer
         if (userDetail.role == UserRoles.CUSTOMER && userDetail.email != email) throw UnauthorizedException("Unauthorized") // un customer può vedere solo se stesso
 
@@ -44,6 +46,7 @@ class CustomerServiceImpl(
     }
 
     override fun addProfile(customerDTO: CustomerDTO, userDetail: UserDetail): CustomerDTO {
+        if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
         if (userDetail.role == UserRoles.TECHNICIAN) throw UnauthorizedException("Unauthorized") // un technician non può aggiungere i customer
         if (userDetail.role == UserRoles.CUSTOMER && userDetail.email != customerDTO.email) throw UnauthorizedException(
             "Unauthorized"
@@ -63,6 +66,7 @@ class CustomerServiceImpl(
     }
 
     override fun editProfile(customerDTO: CustomerDTO, userDetail: UserDetail): CustomerDTO {
+        if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
         if (userDetail.role == UserRoles.TECHNICIAN) throw UnauthorizedException("Unauthorized") // un technician non può modificare i customer
         if (userDetail.role == UserRoles.CUSTOMER && userDetail.email != customerDTO.email) throw UnauthorizedException(
             "Unauthorized"

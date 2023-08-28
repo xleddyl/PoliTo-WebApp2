@@ -24,12 +24,14 @@ class TechnicianServiceImpl(
     }
 
     override fun getByEmail(email: String, userDetail: UserDetail): TechnicianDTO {
+        if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
         if (userDetail.role == UserRoles.CUSTOMER) throw UnauthorizedException("Unauthorized") // un customer non può vedere i technician
         if (userDetail.role == UserRoles.TECHNICIAN || userDetail.email != email) throw UnauthorizedException("Unauthorized") // un technician può vedere solo se stesso
         return technicianRepository.findByIdOrNull(email)?.toDTO() ?: throw NotFoundException("User not found")
     }
 
     override fun addProfile(technicianDTO: TechnicianDTO, userDetail: UserDetail): TechnicianDTO {
+        if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
         if (userDetail.role == UserRoles.CUSTOMER) throw UnauthorizedException("Unauthorized") // un customer non può aggiungere i technician
         if (userDetail.role == UserRoles.TECHNICIAN || userDetail.email != technicianDTO.email) throw UnauthorizedException(
             "Unauthorized"
@@ -48,6 +50,7 @@ class TechnicianServiceImpl(
     }
 
     override fun editProfile(technicianDTO: TechnicianDTO, userDetail: UserDetail): TechnicianDTO {
+        if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
         if (userDetail.role == UserRoles.CUSTOMER) throw UnauthorizedException("Unauthorized") // un customer non può modificare i technician
         if (userDetail.role == UserRoles.TECHNICIAN || userDetail.email != technicianDTO.email) throw UnauthorizedException(
             "Unauthorized"

@@ -19,6 +19,7 @@ class PurchaseController(
         return purchaseService.getAll(getUserDetail(user))
     }
 
+    // useless?
     @GetMapping("/purchases/{email}")
     @ResponseStatus(HttpStatus.OK)
     fun getByEmail(@PathVariable email: String, @AuthenticationPrincipal user: DefaultOAuth2User?): List<PurchaseDTO> {

@@ -3,6 +3,7 @@ package it.polito.wa2.server.ticketing.tickets
 import it.polito.wa2.server.products.Product
 import it.polito.wa2.server.profiles.customer.Customer
 import it.polito.wa2.server.profiles.technician.Technician
+import it.polito.wa2.server.purchase.Purchase
 import it.polito.wa2.server.ticketing.messages.Message
 import jakarta.persistence.*
 
@@ -16,8 +17,8 @@ class Ticket(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
-    @ManyToOne(cascade = [CascadeType.ALL])
-    var product: Product,
+    @OneToOne(cascade = [CascadeType.ALL])
+    var purchase: Purchase? = null,
     @ManyToOne(cascade = [CascadeType.ALL])
     var customer: Customer,
     @ManyToOne(cascade = [CascadeType.ALL])
@@ -33,7 +34,7 @@ class Ticket(
 fun Ticket.toDTO(): TicketDTO {
     return TicketDTO(
         id,
-        product.ean,
+        purchase?.id!!,
         customer.email,
         technician?.email,
         statuses,

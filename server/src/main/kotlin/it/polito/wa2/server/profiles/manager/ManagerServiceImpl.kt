@@ -25,6 +25,7 @@ class ManagerServiceImpl(
     }
 
     override fun getByEmail(email: String, userDetail: UserDetail): ManagerDTO {
+        if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
         if (userDetail.role == UserRoles.CUSTOMER) throw UnauthorizedException("Unauthorized") // solo un customer non può vedere i manager
 
         return managerRepository.findByIdOrNull(email)?.toDTO() ?: throw NotFoundException("User not found")

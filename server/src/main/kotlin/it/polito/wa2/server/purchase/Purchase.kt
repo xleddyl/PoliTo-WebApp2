@@ -2,6 +2,7 @@ package it.polito.wa2.server.purchase
 
 import it.polito.wa2.server.products.Product
 import it.polito.wa2.server.profiles.customer.Customer
+import it.polito.wa2.server.ticketing.tickets.Ticket
 import jakarta.persistence.*
 import java.util.Date
 
@@ -18,7 +19,9 @@ class Purchase(
     @JoinColumn(name = "product_ean")
     var product: Product,
     @Temporal(value = TemporalType.DATE)
-    var date: Date
+    var date: Date,
+    @OneToOne(mappedBy = "purchase", cascade = [CascadeType.ALL])
+    var ticket: Ticket? = null
 )
 
 fun Purchase.toDTO(): PurchaseDTO {

@@ -25,6 +25,7 @@ class PurchaseServiceImpl(
     }
 
     override fun getAllByEmail(email: String, userDetail: UserDetail): List<PurchaseDTO> {
+        if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
         if (userDetail.role == UserRoles.TECHNICIAN) throw UnauthorizedException("Unauthorized") // un technician non può vedere gli acquisti dei customer
         if (userDetail.role == UserRoles.CUSTOMER || userDetail.email != email) throw UnauthorizedException("Unauthorized") // un customer può vedere solo i propri acquisti
 
@@ -32,6 +33,7 @@ class PurchaseServiceImpl(
     }
 
     override fun addPurchase(purchaseDTO: PurchaseDTO, userDetail: UserDetail): PurchaseDTO {
+        if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
         if (userDetail.role == UserRoles.TECHNICIAN) throw UnauthorizedException("Unauthorized") // un technician non può aggiungere acquisti ai customer
         if (userDetail.role == UserRoles.CUSTOMER && userDetail.email != purchaseDTO.customer) throw UnauthorizedException(
             "Unauthorized"

@@ -16,7 +16,7 @@ class Message(
     var fromCustomer: Boolean,
     @Temporal(TemporalType.TIMESTAMP)
     var timestamp: Timestamp,
-    var attachment: String, //Base64
+    var attachment: String? = null, //Base64
     var content: String,
     var new: Boolean
 )

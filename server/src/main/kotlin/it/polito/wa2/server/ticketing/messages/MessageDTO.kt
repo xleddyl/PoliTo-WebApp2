@@ -7,7 +7,7 @@ data class MessageDTO(
     val ticket: Long,
     val fromCustomer: Boolean,
     val timestamp: Timestamp,
-    val attachment: String, //Base64
+    val attachment: String?, //Base64
     val content: String,
     val new: Boolean
 )
