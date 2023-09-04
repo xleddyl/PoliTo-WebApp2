@@ -11,6 +11,8 @@ import it.polito.wa2.server.profiles.technician.TechnicianDTO
 import it.polito.wa2.server.profiles.technician.TechnicianService
 import it.polito.wa2.server.purchase.PurchaseDTO
 import it.polito.wa2.server.security.aut.getUserDetail
+import it.polito.wa2.server.ticketing.tickets.TicketDTO
+import it.polito.wa2.server.ticketing.tickets.TicketService
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User
@@ -22,6 +24,7 @@ class ProfileController(
     private val customerService: CustomerService,
     private val technicianService: TechnicianService,
     private val managerService: ManagerService,
+    private val ticketService: TicketService,
 ) {
 
 
@@ -101,9 +104,66 @@ class ProfileController(
         }
     }
 
+    @GetMapping("/profiles/{email}/tickets")
+    @ResponseStatus(HttpStatus.OK)
+    fun getTickets(@PathVariable email: String, @AuthenticationPrincipal user: DefaultOAuth2User?): List<TicketDTO> {
+        val userDetail = getUserDetail(user)
+        return when (userDetail.role) {
+            UserRoles.CUSTOMER -> {
+                ticketService.getAll(userDetail)
+            }
+
+            UserRoles.TECHNICIAN -> {
+                technicianService.getTickets(email, userDetail)
+            }
+
+            UserRoles.MANAGER -> {
+                ticketService.getAll(userDetail)
+            }
+
+            else -> {
+                throw UnauthorizedException("Unauthorized")
+            }
+        }
+    }
+
+    // CUSTOMER
+
     @GetMapping("/profiles/{email}/purchases")
     @ResponseStatus(HttpStatus.OK)
-    fun getCustomerPurchases( @PathVariable email: String, @AuthenticationPrincipal user: DefaultOAuth2User?): List<PurchaseDTO> {
+    fun getCustomerPurchases(
+        @PathVariable email: String,
+        @AuthenticationPrincipal user: DefaultOAuth2User?
+    ): List<PurchaseDTO> {
         return customerService.getPurchases(email, getUserDetail(user))
+    }
+
+    // TECHNICIAN
+
+    @GetMapping("/profiles/pending")
+    @ResponseStatus(HttpStatus.OK)
+    fun getTechniciansPending(@AuthenticationPrincipal user: DefaultOAuth2User?): List<TechnicianDTO> {
+        return technicianService.getAllPending(getUserDetail(user))
+    }
+
+    @GetMapping("/profiles/{email}/manager")
+    @ResponseStatus(HttpStatus.OK)
+    fun getTechnicianManager(
+        @PathVariable email: String,
+        @AuthenticationPrincipal user: DefaultOAuth2User?
+    ): ManagerDTO {
+        return technicianService.getManager(email, getUserDetail(user))
+    }
+
+
+    // MANAGER
+
+    @GetMapping("/profiles/{email}/technicians")
+    @ResponseStatus(HttpStatus.OK)
+    fun getManagerTechnicians(
+        @PathVariable email: String,
+        @AuthenticationPrincipal user: DefaultOAuth2User?
+    ): List<TechnicianDTO> {
+        return managerService.getTechnicians(email, getUserDetail(user))
     }
 }

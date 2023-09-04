@@ -26,9 +26,12 @@ class TicketServiceImpl(
     private val purchaseRepository: PurchaseRepository,
 ) : TicketService {
     override fun getAll(userDetail: UserDetail): List<TicketDTO> {
+
+        return ticketRepository.findAll().map { it.toDTO() }
+
         return when (userDetail.role) {
             UserRoles.CUSTOMER -> {
-                customerRepository.findByIdOrNull(userDetail.email)?.tickets?.map { it.toDTO() } ?: emptyList()
+                ticketRepository.findByPurchase_Customer_Email(userDetail.email).map { it.toDTO() }
                 // customer vede i suoi ticket
             }
 
@@ -53,8 +56,8 @@ class TicketServiceImpl(
             ticketRepository.findByIdOrNull(ticketId)?.toDTO() ?: throw NotFoundException("Ticket not found")
 
         // customer-technician vede il ticket solo se è suo
-        if ((userDetail.role == UserRoles.CUSTOMER && !customerRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketId }
-                .isNullOrEmpty()) ||
+        if ((userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchase_Customer_Email(userDetail.email)
+                .any { it.id == ticketId }) ||
             (userDetail.role == UserRoles.TECHNICIAN && !technicianRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketId }
                 .isNullOrEmpty()) ||
             userDetail.role == UserRoles.MANAGER
@@ -65,24 +68,26 @@ class TicketServiceImpl(
         }
     }
 
-    override fun createTicket(ticketDTO: TicketDTO, userDetail: UserDetail): TicketDTO {
+    override fun createTicket(ticketDTO: TicketDTO, purchaseId: Long, userDetail: UserDetail): TicketDTO {
         // TODO("solo il customer o il manager")  ???
         if (userDetail.role != UserRoles.CUSTOMER && userDetail.role != UserRoles.MANAGER) throw UnauthorizedException("Unauthorized")
 
         if (ticketRepository.findByIdOrNull(ticketDTO.id) != null) throw DuplicateException("Ticket already exists")
         if (ticketDTO.statuses.size != 1 && ticketDTO.statuses.first() != States.OPEN) throw NotValidException("Ticket status is invalid")
+        val purchase =
+            purchaseRepository.findByIdOrNull(purchaseId) ?: throw NotValidException("Purchase does not exists")
+
         return ticketRepository.save(
             Ticket(
-                purchase = purchaseRepository.findByIdOrNull(ticketDTO.purchase)
-                    ?: throw NotValidException("Purchase does not exists"),
-                customer = customerRepository.findByIdOrNull(ticketDTO.customer)
-                    ?: throw NotValidException("Customer does not exists"),
+                purchase = purchase,
+                /*customer = customerRepository.findByIdOrNull(ticketDTO.customer)
+                    ?: throw NotValidException("Customer does not exists"),*/
                 technician = technicianRepository.findByIdOrNull(ticketDTO.technician)
                     ?: throw NotValidException("Technician does not exists"),
                 statuses = ticketDTO.statuses,
                 description = ticketDTO.description,
                 priority = ticketDTO.priority,
-                messages = mutableSetOf() // starting with empty list of messages
+                //messages = mutableSetOf() // starting with empty list of messages
             )
         ).toDTO()
     }
@@ -91,27 +96,28 @@ class TicketServiceImpl(
         // TODO("solo il customer o il manager")  ???
         if (userDetail.role != UserRoles.CUSTOMER && userDetail.role != UserRoles.MANAGER) throw UnauthorizedException("Unauthorized")
 
-        val ticket =
+        val oldTicket =
             ticketRepository.findByIdOrNull(ticketDTO.id) ?: throw DuplicateException("Ticket does not exists")
 
         // customer modifica solo i propri ticket
-        if (userDetail.role == UserRoles.CUSTOMER && customerRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketDTO.id }
-                .isNullOrEmpty()) throw UnauthorizedException("Unauthorized")
+        if (userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchase_Customer_Email(userDetail.email)
+                .any { it.id == ticketDTO.id }
+        ) throw UnauthorizedException("Unauthorized")
 
-            return ticketRepository.save(
-                Ticket(
-                    purchase = purchaseRepository.findByIdOrNull(ticketDTO.purchase)
-                        ?: throw NotValidException("Purchase does not exists"),
-                    customer = customerRepository.findByIdOrNull(ticketDTO.customer)
-                        ?: throw NotValidException("Customer does not exists"),
-                    technician = technicianRepository.findByIdOrNull(ticketDTO.technician)
-                        ?: throw NotValidException("Technician does not exists"),
-                    statuses = ticketDTO.statuses,
-                    description = ticketDTO.description,
-                    priority = ticketDTO.priority,
-                    messages = ticket.messages // messages preserved, to edit messages use the MessageService
-                )
-            ).toDTO()
+        val newTicket = Ticket(
+            purchase = oldTicket.purchase,
+            /*customer = customerRepository.findByIdOrNull(ticketDTO.customer)
+                ?: throw NotValidException("Customer does not exists"),*/
+            technician = technicianRepository.findByIdOrNull(ticketDTO.technician)
+                ?: throw NotValidException("Technician does not exists"),
+            statuses = ticketDTO.statuses,
+            description = ticketDTO.description,
+            priority = ticketDTO.priority,
+        )
+        newTicket.messages = oldTicket.messages // messages preserved, to edit messages use the MessageService
+
+
+        return ticketRepository.save(newTicket).toDTO()
     }
 
     override fun deleteTicket(ticketId: Long, userDetail: UserDetail) {
@@ -119,8 +125,9 @@ class TicketServiceImpl(
         if (userDetail.role != UserRoles.CUSTOMER && userDetail.role != UserRoles.MANAGER) throw UnauthorizedException("Unauthorized")
 
         // customer elimina solo i propri ticket
-        if (userDetail.role == UserRoles.CUSTOMER && customerRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketId }
-                .isNullOrEmpty()) throw UnauthorizedException("Unauthorized")
+        if (userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchase_Customer_Email(userDetail.email)
+                .any { it.id == ticketId }
+        ) throw UnauthorizedException("Unauthorized")
 
 
         return ticketRepository.deleteById(ticketId)
@@ -134,11 +141,11 @@ class TicketServiceImpl(
         val ticket = ticketRepository.findByIdOrNull(ticketId) ?: throw DuplicateException("Ticket does not exists")
 
         // customer-technician modifica solo i propri ticket
-        if ((userDetail.role == UserRoles.CUSTOMER && customerRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketId }
-                .isNullOrEmpty()) ||
+        if ((userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchase_Customer_Email(userDetail.email)
+                .any { it.id == ticketId }) ||
             (userDetail.role == UserRoles.TECHNICIAN && technicianRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketId }
                 .isNullOrEmpty())
-            ) throw UnauthorizedException("Unauthorized")
+        ) throw UnauthorizedException("Unauthorized")
 
 
         when (ticket.statuses.last()) {

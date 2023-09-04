@@ -9,13 +9,19 @@ import jakarta.persistence.*
 @Table(name = "technicians")
 class Technician(
     email: String, name: String, phone: String,
-    var specialization: String,
-    @OneToMany(mappedBy = "technician", cascade = [CascadeType.ALL])
-    var tickets: MutableSet<Ticket> = mutableSetOf(),
-    @ManyToOne(cascade = [CascadeType.ALL])
-    var manager: Manager
-) : Profile(email, name, phone)
 
-fun Technician.toDTO(): TechnicianDTO {
-    return TechnicianDTO(email, name, phone, specialization, tickets.map { it.id!! }, manager.email)
+    var specialization: String,
+
+    @ManyToOne
+    @JoinColumn(name = "manager_email")
+    var manager: Manager? = null
+
+) : Profile(email, name, phone) {
+
+    @OneToMany(mappedBy = "technician")
+    var tickets: MutableSet<Ticket> = mutableSetOf()
+
+    fun toDTO(): TechnicianDTO {
+        return TechnicianDTO(email, name, phone, specialization)
+    }
 }

@@ -17,7 +17,10 @@ class TicketController(
     @GetMapping("/tickets")
     @ResponseStatus(HttpStatus.OK)
     fun getAll(@AuthenticationPrincipal user: DefaultOAuth2User?): List<TicketDTO> {
-        return ticketService.getAll(getUserDetail(user))
+        val r = ticketService.getAll(getUserDetail(user))
+        println("\n\n\n\tHERE: ${r.size}")
+        r.forEach{ println("\n\n\n${it.id}: ${it.description}") }
+        return r
     }
 
     @GetMapping("/tickets/{ticketId}")
@@ -30,9 +33,10 @@ class TicketController(
     @ResponseStatus(HttpStatus.CREATED)
     fun createTicket(
         @Valid @RequestBody ticketDTO: TicketDTO,
+        @Valid @RequestBody purchaseId: Long,
         @AuthenticationPrincipal user: DefaultOAuth2User?
     ): TicketDTO {
-        return ticketService.createTicket(ticketDTO, getUserDetail(user))
+        return ticketService.createTicket(ticketDTO, purchaseId, getUserDetail(user))
     }
 
     @PostMapping("/tickets/{ticketId}/{stateString}")

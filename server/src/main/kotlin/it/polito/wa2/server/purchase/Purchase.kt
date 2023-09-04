@@ -12,18 +12,24 @@ class Purchase(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
+
     @ManyToOne
     @JoinColumn(name = "customer_email")
     var customer: Customer,
+
     @ManyToOne
     @JoinColumn(name = "product_ean")
     var product: Product,
+
     @Temporal(value = TemporalType.DATE)
     var date: Date,
-    @OneToOne(mappedBy = "purchase", cascade = [CascadeType.ALL])
-    var ticket: Ticket? = null
-)
 
-fun Purchase.toDTO(): PurchaseDTO {
-    return PurchaseDTO(id, customer.email, product.ean, date)
+) {
+    @OneToOne(cascade = [CascadeType.ALL])
+    var ticket: Ticket? = null
+
+    fun toDTO(): PurchaseDTO {
+        return PurchaseDTO(id!!, customer.email, product.ean, date)
+    }
 }
+

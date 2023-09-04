@@ -1,6 +1,7 @@
 package it.polito.wa2.server.purchase
 
 import it.polito.wa2.server.security.aut.getUserDetail
+import it.polito.wa2.server.ticketing.tickets.TicketDTO
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User
@@ -30,5 +31,11 @@ class PurchaseController(
     @ResponseStatus(HttpStatus.CREATED)
     fun addPurchase(@Valid @RequestBody purchaseDTO: PurchaseDTO, @AuthenticationPrincipal user: DefaultOAuth2User?): PurchaseDTO {
         return purchaseService.addPurchase(purchaseDTO, getUserDetail(user))
+    }
+
+    @GetMapping("/purchases/{id}/ticket")
+    @ResponseStatus(HttpStatus.OK)
+    fun getPurchaseTicket(@PathVariable id: Long, @AuthenticationPrincipal user: DefaultOAuth2User?): TicketDTO? {
+        return purchaseService.getPurchaseTicket(id, getUserDetail(user))
     }
 }

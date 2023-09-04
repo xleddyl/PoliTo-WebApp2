@@ -6,6 +6,7 @@ import it.polito.wa2.server.NotFoundException
 import it.polito.wa2.server.UnauthorizedException
 import it.polito.wa2.server.profiles.UserRoles
 import it.polito.wa2.server.profiles.customer.CustomerRepository
+import it.polito.wa2.server.profiles.technician.TechnicianRepository
 import it.polito.wa2.server.security.aut.UserDetail
 import it.polito.wa2.server.ticketing.tickets.TicketRepository
 import jakarta.transaction.Transactional
@@ -19,15 +20,15 @@ class MessageServiceImpl(
     private val messageRepository: MessageRepository,
     private val ticketRepository: TicketRepository,
     private val customerRepository: CustomerRepository,
-    private val technicianRepository: CustomerRepository,
+    private val technicianRepository: TechnicianRepository,
 ) : MessageService {
     override fun getAllForTicket(ticketId: Long, userDetail: UserDetail): List<MessageDTO> {
         // TODO("solo il customer o il technician relativi al ticket o tutti i manager")  ???
         if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
 
         // customer-technician vede solo i propri tickets
-        if ((userDetail.role == UserRoles.CUSTOMER && customerRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketId }
-                .isNullOrEmpty()) ||
+        if ((userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchase_Customer_Email(userDetail.email)
+                .any { it.id == ticketId }) ||
             (userDetail.role == UserRoles.TECHNICIAN && technicianRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketId }
                 .isNullOrEmpty())
             ) throw UnauthorizedException("Unauthorized")
@@ -40,8 +41,8 @@ class MessageServiceImpl(
         if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
 
         // customer-technician vede solo i propri tickets
-        if ((userDetail.role == UserRoles.CUSTOMER && customerRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketId }
-                .isNullOrEmpty()) ||
+        if ((userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchase_Customer_Email(userDetail.email)
+                .any { it.id == ticketId }) ||
             (userDetail.role == UserRoles.TECHNICIAN && technicianRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketId }
                 .isNullOrEmpty())
         ) throw UnauthorizedException("Unauthorized")
@@ -55,8 +56,8 @@ class MessageServiceImpl(
         if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
 
         // customer-technician vede solo i propri tickets
-        if ((userDetail.role == UserRoles.CUSTOMER && customerRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketId }
-                .isNullOrEmpty()) ||
+        if ((userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchase_Customer_Email(userDetail.email)
+                .any { it.id == ticketId }) ||
             (userDetail.role == UserRoles.TECHNICIAN && technicianRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketId }
                 .isNullOrEmpty())
         ) throw UnauthorizedException("Unauthorized")

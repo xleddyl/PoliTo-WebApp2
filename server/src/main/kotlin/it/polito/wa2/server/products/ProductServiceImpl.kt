@@ -6,7 +6,6 @@ import it.polito.wa2.server.NotFoundException
 import it.polito.wa2.server.UnauthorizedException
 import it.polito.wa2.server.profiles.UserRoles
 import it.polito.wa2.server.purchase.PurchaseDTO
-import it.polito.wa2.server.purchase.toDTO
 import it.polito.wa2.server.security.aut.UserDetail
 import jakarta.transaction.Transactional
 import org.springframework.data.repository.findByIdOrNull
@@ -36,16 +35,16 @@ class ProductServiceImpl(
         if (userDetail.role != UserRoles.MANAGER) throw UnauthorizedException("Unauthorized") // solo un manager può aggiungere un product
 
         if (productRepository.findByIdOrNull(productDTO.ean) != null) throw DuplicateException("Product already exist")
-        return productRepository.save(
-            Product(
-                ean = productDTO.ean,
-                sku = productDTO.sku,
-                name = productDTO.name,
-                brand = productDTO.brand,
-                category = productDTO.category,
-                price = productDTO.price,
-                purchases = mutableSetOf() // new product is not associated with any customer
-            )
-        ).toDTO()
+
+        val product = Product(
+            ean = productDTO.ean,
+            sku = productDTO.sku,
+            name = productDTO.name,
+            brand = productDTO.brand,
+            category = productDTO.category,
+            price = productDTO.price
+        )
+        product.purchases = mutableSetOf() // new product is not associated with any customer
+        return productRepository.save(product).toDTO()
     }
 }

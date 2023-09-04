@@ -1,12 +1,14 @@
 package it.polito.wa2.server.purchase
 
 import io.micrometer.observation.annotation.Observed
+import it.polito.wa2.server.NotFoundException
 import it.polito.wa2.server.NotValidException
 import it.polito.wa2.server.UnauthorizedException
 import it.polito.wa2.server.products.ProductRepository
 import it.polito.wa2.server.profiles.UserRoles
 import it.polito.wa2.server.profiles.customer.CustomerRepository
 import it.polito.wa2.server.security.aut.UserDetail
+import it.polito.wa2.server.ticketing.tickets.TicketDTO
 import jakarta.transaction.Transactional
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -30,6 +32,15 @@ class PurchaseServiceImpl(
         if (userDetail.role == UserRoles.CUSTOMER && userDetail.email != email) throw UnauthorizedException("Unauthorized") // un customer può vedere solo i propri acquisti
 
         return purchaseRepository.findByCustomerEmail(email).map { it.toDTO() }
+    }
+
+    override fun getPurchaseTicket(id: Long, userDetail: UserDetail): TicketDTO? {
+        if (userDetail.role == UserRoles.NO_AUTH || userDetail.role == UserRoles.TECHNICIAN) throw UnauthorizedException("Unauthorized") // no login
+
+        val purchase = purchaseRepository.findByIdOrNull(id) ?: throw NotFoundException("Purchase not found")
+        if (userDetail.role == UserRoles.CUSTOMER && purchase.customer.email != userDetail.email)
+            throw UnauthorizedException("Unauthorized") // customer vede i propri
+        return purchase.ticket?.toDTO()
     }
 
     override fun addPurchase(purchaseDTO: PurchaseDTO, userDetail: UserDetail): PurchaseDTO {

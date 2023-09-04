@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository
 interface TechnicianRepository : JpaRepository<Technician, String> {
     @Query("select technician from Technician technician where technician.email IN :ids")
     fun getAllByListOfId(ids: List<String>): List<Technician>
+
+    fun getAllByManagerIsNull(): List<Technician>
 }
