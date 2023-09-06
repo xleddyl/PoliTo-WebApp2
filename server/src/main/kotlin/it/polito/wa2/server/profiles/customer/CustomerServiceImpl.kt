@@ -60,7 +60,6 @@ class CustomerServiceImpl(
         )
         //customer.purchases = purchaseRepository.getAllByListOfId(customerDTO.purchases ?: emptyList()).toMutableSet()
         return customerRepository.save(customer).toDTO()
-
     }
 
     override fun editProfile(customerDTO: CustomerDTO, userDetail: UserDetail): CustomerDTO {

@@ -8,6 +8,9 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User
 
 data class UserRequest(
     val username: String,
+    val email: String,
+    val firstName: String,
+    val lastName: String,
     val password: String
 )
 

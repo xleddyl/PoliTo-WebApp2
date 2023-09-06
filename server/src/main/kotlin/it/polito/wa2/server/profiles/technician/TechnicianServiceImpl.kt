@@ -25,6 +25,7 @@ class TechnicianServiceImpl(
         return technicianRepository.findAll().map { it.toDTO() }
     }
 
+    // not necessary?
     override fun getAllPending(userDetail: UserDetail): List<TechnicianDTO> {
         if (userDetail.role != UserRoles.MANAGER) throw UnauthorizedException("Unauthorized") // solo un manager può vedere tutti i technician
         return technicianRepository.getAllByManagerIsNull().map { it.toDTO() }
