@@ -25,7 +25,7 @@ datasources:
     jsonData:
       httpMethod: GET
       tracesToLogs:
-        datasourceUid: 'loki'
+        datasourceUid: loki
   - name: Loki
     type: loki
     uid: loki
@@ -43,3 +43,8 @@ datasources:
           matcherRegex: \[.+,(.+?),
           name: TraceID
           url: $${__value.raw}
+        - datasourceUid: ticketing
+          matcherRegex: "traceID=(\\w+)"
+          name: TraceID
+          url: '$${__value.raw}'
+          urlDisplayLabel: 'View Trace'

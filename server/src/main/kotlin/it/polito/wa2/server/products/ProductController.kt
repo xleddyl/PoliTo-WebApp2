@@ -1,7 +1,10 @@
 package it.polito.wa2.server.products
 
+import com.github.loki4j.slf4j.marker.LabelMarker
+import io.micrometer.observation.annotation.Observed
 import it.polito.wa2.server.purchase.PurchaseDTO
 import it.polito.wa2.server.security.aut.getUserDetail
+import org.slf4j.Logger
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User
@@ -10,8 +13,10 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api")
+@Observed
 class ProductController(
-    private val productService: ProductService
+    private val productService: ProductService,
+    private val log: Logger
 ) {
 
     @PostMapping("/products")
@@ -26,6 +31,8 @@ class ProductController(
     @GetMapping("/products")
     @ResponseStatus(HttpStatus.OK)
     fun getAll(@AuthenticationPrincipal user: DefaultOAuth2User?): List<ProductDTO> {
+        val label = LabelMarker.of("request") { "TEST" }
+        log.info(label, "ciao")
         return productService.getAll(getUserDetail(user))
     }
 
