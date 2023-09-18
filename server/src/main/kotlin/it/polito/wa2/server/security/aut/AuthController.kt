@@ -28,7 +28,7 @@ class AuthController(
 
     @GetMapping("/user")
     @ResponseStatus(HttpStatus.OK)
-    fun getUserDetail(@AuthenticationPrincipal user: DefaultOAuth2User?): UserDetail {
-        return getUserDetail(user)
+    fun getUserDetails(@AuthenticationPrincipal user: DefaultOAuth2User?): UserDetail {
+        return authService.getUserDetails(getUserDetail(user))
     }
 }

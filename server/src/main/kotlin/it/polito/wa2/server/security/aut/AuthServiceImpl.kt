@@ -36,6 +36,10 @@ class AuthServiceImpl(
         else if (response.status != 201) throw RuntimeException("${response.statusInfo}")
     }
 
+    override fun getUserDetails(userDetail: UserDetail): UserDetail {
+        return userDetail
+    }
+
     private fun preparePasswordRepresentation(
         password: String
     ): CredentialRepresentation {
