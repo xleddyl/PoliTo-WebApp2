@@ -14,13 +14,12 @@ class Technician(
 
     @ManyToOne
     @JoinColumn(name = "manager_email")
-    var manager: Manager? = null
-
-) : Profile(email, name, phone) {
+    var manager: Manager? = null,
 
     @OneToMany(mappedBy = "technician")
     var tickets: MutableSet<Ticket> = mutableSetOf()
 
+) : Profile(email, name, phone) {
     fun toDTO(): TechnicianDTO {
         return TechnicianDTO(email, name, phone, specialization)
     }

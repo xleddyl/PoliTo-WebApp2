@@ -29,9 +29,10 @@ class TicketServiceImpl(
 
         return ticketRepository.findAll().map { it.toDTO() }
 
+        /*
         return when (userDetail.role) {
             UserRoles.CUSTOMER -> {
-                ticketRepository.findByPurchase_Customer_Email(userDetail.email).map { it.toDTO() }
+                ticketRepository.findByPurchaseCustomerEmail(userDetail.email).map { it.toDTO() }
                 // customer vede i suoi ticket
             }
 
@@ -49,6 +50,8 @@ class TicketServiceImpl(
                 throw UnauthorizedException("Unauthorized") // no login
             }
         }
+
+         */
     }
 
     override fun getById(ticketId: Long, userDetail: UserDetail): TicketDTO {
@@ -56,7 +59,7 @@ class TicketServiceImpl(
             ticketRepository.findByIdOrNull(ticketId)?.toDTO() ?: throw NotFoundException("Ticket not found")
 
         // customer-technician vede il ticket solo se è suo
-        if ((userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchase_Customer_Email(userDetail.email)
+        if ((userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchaseCustomerEmail(userDetail.email)
                 .any { it.id == ticketId }) ||
             (userDetail.role == UserRoles.TECHNICIAN && !technicianRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketId }
                 .isNullOrEmpty()) ||
@@ -80,14 +83,11 @@ class TicketServiceImpl(
         return ticketRepository.save(
             Ticket(
                 purchase = purchase,
-                /*customer = customerRepository.findByIdOrNull(ticketDTO.customer)
-                    ?: throw NotValidException("Customer does not exists"),*/
                 technician = technicianRepository.findByIdOrNull(ticketDTO.technician)
                     ?: throw NotValidException("Technician does not exists"),
                 statuses = ticketDTO.statuses,
                 description = ticketDTO.description,
                 priority = ticketDTO.priority,
-                //messages = mutableSetOf() // starting with empty list of messages
             )
         ).toDTO()
     }
@@ -100,14 +100,12 @@ class TicketServiceImpl(
             ticketRepository.findByIdOrNull(ticketDTO.id) ?: throw DuplicateException("Ticket does not exists")
 
         // customer modifica solo i propri ticket
-        if (userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchase_Customer_Email(userDetail.email)
+        if (userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchaseCustomerEmail(userDetail.email)
                 .any { it.id == ticketDTO.id }
         ) throw UnauthorizedException("Unauthorized")
 
         val newTicket = Ticket(
             purchase = oldTicket.purchase,
-            /*customer = customerRepository.findByIdOrNull(ticketDTO.customer)
-                ?: throw NotValidException("Customer does not exists"),*/
             technician = technicianRepository.findByIdOrNull(ticketDTO.technician)
                 ?: throw NotValidException("Technician does not exists"),
             statuses = ticketDTO.statuses,
@@ -125,7 +123,7 @@ class TicketServiceImpl(
         if (userDetail.role != UserRoles.CUSTOMER && userDetail.role != UserRoles.MANAGER) throw UnauthorizedException("Unauthorized")
 
         // customer elimina solo i propri ticket
-        if (userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchase_Customer_Email(userDetail.email)
+        if (userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchaseCustomerEmail(userDetail.email)
                 .any { it.id == ticketId }
         ) throw UnauthorizedException("Unauthorized")
 
@@ -141,7 +139,7 @@ class TicketServiceImpl(
         val ticket = ticketRepository.findByIdOrNull(ticketId) ?: throw DuplicateException("Ticket does not exists")
 
         // customer-technician modifica solo i propri ticket
-        if ((userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchase_Customer_Email(userDetail.email)
+        if ((userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchaseCustomerEmail(userDetail.email)
                 .any { it.id == ticketId }) ||
             (userDetail.role == UserRoles.TECHNICIAN && technicianRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketId }
                 .isNullOrEmpty())

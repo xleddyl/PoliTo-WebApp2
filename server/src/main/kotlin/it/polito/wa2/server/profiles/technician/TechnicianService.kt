@@ -8,8 +8,6 @@ import it.polito.wa2.server.ticketing.tickets.TicketDTO
 interface TechnicianService {
     fun getAll(userDetail: UserDetail): List<TechnicianDTO>
 
-    fun getAllPending(userDetail: UserDetail): List<TechnicianDTO>
-
     fun getByEmail(email: String, userDetail: UserDetail): TechnicianDTO
 
     fun getManager(email: String, userDetail: UserDetail): ManagerDTO

@@ -58,7 +58,6 @@ class CustomerServiceImpl(
             phone = customerDTO.phone,
             address = customerDTO.address
         )
-        //customer.purchases = purchaseRepository.getAllByListOfId(customerDTO.purchases ?: emptyList()).toMutableSet()
         return customerRepository.save(customer).toDTO()
     }
 
@@ -77,7 +76,6 @@ class CustomerServiceImpl(
             phone = customerDTO.phone,
             address = customerDTO.address,
         )
-        //customer.purchases = purchaseRepository.getAllByListOfId(customerDTO.purchases ?: emptyList()).toMutableSet()
         return customerRepository.save(customer).toDTO()
     }
 }

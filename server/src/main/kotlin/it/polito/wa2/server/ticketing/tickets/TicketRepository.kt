@@ -10,5 +10,5 @@ interface TicketRepository : JpaRepository<Ticket, Long?> {
     fun getAllByListOfId(ids: List<Long>): List<Ticket>
 
     @Query("select ticket from Ticket ticket where ticket.purchase.customer.email = :email")
-    fun findByPurchase_Customer_Email(email: String): List<Ticket>
+    fun findByPurchaseCustomerEmail(email: String): List<Ticket>
 }

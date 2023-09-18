@@ -140,12 +140,6 @@ class ProfileController(
 
     // TECHNICIAN
 
-    @GetMapping("/profiles/pending")
-    @ResponseStatus(HttpStatus.OK)
-    fun getTechniciansPending(@AuthenticationPrincipal user: DefaultOAuth2User?): List<TechnicianDTO> {
-        return technicianService.getAllPending(getUserDetail(user))
-    }
-
     @GetMapping("/profiles/{email}/manager")
     @ResponseStatus(HttpStatus.OK)
     fun getTechnicianManager(

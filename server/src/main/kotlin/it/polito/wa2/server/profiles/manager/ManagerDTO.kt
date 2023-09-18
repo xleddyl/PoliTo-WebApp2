@@ -5,7 +5,6 @@ data class ManagerDTO(
     val name: String,
     val phone: String,
     val level: Int,
-    //val technicians: List<String>
 ) {
 
     override fun toString(): String {

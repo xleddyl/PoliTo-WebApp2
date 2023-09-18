@@ -6,8 +6,7 @@ data class ProductDTO(
     val name: String,
     val brand: String,
     val category: String,
-    val price: Float,
-    //val purchases: List<Long>
+    val price: Float
 ) {
 
     override fun toString(): String {

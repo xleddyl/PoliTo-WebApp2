@@ -51,9 +51,10 @@ class DataLoader(
             Purchase(
                 customer = customer1,
                 product = product1,
-                date = Date(1235995800000L)
+                date = Date(1695028957917L)
             )
         )
+
 
         val ticket = ticketRepository.save(
             Ticket(
@@ -62,9 +63,12 @@ class DataLoader(
                 priority = 2,
                 purchase = purchase,
                 technician = technician
-
             )
         )
+
+        purchase.ticket = ticket
+        purchaseRepository.save(purchase)
+
 
         val message1 = messageRepository.save(
             Message(

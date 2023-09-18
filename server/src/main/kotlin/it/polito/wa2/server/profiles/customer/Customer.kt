@@ -18,14 +18,12 @@ class Customer(
 
     var address: String,
 
-) : Profile(email, name, phone) {
-
     @OneToMany(mappedBy = "customer", cascade = [CascadeType.ALL])
     var purchases: MutableSet<Purchase> = mutableSetOf()
 
+) : Profile(email, name, phone) {
     fun toDTO(): CustomerDTO {
         return CustomerDTO(email, name, phone, address)
     }
-
 }
 

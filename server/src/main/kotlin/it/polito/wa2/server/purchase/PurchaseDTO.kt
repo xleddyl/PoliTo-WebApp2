@@ -7,7 +7,6 @@ data class PurchaseDTO(
     val customer: String,
     val product: String,
     val date: Date,
-    //val ticket: Long
 ) {
     override fun toString(): String {
         return "Purchase(id=$id, customer='${customer}', product='${product}', date=$date)"

@@ -13,17 +13,21 @@ import jakarta.persistence.Table
 class Product(
     @Id
     var ean: String,
+
     var sku: String,
+
     var name: String,
+
     var brand: String,
+
     var category: String,
+
     var price: Float,
-) {
+
     @OneToMany(mappedBy = "product")
     var purchases: MutableSet<Purchase> = mutableSetOf()
-
+) {
     fun toDTO(): ProductDTO {
         return ProductDTO(ean, sku, name, brand, category, price)
     }
-
 }

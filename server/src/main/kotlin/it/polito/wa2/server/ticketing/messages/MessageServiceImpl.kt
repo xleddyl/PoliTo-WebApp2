@@ -27,7 +27,7 @@ class MessageServiceImpl(
         if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
 
         // customer-technician vede solo i propri tickets
-        if ((userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchase_Customer_Email(userDetail.email)
+        if ((userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchaseCustomerEmail(userDetail.email)
                 .any { it.id == ticketId }) ||
             (userDetail.role == UserRoles.TECHNICIAN && technicianRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketId }
                 .isNullOrEmpty())
@@ -41,7 +41,7 @@ class MessageServiceImpl(
         if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
 
         // customer-technician vede solo i propri tickets
-        if ((userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchase_Customer_Email(userDetail.email)
+        if ((userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchaseCustomerEmail(userDetail.email)
                 .any { it.id == ticketId }) ||
             (userDetail.role == UserRoles.TECHNICIAN && technicianRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketId }
                 .isNullOrEmpty())
@@ -56,7 +56,7 @@ class MessageServiceImpl(
         if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
 
         // customer-technician vede solo i propri tickets
-        if ((userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchase_Customer_Email(userDetail.email)
+        if ((userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchaseCustomerEmail(userDetail.email)
                 .any { it.id == ticketId }) ||
             (userDetail.role == UserRoles.TECHNICIAN && technicianRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketId }
                 .isNullOrEmpty())

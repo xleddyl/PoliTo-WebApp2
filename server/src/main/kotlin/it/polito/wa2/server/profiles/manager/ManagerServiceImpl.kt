@@ -48,7 +48,6 @@ class ManagerServiceImpl(
             phone = managerDTO.phone,
             level = managerDTO.level,
         )
-        //manager.technicians = technicianRepository.getAllByListOfId(managerDTO.technicians ?: emptyList()).toMutableSet()
         return managerRepository.save(manager).toDTO()
     }
 
@@ -63,7 +62,6 @@ class ManagerServiceImpl(
             phone = managerDTO.phone,
             level = managerDTO.level,
         )
-        //manager.technicians = technicianRepository.getAllByListOfId(managerDTO.technicians ?: emptyList()).toMutableSet()
         return managerRepository.save(manager).toDTO()
     }
 }

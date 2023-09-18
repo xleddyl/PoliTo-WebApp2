@@ -25,12 +25,6 @@ class TechnicianServiceImpl(
         return technicianRepository.findAll().map { it.toDTO() }
     }
 
-    // not necessary?
-    override fun getAllPending(userDetail: UserDetail): List<TechnicianDTO> {
-        if (userDetail.role != UserRoles.MANAGER) throw UnauthorizedException("Unauthorized") // solo un manager può vedere tutti i technician
-        return technicianRepository.getAllByManagerIsNull().map { it.toDTO() }
-    }
-
     override fun getByEmail(email: String, userDetail: UserDetail): TechnicianDTO {
         if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
         if (userDetail.role == UserRoles.CUSTOMER) throw UnauthorizedException("Unauthorized") // un customer non può vedere i technician
@@ -53,11 +47,7 @@ class TechnicianServiceImpl(
     }
 
     override fun addProfile(technicianDTO: TechnicianDTO, userDetail: UserDetail): TechnicianDTO {
-        if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
-        if (userDetail.role == UserRoles.CUSTOMER) throw UnauthorizedException("Unauthorized") // un customer non può aggiungere i technician
-        if (userDetail.role == UserRoles.TECHNICIAN || userDetail.email != technicianDTO.email) throw UnauthorizedException(
-            "Unauthorized"
-        ) // un technician può aggiungere solo se stesso
+        if (userDetail.role != UserRoles.MANAGER) throw UnauthorizedException("Unauthorized")
         if (technicianRepository.findByIdOrNull(technicianDTO.email) != null) throw DuplicateException("User already exists")
         return technicianRepository.save(
             Technician(

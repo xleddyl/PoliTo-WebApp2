@@ -24,10 +24,9 @@ class Purchase(
     @Temporal(value = TemporalType.DATE)
     var date: Date,
 
-) {
     @OneToOne(cascade = [CascadeType.ALL])
     var ticket: Ticket? = null
-
+) {
     fun toDTO(): PurchaseDTO {
         return PurchaseDTO(id!!, customer.email, product.ean, date)
     }
