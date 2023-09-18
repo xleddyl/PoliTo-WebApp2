@@ -6,5 +6,11 @@ data class ProductDTO(
     val name: String,
     val brand: String,
     val category: String,
-    val price: Float
-)
+    val price: Float,
+    //val purchases: List<Long>
+) {
+
+    override fun toString(): String {
+        return "Product(ean='$ean', sku='$sku', name='$name', brand='$brand', category='$category', price=$price)"
+    }
+}

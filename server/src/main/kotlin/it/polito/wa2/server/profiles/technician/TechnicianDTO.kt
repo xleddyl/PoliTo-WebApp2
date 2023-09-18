@@ -5,8 +5,12 @@ data class TechnicianDTO(
     val name: String,
     val phone: String,
     val specialization: String,
-    val tickets: List<Long>?,
-    val manager: String
-)
+    //val tickets: List<Long>,
+    //val manager: String
+) {
+    override fun toString(): String {
+        return "Technician(email='$email', name='$name', phone='$phone', specialization='$specialization')"
+    }
+}
 
 

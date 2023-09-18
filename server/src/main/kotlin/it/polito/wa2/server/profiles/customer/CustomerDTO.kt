@@ -6,8 +6,10 @@ data class CustomerDTO(
     val name: String,
     val phone: String,
     val address: String,
-    val purchases: List<Long>?,
-    val tickets: List<Long>?
-)
+) {
+    override fun toString(): String {
+        return "Customer(email='$email', name='$name', phone='$phone', address='$address')"
+    }
+}
 
 

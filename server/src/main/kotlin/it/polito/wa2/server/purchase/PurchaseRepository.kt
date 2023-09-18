@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 
 @Repository
-interface PurchaseRepository: JpaRepository<Purchase, Long> {
+interface PurchaseRepository: JpaRepository<Purchase, Long?> {
     fun findByCustomerEmail(email: String): List<Purchase>
 
     @Query("select purchase from Purchase purchase where purchase.id IN :ids")

@@ -2,6 +2,7 @@ package it.polito.wa2.server.profiles.manager
 
 import it.polito.wa2.server.profiles.Profile
 import it.polito.wa2.server.profiles.technician.Technician
+import jakarta.persistence.CascadeType
 import jakarta.persistence.Entity
 import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
@@ -9,12 +10,19 @@ import jakarta.persistence.Table
 @Entity
 @Table(name = "managers")
 class Manager(
-    email: String, name: String, phone: String,
-    var level: Int,
-    @OneToMany(mappedBy = "manager")
-    var technicians: MutableSet<Technician> = mutableSetOf()
-) : Profile(email, name, phone)
+    email: String,
+    name: String,
+    phone: String,
 
-fun Manager.toDTO(): ManagerDTO {
-    return ManagerDTO(email, name, phone, level, technicians.map { it.email })
+    var level: Int,
+
+) : Profile(email, name, phone) {
+
+    @OneToMany(mappedBy = "manager", cascade = [CascadeType.ALL])
+    var technicians: MutableSet<Technician> = mutableSetOf()
+
+    fun toDTO(): ManagerDTO {
+        return ManagerDTO(email, name, phone, level)
+    }
+
 }

@@ -52,8 +52,10 @@ class AuthServiceImpl(
         roles: List<String>
     ): UserRepresentation {
         val newUser = UserRepresentation()
-        newUser.username = request.username.split("@")[0]
-        newUser.email = request.username
+        newUser.username = request.username //request.username.split("@")[0]
+        newUser.email = request.email
+        newUser.firstName = request.firstName
+        newUser.lastName = request.lastName
         newUser.credentials = listOf(cR)
         newUser.isEnabled = true
         newUser.realmRoles = roles

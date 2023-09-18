@@ -4,22 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="fix(profiles): fixed profiles structure and added some security to services">
+    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="feat(DataLoader): added data&#10;fix">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9ecfdf06-4ec5-4418-9181-72341201fc58.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9ecfdf06-4ec5-4418-9181-72341201fc58.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/DataLoader.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/DataLoader.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ServerApplication.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ServerApplication.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ServerExceptionContainer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ServerExceptionContainer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ServerExceptionHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ServerExceptionHandler.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/Product.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/Product.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductDTO.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductServiceImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductServiceImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/Profile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/Profile.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/ProfileController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/ProfileController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/customer/Customer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/customer/Customer.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/customer/CustomerDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/customer/CustomerDTO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/customer/CustomerService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/customer/CustomerService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/customer/CustomerServiceImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/customer/CustomerServiceImpl.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/manager/Manager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/manager/Manager.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/manager/ManagerDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/manager/ManagerDTO.kt" afterDir="false" />
@@ -27,22 +22,21 @@
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/manager/ManagerServiceImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/manager/ManagerServiceImpl.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/technician/Technician.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/technician/Technician.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/technician/TechnicianDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/technician/TechnicianDTO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/technician/TechnicianRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/technician/TechnicianRepository.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/technician/TechnicianService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/technician/TechnicianService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/technician/TechnicianServiceImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/technician/TechnicianServiceImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/security/SecurityConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/security/SecurityConfig.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/security/aut/AuthController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/security/aut/AuthController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/security/aut/AuthService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/security/aut/AuthService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/security/aut/AuthServiceImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/security/aut/AuthServiceImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/security/aut/UserRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/security/aut/AuthUtil.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/purchase/Purchase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/purchase/Purchase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/purchase/PurchaseController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/purchase/PurchaseController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/purchase/PurchaseDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/purchase/PurchaseDTO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/purchase/PurchaseService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/purchase/PurchaseService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/purchase/PurchaseServiceImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/purchase/PurchaseServiceImpl.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/messages/Message.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/messages/Message.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/messages/MessageController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/messages/MessageController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/messages/MessageDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/messages/MessageDTO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/messages/MessageRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/messages/MessageRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/messages/MessageService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/messages/MessageService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/messages/MessageServiceImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/messages/MessageServiceImpl.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/Ticket.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/Ticket.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketDTO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketRepository.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketServiceImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketServiceImpl.kt" afterDir="false" />
     </list>
@@ -106,6 +100,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -132,7 +131,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;changes&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-17&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/edoal/Desktop/WebApp2/server/src/main/kotlin/it/polito/wa2/server/profiles/technician&quot;,
@@ -226,6 +225,10 @@
       <workItem from="1690958695803" duration="7646000" />
       <workItem from="1691048582878" duration="8097000" />
       <workItem from="1691090329837" duration="8381000" />
+      <workItem from="1693211663291" duration="6770000" />
+      <workItem from="1693314112695" duration="14286000" />
+      <workItem from="1693551100928" duration="3032000" />
+      <workItem from="1693812585293" duration="15713000" />
     </task>
     <task id="LOCAL-00001" summary="feat(test): added some test and fixed some problems in services">
       <created>1683800085310</created>
@@ -430,7 +433,14 @@
       <option name="project" value="LOCAL" />
       <updated>1690992940495</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="feat(DataLoader): added data&#10;fix">
+      <created>1693226326899</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1693226326899</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -449,7 +459,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="feat(authentication): keycloack integration (not working)" />
     <MESSAGE value="Changes by Davide" />
     <MESSAGE value="feat(jib): added jib integration" />
     <MESSAGE value="[intellij]: added configurations in .idea" />
@@ -474,6 +483,7 @@
     <MESSAGE value="fix(Observers): fixed some problems with observers" />
     <MESSAGE value="fix(boh)&#10;added something, now loki works" />
     <MESSAGE value="fix(profiles): fixed profiles structure and added some security to services" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix(profiles): fixed profiles structure and added some security to services" />
+    <MESSAGE value="feat(DataLoader): added data&#10;fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(DataLoader): added data&#10;fix" />
   </component>
 </project>

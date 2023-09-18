@@ -5,7 +5,12 @@ data class ManagerDTO(
     val name: String,
     val phone: String,
     val level: Int,
-    val technicians: List<String>?
-)
+    //val technicians: List<String>
+) {
+
+    override fun toString(): String {
+        return "Manager(email='$email', name='$name', phone='$phone', level=$level)"
+    }
+}
 
 
