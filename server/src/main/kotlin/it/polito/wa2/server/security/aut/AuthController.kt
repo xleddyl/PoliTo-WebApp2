@@ -1,5 +1,8 @@
 package it.polito.wa2.server.security.aut
 
+import it.polito.wa2.server.profiles.UserRoles
+import it.polito.wa2.server.profiles.customer.CustomerDTO
+import it.polito.wa2.server.profiles.customer.CustomerService
 import it.polito.wa2.server.security.CUSTOMER
 import it.polito.wa2.server.security.TECHNICIAN
 import org.springframework.http.HttpStatus
@@ -11,13 +14,22 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/api")
 class AuthController(
-    private val authService: AuthService
+    private val authService: AuthService,
+    private val customerService: CustomerService
 ) {
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
     fun createCustomer(@Valid @RequestBody request: UserRequest, @AuthenticationPrincipal user: DefaultOAuth2User?) {
         authService.createUser(request, listOf(CUSTOMER), getUserDetail(user))
+        customerService.addProfile(
+            CustomerDTO(
+                request.email,
+                "${request.firstName} ${request.lastName}",
+                request.phone,
+                request.address
+            ), UserDetail(UserRoles.CUSTOMER, request.email)
+        )
     }
 
     @PostMapping("/createExpert")

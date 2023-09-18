@@ -11,7 +11,9 @@ data class UserRequest(
     val email: String,
     val firstName: String,
     val lastName: String,
-    val password: String
+    val password: String,
+    val phone: String,
+    val address: String
 )
 
 data class UserDetail(val role: UserRoles, val email: String)
