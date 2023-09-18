@@ -7,7 +7,9 @@ import './css/App.css'
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
    <React.StrictMode>
-      <App />
+      <div className='dark'>
+         <App />
+      </div>
    </React.StrictMode>,
 )
 
