@@ -25,4 +25,10 @@ class AuthController(
     fun createTechnician(@Valid @RequestBody request: UserRequest, @AuthenticationPrincipal user: DefaultOAuth2User?) {
         authService.createUser(request, listOf(TECHNICIAN), getUserDetail(user))
     }
+
+    @GetMapping("/user")
+    @ResponseStatus(HttpStatus.OK)
+    fun getUserDetail(@AuthenticationPrincipal user: DefaultOAuth2User?): UserDetail {
+        return getUserDetail(user)
+    }
 }

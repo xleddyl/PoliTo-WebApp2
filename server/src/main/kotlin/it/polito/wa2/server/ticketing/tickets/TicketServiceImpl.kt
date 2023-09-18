@@ -27,9 +27,9 @@ class TicketServiceImpl(
 ) : TicketService {
     override fun getAll(userDetail: UserDetail): List<TicketDTO> {
 
-        return ticketRepository.findAll().map { it.toDTO() }
+        //return ticketRepository.findAll().map { it.toDTO() }
 
-        /*
+
         return when (userDetail.role) {
             UserRoles.CUSTOMER -> {
                 ticketRepository.findByPurchaseCustomerEmail(userDetail.email).map { it.toDTO() }
@@ -51,7 +51,6 @@ class TicketServiceImpl(
             }
         }
 
-         */
     }
 
     override fun getById(ticketId: Long, userDetail: UserDetail): TicketDTO {
@@ -80,7 +79,7 @@ class TicketServiceImpl(
         val purchase =
             purchaseRepository.findByIdOrNull(purchaseId) ?: throw NotValidException("Purchase does not exists")
 
-        return ticketRepository.save(
+        val ticket = ticketRepository.save(
             Ticket(
                 purchase = purchase,
                 technician = technicianRepository.findByIdOrNull(ticketDTO.technician)
@@ -89,7 +88,11 @@ class TicketServiceImpl(
                 description = ticketDTO.description,
                 priority = ticketDTO.priority,
             )
-        ).toDTO()
+        )
+        purchase.ticket = ticket
+        purchaseRepository.save(purchase)
+
+        return ticket.toDTO()
     }
 
     override fun editTicket(ticketDTO: TicketDTO, userDetail: UserDetail): TicketDTO {

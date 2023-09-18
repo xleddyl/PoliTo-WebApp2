@@ -29,7 +29,7 @@ class AuthServiceImpl(
         ) // un customer può aggiungere solo dei customer
 
         val password = preparePasswordRepresentation(userRequest.password)
-        val user = prepareUserRepresentation(userRequest, password, listOf(CUSTOMER))
+        val user = prepareUserRepresentation(userRequest, password, roles)
         val response = keycloak.realm(realm).users().create(user)
 
         if (response.status == 403) throw DuplicateException("${response.statusInfo}")
