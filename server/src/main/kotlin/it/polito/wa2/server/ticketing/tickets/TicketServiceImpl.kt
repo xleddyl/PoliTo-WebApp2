@@ -70,13 +70,13 @@ class TicketServiceImpl(
         }
     }
 
-    override fun createTicket(ticketDTO: TicketDTO, purchaseId: Long, userDetail: UserDetail): TicketDTO {
+    override fun createTicket(ticketDTO: TicketDTO, userDetail: UserDetail): TicketDTO {
         // TODO("solo il customer o il manager")  ???
         if (userDetail.role != UserRoles.CUSTOMER && userDetail.role != UserRoles.MANAGER) throw UnauthorizedException("Unauthorized")
 
         if (ticketRepository.findByIdOrNull(ticketDTO.id) != null) throw DuplicateException("Ticket already exists")
-        val purchase =
-            purchaseRepository.findByIdOrNull(purchaseId) ?: throw NotValidException("Purchase does not exists")
+        val purchase = purchaseRepository.findByIdOrNull(ticketDTO.purchaseID) ?: throw NotValidException("Purchase does not exists")
+        if (userDetail.role == UserRoles.CUSTOMER && purchase.customer.email != userDetail.email) throw UnauthorizedException("Unauthorized") // customer non può il ticket per qualcun altro
 
         val ticket = ticketRepository.save(
             Ticket(
@@ -109,7 +109,7 @@ class TicketServiceImpl(
             purchase = oldTicket.purchase,
             technician = technicianRepository.findByIdOrNull(ticketDTO.technician)
                 ?: throw NotValidException("Technician does not exists"),
-            statuses = ticketDTO.statuses,
+            statuses = ticketDTO.statuses ?: oldTicket.statuses,
             description = ticketDTO.description,
             priority = ticketDTO.priority,
         )

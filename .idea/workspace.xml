@@ -4,28 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="grafana test">
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/a9b29e6a-9086-46c0-b30a-9256d1b7043c/bloom-0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/a9b29e6a-9086-46c0-b30a-9256d1b7043c/data.parquet" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/a9b29e6a-9086-46c0-b30a-9256d1b7043c/meta.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/index.json.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9ecfdf06-4ec5-4418-9181-72341201fc58.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9ecfdf06-4ec5-4418-9181-72341201fc58.xml" afterDir="false" />
+    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="modifiche al server per evitare di smadonnare">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/DataLoader.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/DataLoader.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/customer/Customer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/customer/Customer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/customer/CustomerDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/customer/CustomerDTO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/manager/Manager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/manager/Manager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/manager/ManagerDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/manager/ManagerDTO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/technician/Technician.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/technician/Technician.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/technician/TechnicianDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/technician/TechnicianDTO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/technician/TechnicianServiceImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/profiles/technician/TechnicianServiceImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/purchase/Purchase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/purchase/Purchase.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/purchase/PurchaseDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/purchase/PurchaseDTO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/security/aut/AuthController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/security/aut/AuthController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/messages/MessageDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/messages/MessageDTO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/Ticket.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/Ticket.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketDTO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketServiceImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketServiceImpl.kt" afterDir="false" />
     </list>
     <list id="38bb76aa-e297-4ec8-88e2-555c0a0ac3d9" name="Changes by edo" comment="" />
@@ -222,7 +205,8 @@
       <workItem from="1695109752873" duration="300000" />
       <workItem from="1695110983736" duration="315000" />
       <workItem from="1695113877289" duration="1169000" />
-      <workItem from="1695116735721" duration="1341000" />
+      <workItem from="1695116735721" duration="1601000" />
+      <workItem from="1695133608596" duration="2094000" />
     </task>
     <task id="LOCAL-00001" summary="feat(test): added some test and fixed some problems in services">
       <created>1683800085310</created>
@@ -448,7 +432,14 @@
       <option name="project" value="LOCAL" />
       <updated>1695034307533</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="modifiche al server per evitare di smadonnare">
+      <created>1695118428537</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1695118428537</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -467,7 +458,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="[intellij]: added configurations in .idea" />
     <MESSAGE value="[intellij]: shared .idea folder" />
     <MESSAGE value="[intellij]: edited .gitignore" />
     <MESSAGE value="feat(keycloak): working keycloak??" />
@@ -492,6 +482,7 @@
     <MESSAGE value="feat(DataLoader): added data&#10;fix" />
     <MESSAGE value="fix(purchases): fixed purchases relations" />
     <MESSAGE value="grafana test" />
-    <option name="LAST_COMMIT_MESSAGE" value="grafana test" />
+    <MESSAGE value="modifiche al server per evitare di smadonnare" />
+    <option name="LAST_COMMIT_MESSAGE" value="modifiche al server per evitare di smadonnare" />
   </component>
 </project>

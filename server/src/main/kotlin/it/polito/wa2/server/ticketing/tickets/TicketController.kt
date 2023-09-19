@@ -33,10 +33,9 @@ class TicketController(
     @ResponseStatus(HttpStatus.CREATED)
     fun createTicket(
         @Valid @RequestBody ticketDTO: TicketDTO,
-        @Valid @RequestBody purchaseId: Long,
         @AuthenticationPrincipal user: DefaultOAuth2User?
     ): TicketDTO {
-        return ticketService.createTicket(ticketDTO, purchaseId, getUserDetail(user))
+        return ticketService.createTicket(ticketDTO, getUserDetail(user))
     }
 
     @PostMapping("/tickets/{ticketId}/{stateString}")

@@ -7,7 +7,7 @@ interface TicketService {
 
     fun getById(ticketId: Long, userDetail: UserDetail): TicketDTO
 
-    fun createTicket(ticketDTO: TicketDTO, purchaseId: Long, userDetail: UserDetail): TicketDTO
+    fun createTicket(ticketDTO: TicketDTO, userDetail: UserDetail): TicketDTO
 
     fun editTicket(ticketDTO: TicketDTO, userDetail: UserDetail): TicketDTO
 
