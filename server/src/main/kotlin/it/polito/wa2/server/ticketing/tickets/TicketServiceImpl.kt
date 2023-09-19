@@ -75,7 +75,6 @@ class TicketServiceImpl(
         if (userDetail.role != UserRoles.CUSTOMER && userDetail.role != UserRoles.MANAGER) throw UnauthorizedException("Unauthorized")
 
         if (ticketRepository.findByIdOrNull(ticketDTO.id) != null) throw DuplicateException("Ticket already exists")
-        if (ticketDTO.statuses.size != 1 && ticketDTO.statuses.first() != States.OPEN) throw NotValidException("Ticket status is invalid")
         val purchase =
             purchaseRepository.findByIdOrNull(purchaseId) ?: throw NotValidException("Purchase does not exists")
 
@@ -84,9 +83,8 @@ class TicketServiceImpl(
                 purchase = purchase,
                 technician = technicianRepository.findByIdOrNull(ticketDTO.technician)
                     ?: throw NotValidException("Technician does not exists"),
-                statuses = ticketDTO.statuses,
+                statuses = mutableListOf(States.OPEN),
                 description = ticketDTO.description,
-                priority = ticketDTO.priority,
             )
         )
         purchase.ticket = ticket

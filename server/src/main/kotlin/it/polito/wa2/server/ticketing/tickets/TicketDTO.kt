@@ -1,11 +1,13 @@
 package it.polito.wa2.server.ticketing.tickets
 
 data class TicketDTO(
-    val id: Long,
+    val id: Long?,
     val technician: String?,
     val statuses: MutableList<States>,
     val description: String,
-    val priority: Int,
+    val priority: Int?,
+    val messagesID: MutableSet<Long?>,
+    val purchaseID: Long
 ) {
     override fun toString(): String {
         return "Ticket(id=$id, technician='${technician}', statuses=$statuses, description='$description', priority=$priority)"

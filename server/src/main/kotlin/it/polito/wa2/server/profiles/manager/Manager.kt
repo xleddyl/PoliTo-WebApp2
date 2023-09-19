@@ -21,7 +21,7 @@ class Manager(
 
 ) : Profile(email, name, phone) {
         fun toDTO(): ManagerDTO {
-        return ManagerDTO(email, name, phone, level)
+        return ManagerDTO(email, name, phone, level, technicians.map { it.email }.toMutableSet())
     }
 
 }

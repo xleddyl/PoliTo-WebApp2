@@ -28,7 +28,7 @@ class Purchase(
     var ticket: Ticket? = null
 ) {
     fun toDTO(): PurchaseDTO {
-        return PurchaseDTO(id!!, customer.email, product.ean, date)
+        return PurchaseDTO(id!!, customer.email, product.ean, date, ticket?.id)
     }
 }
 
