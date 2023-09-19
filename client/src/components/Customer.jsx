@@ -1,3 +1,5 @@
-export default function Customer() {
-   return <div className="text-white">customer</div>
+import { useEffect } from 'react'
+
+export default function Customer({ user }) {
+   return <div className="text-white">ciao</div>
 }
