@@ -27,7 +27,8 @@ class AuthController(
                 request.email,
                 "${request.firstName} ${request.lastName}",
                 request.phone,
-                request.address
+                request.address,
+                mutableSetOf()
             ), UserDetail(UserRoles.CUSTOMER, request.email)
         )
     }

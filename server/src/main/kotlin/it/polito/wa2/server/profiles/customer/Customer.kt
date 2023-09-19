@@ -23,7 +23,7 @@ class Customer(
 
 ) : Profile(email, name, phone) {
     fun toDTO(): CustomerDTO {
-        return CustomerDTO(email, name, phone, address)
+        return CustomerDTO(email, name, phone, address, purchases.map { it.id }.toMutableSet())
     }
 }
 

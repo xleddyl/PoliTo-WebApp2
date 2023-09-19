@@ -55,7 +55,7 @@ class TechnicianServiceImpl(
                 name = technicianDTO.name,
                 phone = technicianDTO.phone,
                 specialization = technicianDTO.specialization,
-                manager = if (userDetail.role == UserRoles.MANAGER) managerRepository.findByIdOrNull(userDetail.email) else null
+                manager = managerRepository.findByIdOrNull(userDetail.email)!!
 
             )
         ).toDTO()
@@ -76,7 +76,7 @@ class TechnicianServiceImpl(
                 name = technicianDTO.name,
                 phone = technicianDTO.phone,
                 specialization = technicianDTO.specialization,
-                manager = if (userDetail.role == UserRoles.MANAGER) managerRepository.findByIdOrNull(userDetail.email) else oldTechnician.manager
+                manager = managerRepository.findByIdOrNull(userDetail.email) ?: oldTechnician.manager
             )
         ).toDTO()
     }

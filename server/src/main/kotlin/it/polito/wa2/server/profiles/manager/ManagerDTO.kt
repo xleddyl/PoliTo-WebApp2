@@ -5,6 +5,7 @@ data class ManagerDTO(
     val name: String,
     val phone: String,
     val level: Int,
+    val techniciansID: MutableSet<String>
 ) {
 
     override fun toString(): String {
