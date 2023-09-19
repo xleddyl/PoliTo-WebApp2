@@ -2,8 +2,8 @@ export default function ProductsList({ products, purchasedProducts, addPurchase 
    return (
       <div className="flex flex-row">
          <div className="flex-grow">
-            <div className="text-white text-lg font-medium">All Products</div>
-            <div className="relative overflow-x-auto shadow-md rounded-lg max-w-4xl">
+            <div className="text-white text-lg font-medium pb-2">All Products</div>
+            <div className="relative overflow-x-auto shadow-md rounded-lg w-full">
                <table className="w-full text-sm text-left text-gray-400">
                   <thead className="text-xs uppercase bg-gray-700 text-gray-400">
                      <tr>
@@ -22,7 +22,7 @@ export default function ProductsList({ products, purchasedProducts, addPurchase 
                         <th scope="col" className="px-6 py-3">
                            category
                         </th>
-                        <th scope="col" className="px-6 py-3 tex">
+                        <th scope="col" className="px-6 py-3 text-center">
                            register purchase
                         </th>
                      </tr>
@@ -41,7 +41,7 @@ export default function ProductsList({ products, purchasedProducts, addPurchase 
                               <td className="px-6 py-4">{p.category}</td>
                               <td className="px-6 py-4 flex justify-center">
                                  {purchasedProducts.find((v) => v === p.ean) ? (
-                                    <div className="text-gray-600">-</div>
+                                    <div className="text-gray-600 italic">purchased</div>
                                  ) : (
                                     <svg
                                        xmlns="http://www.w3.org/2000/svg"

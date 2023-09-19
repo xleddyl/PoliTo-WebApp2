@@ -5,12 +5,10 @@ export default function AddTicket({ addTicket }) {
    const [description, setDescription] = useState('')
 
    return (
-      <div className="flex flex-col items-center justify-center px-6 py-24 mx-auto">
+      <div className="flex flex-col ">
+         <div className="text-white text-lg font-medium pb-2">Add ticket</div>
          <div className="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 bg-gray-800 border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-               <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
-                  Create a ticket
-               </h1>
                <form className="space-y-4 md:space-y-6" action="#">
                   <div>
                      <label htmlFor="text" className="block mb-2 text-sm font-medium text-white">
