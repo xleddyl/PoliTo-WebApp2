@@ -77,7 +77,7 @@ class TicketServiceImpl(
         //if (ticketRepository.findByIdOrNull(ticketDTO.id) != null) throw DuplicateException("Ticket already exists")
         val purchase = purchaseRepository.findByIdOrNull(ticketDTO.purchaseID) ?: throw NotValidException("Purchase does not exists")
         if (userDetail.role == UserRoles.CUSTOMER && purchase.customer.email != userDetail.email) throw UnauthorizedException("Unauthorized") // customer non può il ticket per qualcun altro
-        println("\n\n\nPASSED\n\n\n")
+
         val ticket = ticketRepository.save(
             Ticket(
                 purchase = purchase,
