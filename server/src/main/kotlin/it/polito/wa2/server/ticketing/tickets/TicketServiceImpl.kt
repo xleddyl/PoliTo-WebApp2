@@ -75,15 +75,20 @@ class TicketServiceImpl(
         if (userDetail.role != UserRoles.CUSTOMER && userDetail.role != UserRoles.MANAGER) throw UnauthorizedException("Unauthorized")
 
         //if (ticketRepository.findByIdOrNull(ticketDTO.id) != null) throw DuplicateException("Ticket already exists")
-        val purchase = purchaseRepository.findByIdOrNull(ticketDTO.purchaseID) ?: throw NotValidException("Purchase does not exists")
-        if (userDetail.role == UserRoles.CUSTOMER && purchase.customer.email != userDetail.email) throw UnauthorizedException("Unauthorized") // customer non può il ticket per qualcun altro
+        val purchase = purchaseRepository.findByIdOrNull(ticketDTO.purchaseID)
+            ?: throw NotValidException("Purchase does not exists")
+        if (userDetail.role == UserRoles.CUSTOMER && purchase.customer.email != userDetail.email) throw UnauthorizedException(
+            "Unauthorized"
+        ) // customer non può il ticket per qualcun altro
 
         val ticket = ticketRepository.save(
             Ticket(
                 purchase = purchase,
-                technician = ticketDTO.technician?.let { technicianRepository.findByIdOrNull(ticketDTO.technician)
-                    ?: throw NotValidException("Technician does not exists") },
-                statuses = mutableListOf(States.OPEN),
+                technician = ticketDTO.technician?.let {
+                    technicianRepository.findByIdOrNull(ticketDTO.technician)
+                        ?: throw NotValidException("Technician does not exists")
+                },
+                statuses = mutableListOf(Statuses.OPEN),
                 description = ticketDTO.description,
             )
         )
@@ -132,7 +137,7 @@ class TicketServiceImpl(
         return ticketRepository.deleteById(ticketId)
     }
 
-    override fun updateStatus(ticketId: Long, state: States, userDetail: UserDetail): TicketDTO {
+    override fun updateStatus(ticketId: Long, status: Statuses, userDetail: UserDetail): TicketDTO {
         // OPEN -> RESOLVED -> REOPENED -> IN PROGRESS -> OPEN
         // TODO("solo il technician e il manager")  ??? o tutti ?
         if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
@@ -140,39 +145,42 @@ class TicketServiceImpl(
         val ticket = ticketRepository.findByIdOrNull(ticketId) ?: throw DuplicateException("Ticket does not exists")
 
         // customer-technician modifica solo i propri ticket
-        if ((userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchaseCustomerEmail(userDetail.email)
+        if ((userDetail.role == UserRoles.CUSTOMER && !ticketRepository.findByPurchaseCustomerEmail(userDetail.email)
                 .any { it.id == ticketId }) ||
             (userDetail.role == UserRoles.TECHNICIAN && technicianRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketId }
                 .isNullOrEmpty())
         ) throw UnauthorizedException("Unauthorized")
 
+        println("\n\n\n$ticketId: new $status and old ${ticket.statuses.last()}")
 
         when (ticket.statuses.last()) {
-            States.OPEN -> {
-                if (state != States.RESOLVED && state != States.CLOSED && state != States.IN_PROGRESS) throw NotValidException(
+            Statuses.OPEN -> {
+                if (status != Statuses.RESOLVED && status != Statuses.CLOSED && status != Statuses.IN_PROGRESS) throw NotValidException(
                     "Invalid status"
                 )
             }
 
-            States.CLOSED -> {
-                if (state != States.RESOLVED) throw NotValidException("Invalid status")
+            Statuses.CLOSED -> {
+                if (status != Statuses.REOPEN) throw NotValidException("Invalid status")
             }
 
-            States.IN_PROGRESS -> {
-                if (state != States.OPEN && state != States.CLOSED && state != States.RESOLVED) throw NotValidException(
+            Statuses.IN_PROGRESS -> {
+                if (status != Statuses.OPEN && status != Statuses.CLOSED && status != Statuses.RESOLVED) throw NotValidException(
                     "Invalid status"
                 )
             }
 
-            States.REOPEN -> {
-                if (state != States.IN_PROGRESS && state != States.RESOLVED) throw NotValidException("Invalid status")
+            Statuses.REOPEN -> {
+                if (status != Statuses.IN_PROGRESS && status != Statuses.RESOLVED && status != Statuses.CLOSED) throw NotValidException(
+                    "Invalid status"
+                )
             }
 
-            States.RESOLVED -> {
-                if (state != States.REOPEN && state != States.CLOSED) throw NotValidException("Invalid status")
+            Statuses.RESOLVED -> {
+                if (status != Statuses.REOPEN && status != Statuses.CLOSED) throw NotValidException("Invalid status")
             }
         }
-        ticket.statuses.add(state)
+        ticket.statuses.add(status)
         return ticketRepository.save(ticket).toDTO()
     }
 }

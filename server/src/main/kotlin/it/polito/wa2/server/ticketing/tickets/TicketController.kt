@@ -17,10 +17,7 @@ class TicketController(
     @GetMapping("/tickets")
     @ResponseStatus(HttpStatus.OK)
     fun getAll(@AuthenticationPrincipal user: DefaultOAuth2User?): List<TicketDTO> {
-        val r = ticketService.getAll(getUserDetail(user))
-        println("\n\n\n\tHERE: ${r.size}")
-        r.forEach{ println("\n\n\n${it.id}: ${it.description}") }
-        return r
+        return ticketService.getAll(getUserDetail(user))
     }
 
     @GetMapping("/tickets/{ticketId}")
@@ -38,16 +35,17 @@ class TicketController(
         return ticketService.createTicket(ticketDTO, getUserDetail(user))
     }
 
-    @PostMapping("/tickets/{ticketId}/{stateString}")
+    @PostMapping("/tickets/{ticketId}")
     @ResponseStatus(HttpStatus.CREATED)
     fun updateStatus(
         @PathVariable ticketId: Long,
-        @PathVariable stateString: String,
+        @Valid @RequestBody ticketStatus: TicketStatus,
         @AuthenticationPrincipal user: DefaultOAuth2User?
     ): TicketDTO {
+        println("\n\n\nHERE UPDATE STATUS")
         try {
-            val state = States.valueOf(stateString.uppercase())
-            return ticketService.updateStatus(ticketId, state, getUserDetail(user))
+            val status = Statuses.valueOf(ticketStatus.status.uppercase())
+            return ticketService.updateStatus(ticketId, status, getUserDetail(user))
         } catch (e: IllegalArgumentException) {
             throw NotValidException("Invalid status")
         }

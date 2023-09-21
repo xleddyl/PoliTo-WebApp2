@@ -13,5 +13,5 @@ interface TicketService {
 
     fun deleteTicket(ticketId: Long, userDetail: UserDetail)
 
-    fun updateStatus(ticketId: Long, state: States, userDetail: UserDetail): TicketDTO
+    fun updateStatus(ticketId: Long, status: Statuses, userDetail: UserDetail): TicketDTO
 }

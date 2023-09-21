@@ -1,15 +1,15 @@
 package it.polito.wa2.server.ticketing.tickets
 
-import it.polito.wa2.server.products.Product
-import it.polito.wa2.server.profiles.customer.Customer
 import it.polito.wa2.server.profiles.technician.Technician
 import it.polito.wa2.server.purchase.Purchase
 import it.polito.wa2.server.ticketing.messages.Message
 import jakarta.persistence.*
 
-enum class States {
+enum class Statuses {
     OPEN, CLOSED, IN_PROGRESS, RESOLVED, REOPEN
 }
+
+data class TicketStatus(val status: String)
 
 @Entity
 @Table(name = "tickets")
@@ -25,7 +25,7 @@ class Ticket(
     var technician: Technician? = null,
 
     @Enumerated(value = EnumType.STRING)
-    var statuses: MutableList<States> = mutableListOf(States.OPEN),
+    var statuses: MutableList<Statuses> = mutableListOf(Statuses.OPEN),
 
     var description: String,
 

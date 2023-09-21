@@ -5,7 +5,7 @@ import it.polito.wa2.server.products.ProductDTO
 import it.polito.wa2.server.profiles.customer.CustomerDTO
 import it.polito.wa2.server.profiles.technician.TechnicianDTO
 import it.polito.wa2.server.ticketing.messages.MessageDTO
-import it.polito.wa2.server.ticketing.tickets.States
+import it.polito.wa2.server.ticketing.tickets.Statuses
 import it.polito.wa2.server.ticketing.tickets.TicketDTO
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -18,8 +18,8 @@ class MessagesTests : AbstractApplicationTest() {
         val customerDTO = CustomerDTO("customer@email.com", "customer customer", "222222222", "aaaa")
         val technicianDTO = TechnicianDTO("technician@email.com", "technician tech", "333333333", "bbbb")
         val productDTO = ProductDTO("ean", "sku", "name", "brand", "category", 1.0f)
-        val states = mutableListOf(States.OPEN)
-        val ticketDTO = TicketDTO(null, productDTO, customerDTO, technicianDTO, states, "description", 3, null)
+        val statuses = mutableListOf(Statuses.OPEN)
+        val ticketDTO = TicketDTO(null, productDTO, customerDTO, technicianDTO, statuses, "description", 3, null)
 
         restTemplate.postForLocation("http://localhost:$port/api/profiles", customerDTO)
         restTemplate.postForLocation("http://localhost:$port/api/profiles", technicianDTO)

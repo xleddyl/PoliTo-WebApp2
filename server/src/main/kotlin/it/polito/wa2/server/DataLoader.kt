@@ -12,12 +12,10 @@ import it.polito.wa2.server.purchase.Purchase
 import it.polito.wa2.server.purchase.PurchaseRepository
 import it.polito.wa2.server.ticketing.messages.Message
 import it.polito.wa2.server.ticketing.messages.MessageRepository
-import it.polito.wa2.server.ticketing.tickets.States
+import it.polito.wa2.server.ticketing.tickets.Statuses
 import it.polito.wa2.server.ticketing.tickets.Ticket
 import it.polito.wa2.server.ticketing.tickets.TicketRepository
 import jakarta.transaction.Transactional
-import org.hibernate.Hibernate
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 import java.sql.Timestamp
 import java.time.LocalDateTime
@@ -65,9 +63,9 @@ class DataLoader(
         val purchase05 = purchaseRepository.save(Purchase(customer = customer1, product = product05, date = Date(1695028957921L)))
         val purchase06 = purchaseRepository.save(Purchase(customer = customer2, product = product06, date = Date(1695028957922L)))
 
-        val ticket01 = ticketRepository.save(Ticket(statuses = mutableListOf(States.OPEN), description = "Product Broken", priority = 2, purchase = purchase01, technician = technician))
-        val ticket02 = ticketRepository.save(Ticket(statuses = mutableListOf(States.OPEN), description = "Product Broken", priority = 2, purchase = purchase04, technician = technician))
-        val ticket03 = ticketRepository.save(Ticket(statuses = mutableListOf(States.OPEN), description = "Product Malfunctioning", priority = 1, purchase = purchase02, technician = technician))
+        val ticket01 = ticketRepository.save(Ticket(statuses = mutableListOf(Statuses.OPEN), description = "Product Broken", priority = 2, purchase = purchase01, technician = technician))
+        val ticket02 = ticketRepository.save(Ticket(statuses = mutableListOf(Statuses.OPEN), description = "Product Broken", priority = 2, purchase = purchase04, technician = technician))
+        val ticket03 = ticketRepository.save(Ticket(statuses = mutableListOf(Statuses.OPEN), description = "Product Malfunctioning", priority = 1, purchase = purchase02, technician = technician))
 
         purchase01.ticket = ticket01
         purchase04.ticket = ticket02

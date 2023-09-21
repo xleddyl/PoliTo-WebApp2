@@ -12,6 +12,8 @@ import it.polito.wa2.server.ticketing.tickets.TicketRepository
 import jakarta.transaction.Transactional
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import java.sql.Timestamp
+import java.time.LocalDateTime
 
 @Service
 @Transactional
@@ -27,7 +29,7 @@ class MessageServiceImpl(
         if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
 
         // customer-technician vede solo i propri tickets
-        if ((userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchaseCustomerEmail(userDetail.email)
+        if ((userDetail.role == UserRoles.CUSTOMER && !ticketRepository.findByPurchaseCustomerEmail(userDetail.email)
                 .any { it.id == ticketId }) ||
             (userDetail.role == UserRoles.TECHNICIAN && technicianRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketId }
                 .isNullOrEmpty())
@@ -41,7 +43,7 @@ class MessageServiceImpl(
         if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
 
         // customer-technician vede solo i propri tickets
-        if ((userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchaseCustomerEmail(userDetail.email)
+        if ((userDetail.role == UserRoles.CUSTOMER && !ticketRepository.findByPurchaseCustomerEmail(userDetail.email)
                 .any { it.id == ticketId }) ||
             (userDetail.role == UserRoles.TECHNICIAN && technicianRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketId }
                 .isNullOrEmpty())
@@ -56,7 +58,7 @@ class MessageServiceImpl(
         if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
 
         // customer-technician vede solo i propri tickets
-        if ((userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchaseCustomerEmail(userDetail.email)
+        if ((userDetail.role == UserRoles.CUSTOMER && !ticketRepository.findByPurchaseCustomerEmail(userDetail.email)
                 .any { it.id == ticketId }) ||
             (userDetail.role == UserRoles.TECHNICIAN && technicianRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketId }
                 .isNullOrEmpty())
@@ -67,7 +69,7 @@ class MessageServiceImpl(
             Message(
                 ticket = ticketRepository.findByIdOrNull(ticketId) ?: throw NotFoundException("Ticket not found"),
                 fromCustomer = messageDTO.fromCustomer,
-                timestamp = messageDTO.timestamp,
+                timestamp = messageDTO.timestamp?: Timestamp.valueOf(LocalDateTime.now()),
                 attachment = messageDTO.attachment,
                 content = messageDTO.content,
                 new = messageDTO.new
