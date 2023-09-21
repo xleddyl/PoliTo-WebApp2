@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import TicketList from '../components/TicketList'
 import Chat from '../components/Chat'
 
-export default function Ticket() {
+export default function Ticket({ user }) {
    const { id } = useParams()
    const [ticket, setTicket] = useState(undefined)
    const [messages, setMessages] = useState([])
@@ -29,6 +29,34 @@ export default function Ticket() {
 
    const sendMessage = async (message, file) => {
       console.log(message, file)
+      const data = {
+         ticket: id,
+         fromCustomer: user.role === 'CUSTOMER',
+         attachment: file,
+         content: message,
+         new: true,
+      }
+      const res = await fetch(`/api/tickets/${id}/messages`, {
+         method: 'POST',
+         body: JSON.stringify(data),
+         headers: {
+            'Content-type': 'application/json',
+         },
+      })
+      if (res.status === 401) navigate('/', { replace: true })
+      if (res.ok) fetchMessages()
+   }
+
+   const updateStatus = async (status) => {
+      const res = await fetch(`/api/tickets/${id}`, {
+         method: 'POST',
+         body: JSON.stringify({status}),
+         headers: {
+            'Content-type': 'application/json',
+         },
+      })
+      if (res.status === 401) navigate('/', { replace: true })
+      if (res.ok) fetchTicket()
    }
 
    useEffect(() => {
@@ -43,7 +71,7 @@ export default function Ticket() {
 
    return (
       <div className="flex flex-col gap-20">
-         {ticket && <TicketList tickets={[ticket]} ticketPage={true} />}
+         {ticket && <TicketList tickets={[ticket]} ticketPage={true} updateStatus={updateStatus} user={user} />}
          <Chat messages={messages} sendMessage={sendMessage} />
       </div>
    )

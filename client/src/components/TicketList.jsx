@@ -1,7 +1,10 @@
 import { useNavigate } from 'react-router-dom'
+import StatusUpdate from './StatusUpdate'
 
-export default function TicketList({ tickets, ticketPage }) {
+export default function TicketList({ tickets, ticketPage, updateStatus, user }) {
    const navigate = useNavigate()
+
+   const statuses = ticketPage ? tickets[0].statuses : null
 
    return (
       <div className="flex flex-row gap-10">
@@ -14,9 +17,11 @@ export default function TicketList({ tickets, ticketPage }) {
                         <th scope="col" className="px-6 py-3">
                            id
                         </th>
-                        <th scope="col" className="px-6 py-3">
-                           statuses
-                        </th>
+                        {!ticketPage && (
+                           <th scope="col" className="px-6 py-3">
+                              status
+                           </th>
+                        )}
                         <th scope="col" className="px-6 py-3">
                            description
                         </th>
@@ -45,7 +50,7 @@ export default function TicketList({ tickets, ticketPage }) {
                               <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap text-white">
                                  {p.id}
                               </th>
-                              <td className="px-6 py-4">{p.statuses}</td>
+                              {!ticketPage && <td className="px-6 py-4">{p.statuses[p.statuses.length-1]}</td>}
                               <td className="px-6 py-4">{p.description}</td>
                               <td className="px-6 py-4">{p.priority}</td>
                               <td className="px-6 py-4">{p.purchaseID}</td>
@@ -70,6 +75,26 @@ export default function TicketList({ tickets, ticketPage }) {
                   </tbody>
                </table>
             </div>
+            {ticketPage && statuses && (
+               <div className="relative overflow-x-auto shadow-md rounded-lg w-full">
+                  <div className="text-white text-lg font-medium pb-2">Statuses</div>
+                  <table className="text-sm text-left text-gray-400">
+                     <tbody>
+                        {statuses.map((p, i) => (
+                           <tr
+                              key={i}
+                              className={'border-b border-gray-700 ' + (i % 2 === 0 ? 'bg-gray-800' : 'bg-gray-900')}
+                           >
+                              <td className="px-6 py-4">{p}</td>
+                           </tr>
+                        ))}
+                     </tbody>
+                  </table>
+               </div>
+            )}
+            {ticketPage && user.role === 'TECHNICIAN' && (
+               <StatusUpdate updateStatus={updateStatus}/>
+            )}
          </div>
       </div>
    )
