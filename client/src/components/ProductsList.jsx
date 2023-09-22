@@ -1,8 +1,8 @@
-export default function ProductsList({ products, purchasedProducts, addPurchase }) {
+export default function ProductsList({ products, purchasedProducts=null, addPurchase }) {
    return (
       <div className="flex flex-row">
          <div className="flex-grow">
-            <div className="text-white text-lg font-medium pb-2">All Products</div>
+            {purchasedProducts && <div className="text-white text-lg font-medium pb-2">All Products</div>}
             <div className="relative overflow-x-auto shadow-md rounded-lg w-full">
                <table className="w-full text-sm text-left text-gray-400">
                   <thead className="text-xs uppercase bg-gray-700 text-gray-400">
@@ -22,9 +22,9 @@ export default function ProductsList({ products, purchasedProducts, addPurchase 
                         <th scope="col" className="px-6 py-3">
                            category
                         </th>
-                        <th scope="col" className="px-6 py-3 text-center">
+                        {purchasedProducts && <th scope="col" className="px-6 py-3 text-center">
                            register purchase
-                        </th>
+                        </th>}
                      </tr>
                   </thead>
                   <tbody>
@@ -39,7 +39,7 @@ export default function ProductsList({ products, purchasedProducts, addPurchase 
                               <td className="px-6 py-4">{p.name}</td>
                               <td className="px-6 py-4">{p.brand}</td>
                               <td className="px-6 py-4">{p.category}</td>
-                              <td className="px-6 py-4 flex justify-center">
+                              {purchasedProducts && <td className="px-6 py-4 flex justify-center">
                                  {purchasedProducts.find((v) => v === p.ean) ? (
                                     <div className="text-gray-600 italic">purchased</div>
                                  ) : (
@@ -54,7 +54,7 @@ export default function ProductsList({ products, purchasedProducts, addPurchase 
                                        <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
                                     </svg>
                                  )}
-                              </td>
+                              </td>}
                            </tr>
                         ))}
                   </tbody>

@@ -3,7 +3,7 @@ import StatusUpdate from './StatusUpdate'
 
 export default function TicketList({ tickets, ticketPage, updateStatus, user }) {
    const navigate = useNavigate()
-
+   console.log(tickets)
    const statuses = ticketPage ? tickets[0].statuses : null
 
    return (
@@ -88,7 +88,7 @@ export default function TicketList({ tickets, ticketPage, updateStatus, user }) 
                      </div>
                   </div>
                )}
-               {ticketPage && user.role === 'TECHNICIAN' && <StatusUpdate updateStatus={updateStatus} />}
+               {ticketPage && user.role !== 'CUSTOMER' && <StatusUpdate updateStatus={updateStatus} />}
             </div>
          </div>
       </div>

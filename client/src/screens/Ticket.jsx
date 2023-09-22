@@ -72,7 +72,7 @@ export default function Ticket({ user }) {
    return (
       <div className="flex flex-col gap-20">
          {ticket && <TicketList tickets={[ticket]} ticketPage={true} updateStatus={updateStatus} user={user} />}
-         <Chat messages={messages} sendMessage={sendMessage} />
+         {ticket && <Chat messages={messages} sendMessage={sendMessage} technician={ticket.technician} />}
       </div>
    )
 }

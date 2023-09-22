@@ -1,11 +1,14 @@
 import { useState } from 'react'
 
-export default function Chat({ messages, sendMessage }) {
+export default function Chat({ messages, sendMessage, technician }) {
    const [message, setMessage] = useState('')
    const [file, setFile] = useState(undefined)
 
    return (
       <div className="mx-auto">
+         <div className="text-white text-lg font-medium pb-2">
+            Chat with technician {technician.match(/^user(\d+)/)[1]}
+         </div>
          {messages &&
             messages.map((m) => (
                <div

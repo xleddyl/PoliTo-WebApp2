@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router-dom'
 import AddTicket from './AddTicket'
 
-export default function PurchaseList({ purchases, addTicket }) {
+export default function PurchasesList({ purchases, addTicket }) {
    const navigate = useNavigate()
 
    return (
       <div className="flex flex-row gap-10">
          <div className="flex-grow">
-            <div className="text-white text-lg font-medium pb-2">Purchases</div>
+            {addTicket && <div className="text-white text-lg font-medium pb-2">Purchases</div>}
             <div className="relative overflow-x-auto shadow-md rounded-lg w-full">
                <table className="w-full text-sm text-left text-gray-400">
                   <thead className="text-xs uppercase bg-gray-700 text-gray-400">
@@ -60,7 +60,7 @@ export default function PurchaseList({ purchases, addTicket }) {
                </table>
             </div>
          </div>
-         <AddTicket addTicket={addTicket} />
+         {addTicket && <AddTicket addTicket={addTicket} />}
       </div>
    )
 }
