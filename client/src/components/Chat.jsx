@@ -1,21 +1,26 @@
 import { useState } from 'react'
 
-export default function Chat({ messages, sendMessage, technician }) {
+export default function Chat({ messages, sendMessage, technician, user }) {
    const [message, setMessage] = useState('')
    const [file, setFile] = useState(undefined)
 
+   if (!technician)
+      return (
+         <div className="mx-auto">
+            <div className="text-white text-lg font-medium pb-2">Not yet assigned to a technician</div>
+         </div>
+      )
+
    return (
       <div className="mx-auto">
-         <div className="text-white text-lg font-medium pb-2">
-            Chat with technician {technician.match(/^user(\d+)/)[1]}
-         </div>
          {messages &&
             messages.map((m) => (
                <div
                   key={m.id}
                   className={
                      'p-4 mb-4 text-sm rounded-lg bg-gray-800 text-blue-400 ' +
-                     (m.fromCustomer ? 'text-end' : 'text-start')
+                     ((user.role === 'TECHNICIAN' && !m.fromCustomer) ? 'text-end ' : 'text-start ') +
+                     ((user.role !== 'TECHNICIAN' && m.fromCustomer) ? 'text-end ' : 'text-start ')
                   }
                   role="alert"
                >
@@ -33,7 +38,7 @@ export default function Chat({ messages, sendMessage, technician }) {
                value={message}
             />
             <button
-               className="w-52 text-white focus:ring-4 font-medium rounded-lg text-sm bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800"
+               className="py-3 px-5 text-white focus:ring-4 font-medium rounded-lg text-sm bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800"
                onClick={() => {
                   sendMessage(message, file)
                   setMessage('')
@@ -42,7 +47,7 @@ export default function Chat({ messages, sendMessage, technician }) {
             >
                Invia
             </button>
-            <input type="file" className="text-white" onChange={(e) => setFile(e.target.files[0])} />
+            <input type="file" className="text-white self-center" onChange={(e) => setFile(e.target.files[0])} />
          </div>
       </div>
    )

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import AddTicket from './AddTicket'
 
-export default function PurchasesList({ purchases, addTicket }) {
+export default function PurchasesList({ purchases, addTicket, manager }) {
    const navigate = useNavigate()
 
    return (
@@ -24,6 +24,11 @@ export default function PurchasesList({ purchases, addTicket }) {
                         <th scope="col" className="px-6 py-3 text-center">
                            Ticket
                         </th>
+                        {manager && <>
+                           <th scope="col" className="px-6 py-3 text-center">
+                           Customer
+                        </th>
+                        </>}
                      </tr>
                   </thead>
                   <tbody>
@@ -54,6 +59,11 @@ export default function PurchasesList({ purchases, addTicket }) {
                                     <div className="text-gray-600 italic">-</div>
                                  )}
                               </td>
+                              {manager && <>
+                           <td scope="col" className="px-6 py-3 text-center">
+                          { p.customer}
+                        </td>
+                        </>}
                            </tr>
                         ))}
                   </tbody>

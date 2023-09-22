@@ -1,4 +1,6 @@
-import { Customer, Manager, Technician } from '../components'
+import Customer from '../components/Customer'
+import Manager from '../components/Manager'
+import Technician from '../components/Technician'
 
 export default function Dashboard({ user }) {
    return (

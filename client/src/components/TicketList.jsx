@@ -1,10 +1,7 @@
 import { useNavigate } from 'react-router-dom'
-import StatusUpdate from './StatusUpdate'
 
-export default function TicketList({ tickets, ticketPage, updateStatus, user }) {
+export default function TicketList({ tickets, ticketPage }) {
    const navigate = useNavigate()
-   console.log(tickets)
-   const statuses = ticketPage ? tickets[0].statuses : null
 
    return (
       <div className="flex flex-row gap-10">
@@ -74,21 +71,6 @@ export default function TicketList({ tickets, ticketPage, updateStatus, user }) 
                         ))}
                   </tbody>
                </table>
-            </div>
-            <div className="flex flex-col gap-20 p-4">
-               {ticketPage && statuses && (
-                  <div className="mx-auto shadow-md rounded-lg">
-                     <div className="text-white text-lg font-medium pb-2">Statuses</div>
-                     <div className="flex justify-center items-center">
-                        {statuses.map((p, i) => (
-                           <div key={i} className={`${i === statuses.length-1 ? "bg-gray-700" : "bg-gray-800"} p-2 m-2 text-white rounded-md`}>
-                              {p}
-                           </div>
-                        ))}
-                     </div>
-                  </div>
-               )}
-               {ticketPage && user.role !== 'CUSTOMER' && <StatusUpdate updateStatus={updateStatus} />}
             </div>
          </div>
       </div>

@@ -1,60 +1,56 @@
 # Design
 
-## Entities
+## API
 
-```pseudo
-enum class States {
-    OPEN, CLOSED, IN_PROGRESS, RESOLVED, REOPEN
-}
+### Products
 
-Ticket (
-    @Id @GeneratedValue id: String
-    product: String (product ean)
-    customer: String (customer email)
-    technician: String (technician email)
-    status: mutableListOf<States>()
-    description: String
-    priority: Int
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ticket")
-    messages: mutableSetOf<Message>()
-)
+| method | route           | body       | role    | frontend? |
+| ------ | --------------- | ---------- | ------- | :-------: |
+| POST   | /products       | productDTO | manager |           |
+| GET    | /products       |            | all     |     Y     |
+| GET    | /products/{ean} |            | all     |           |
 
-Message (
-    @Id @GeneratedValue id: String
-    @ManyToOne
-    ticket: String
-    fromCustomer: Bool
-    timestamp: Date,
-    attachment: Byte[]
-    content: String
-)
-```
+### Profiles
 
-## Api
+| method | route             | body                                 | role             | frontend? |
+| ------ | ----------------- | ------------------------------------ | ---------------- | :-------: |
+| GET    | /profiles         |                                      | manager          |     Y     |
+| GET    | /profiles/{email} |                                      | all (themselves) |           |
+| POST   | /profiles         | CustomerDTO/TechnicianDTO/ManagerDTO | all              |           |
+| PUT    | /profiles/{email} | CustomerDTO/TechnicianDTO/ManagerDTO | all              |           |
 
-- root: /API
+### Purchase
 
-| method | route                       |    body     | description                                | implemented |                          role                           |
-|:-------|:----------------------------|:-----------:|:-------------------------------------------|:-----------:|:-------------------------------------------------------:|
-| POST   | /products                   | ProductDTO  | add a product                              |      Y      |                         MANAGER                         |
-| GET    | /products                   |      -      | get all products                           |      Y      |                         MANAGER                         |
-| GET    | /products/{ean}             |      -      | get product by ean                         |      Y      |                         MANAGER                         |
-| ------ | --------------------------- | ----------- | ------------------------------------------ | ----------- | ------------------------------------------------------- |
-| GET    | /profiles/                  |      -      | get all profiles                           |      Y      |                      MANAGER (all)                      |
-| GET    | /profiles/{email}           |      -      | get profile by email                       |      Y      | MANAGER (all), CUSTOMER (himself), TECHNICIAN (himself) |
-| POST   | /profiles                   | ProfileDTO  | create profile                             |      Y      |              MANAGER, CUSTOMER, TECHNICIAN              |
-| PUT    | /profiles/{email}           | ProfileDTO  | edit profile                               |      Y      |    MANAGER, CUSTOMER (himself), TECHNICIAN (himself)    |
-| ------ | --------------------------- | ----------- | ------------------------------------------ | ----------- | ------------------------------------------------------- |
-| GET    | /tickets                    |      -      | get all tickets                            |      Y      |                         MANAGER                         |
-| GET    | /tickets/{id}               |      -      | get ticket by id                           |      Y      |  MANAGER(all), TECHNICIAN(himself), CUSTOMER (himself)  |
-| POST   | /tickets                    |  TicketDTO  | create ticket                              |      Y      |                    MANAGER, CUSTOMER                    |
-| POST   | /tickets/{id}/{status}      |      -      | edit ticket state                          |      Y      |                   MANAGER, TECHNICIAN                   |
-| PUT    | /tickets/{id}               |  TicketDTO  | edit ticket                                |      Y      |  MANAGER(all), TECHNICIAN(himself), CUSTOMER (himself)  |
-| DELETE | /tickets/{id}               |      -      | delete ticket                              |      Y      |  MANAGER(all), TECHNICIAN(himself), CUSTOMER (himself)  |
-| ------ | --------------------------- | ----------- | ------------------------------------------ | ----------- | ------------------------------------------------------- |
-| GET    | /tickets/{id}/messages      |      -      | get all the messages for a specific ticket |      Y      |  MANAGER(all), TECHNICIAN(himself), CUSTOMER (himself)  |
-| GET    | /tickets/{id}/messages/{id} |      -      | get message by id for a specific ticket    |      Y      |  MANAGER(all), TECHNICIAN(himself), CUSTOMER (himself)  |
-| POST   | /tickets/{id}/messages      | MessageDTO  | create message for a specific ticket       |      Y      |  MANAGER(all), TECHNICIAN(himself), CUSTOMER (himself)  |
-| ------ | --------------------------- | ----------- | ------------------------------------------ | ----------- | ------------------------------------------------------- |
-| POST   | /signup                     | UserRequest | create a new user in keycloak              |      Y      |                                                         |
-| POST   | /createExpert               | UserRequest | create a new technician                    |      Y      |                         MANAGER                         |
+| method | route              | body        | role            | frontend? |
+| ------ | ------------------ | ----------- | --------------- | :-------: |
+| GET    | /purchases         |             | manager         |     Y     |
+| POST   | /purchases/list    | List(Long)  | manager         |           |
+| GET    | /purchases/{email} |             | cutomer/manager |     Y     |
+| POST   | /purchases         | purchaseDTO | cutomer/manager |     Y     |
+| PUT    | /purchases         | purchaseDTO | cutomer/manager |           |
+
+### Ticket
+
+| method | route                      | body         | role        | frontend? |
+| ------ | -------------------------- | ------------ | ----------- | :-------: |
+| GET    | /tickets                   |              | da rivedere |     Y     |
+| GET    | /tickets/{ticketId}        |              | da rivedere |     Y     |
+| POST   | /tickets                   | TicketDTO    | da rivedere |     Y     |
+| PUT    | /tickets/{ticketId}/status | TicketStatus | da rivedere |     Y     |
+| PUT    | /tickets/{ticketId}        | TicketDTO    | da rivedere |           |
+
+### Message
+
+| method | route                                    | body       | role        | frontend? |
+| ------ | ---------------------------------------- | ---------- | ----------- | :-------: |
+| GET    | /tickets/{ticketId}/messages             |            | da rivedere |     Y     |
+| GET    | /tickets/{ticketId}/messages/{messageId} |            | da rivedere |           |
+| POST   | /tickets/{ticketId}/messages             | MessageDTO | da rivedere |     Y     |
+
+### Auth
+
+| method | route         | body        | role    | frontend? |
+| ------ | ------------- | ----------- | ------- | :-------: |
+| GET    | /user         |             | all     |     Y     |
+| POST   | /signup       | UserRequest | all     |     Y     |
+| POST   | /createExpert | UserRequest | manager |           |

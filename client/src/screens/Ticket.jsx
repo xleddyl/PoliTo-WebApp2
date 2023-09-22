@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import TicketList from '../components/TicketList'
 import Chat from '../components/Chat'
+import Status from '../components/Status'
 
 export default function Ticket({ user }) {
    const { id } = useParams()
@@ -48,9 +49,9 @@ export default function Ticket({ user }) {
    }
 
    const updateStatus = async (status) => {
-      const res = await fetch(`/api/tickets/${id}`, {
-         method: 'POST',
-         body: JSON.stringify({status}),
+      const res = await fetch(`/api/tickets/${id}/status`, {
+         method: 'PUT',
+         body: JSON.stringify({ status }),
          headers: {
             'Content-type': 'application/json',
          },
@@ -71,8 +72,13 @@ export default function Ticket({ user }) {
 
    return (
       <div className="flex flex-col gap-20">
-         {ticket && <TicketList tickets={[ticket]} ticketPage={true} updateStatus={updateStatus} user={user} />}
-         {ticket && <Chat messages={messages} sendMessage={sendMessage} technician={ticket.technician} />}
+         {ticket && (
+            <>
+               <TicketList tickets={[ticket]} ticketPage={true} />
+               <Status updateStatus={updateStatus} user={user} statuses={ticket.statuses} />
+               <Chat messages={messages} sendMessage={sendMessage} technician={ticket.technician} user={user} />
+            </>
+         )}
       </div>
    )
 }

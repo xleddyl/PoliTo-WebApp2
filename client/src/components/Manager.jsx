@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
-import Accordion from "./Accordion";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react'
+import Accordion from './Accordion'
+import { useNavigate } from 'react-router-dom'
 
 export default function Manager({ user }) {
-
    const [products, setProducts] = useState([])
    const [profiles, setProfiles] = useState([])
    const [purchases, setPurchases] = useState([])
@@ -31,20 +30,21 @@ export default function Manager({ user }) {
       if (res.status === 401) navigate('/', { replace: true })
       if (!res.ok) return
       const purchases = await res.json()
+      console.log(purchases)
       setPurchases(purchases)
    }
 
-   useEffect(()=> {
+   useEffect(() => {
       fetchAllProducts()
       fetchAllProfiles()
       fetchallPurchases()
-   },[])
+   }, [])
 
    return (
-   <div className="flex flex-col gap-10">
-      <Accordion products={products} />
-      <Accordion profiles={profiles} />
-      <Accordion purchases={purchases} />
+      <div className="flex flex-col gap-3">
+         <Accordion products={products} />
+         <Accordion profiles={profiles} />
+         <Accordion purchases={purchases} />
       </div>
    )
 }

@@ -47,6 +47,8 @@ export default function AddTicket({ addTicket }) {
                      onClick={(e) => {
                         e.preventDefault()
                         addTicket(purchaseID, description)
+                        setDescription('')
+                        setPurchaseID('')
                      }}
                   >
                      Create ticket

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function ProfilesList({ profiles }) {
+export default function ProfilesList({ profiles, manager }) {
    const [isPopupOpen, setIsPopupOpen] = useState(false)
    const [selectedProfile, setSelectedProfile] = useState(null)
 
