@@ -50,7 +50,7 @@ export default function TicketList({ tickets, ticketPage, updateStatus, user }) 
                               <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap text-white">
                                  {p.id}
                               </th>
-                              {!ticketPage && <td className="px-6 py-4">{p.statuses[p.statuses.length-1]}</td>}
+                              {!ticketPage && <td className="px-6 py-4">{p.statuses[p.statuses.length - 1]}</td>}
                               <td className="px-6 py-4">{p.description}</td>
                               <td className="px-6 py-4">{p.priority}</td>
                               <td className="px-6 py-4">{p.purchaseID}</td>
@@ -75,26 +75,21 @@ export default function TicketList({ tickets, ticketPage, updateStatus, user }) 
                   </tbody>
                </table>
             </div>
-            {ticketPage && statuses && (
-               <div className="relative overflow-x-auto shadow-md rounded-lg w-full">
-                  <div className="text-white text-lg font-medium pb-2">Statuses</div>
-                  <table className="text-sm text-left text-gray-400">
-                     <tbody>
+            <div className="flex flex-col gap-20 p-4">
+               {ticketPage && statuses && (
+                  <div className="mx-auto shadow-md rounded-lg">
+                     <div className="text-white text-lg font-medium pb-2">Statuses</div>
+                     <div className="flex justify-center items-center">
                         {statuses.map((p, i) => (
-                           <tr
-                              key={i}
-                              className={'border-b border-gray-700 ' + (i % 2 === 0 ? 'bg-gray-800' : 'bg-gray-900')}
-                           >
-                              <td className="px-6 py-4">{p}</td>
-                           </tr>
+                           <div key={i} className={`${i === statuses.length-1 ? "bg-gray-700" : "bg-gray-800"} p-2 m-2 text-white rounded-md`}>
+                              {p}
+                           </div>
                         ))}
-                     </tbody>
-                  </table>
-               </div>
-            )}
-            {ticketPage && user.role === 'TECHNICIAN' && (
-               <StatusUpdate updateStatus={updateStatus}/>
-            )}
+                     </div>
+                  </div>
+               )}
+               {ticketPage && user.role === 'TECHNICIAN' && <StatusUpdate updateStatus={updateStatus} />}
+            </div>
          </div>
       </div>
    )

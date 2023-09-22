@@ -4,7 +4,7 @@ export default function StatusUpdate({ updateStatus }) {
    const [selectedStatus, setSelectedStatus] = useState('')
 
    return (
-      <div className="relative overflow-x-auto shadow-md rounded-lg w-full">
+      <div className="mx-auto">
          <div className="text-white text-lg font-medium pb-2">Update Status</div>
          <div className="flex space-x-2">
             <select
