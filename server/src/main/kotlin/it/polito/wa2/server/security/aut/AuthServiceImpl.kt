@@ -4,14 +4,13 @@ import io.micrometer.observation.annotation.Observed
 import it.polito.wa2.server.DuplicateException
 import it.polito.wa2.server.UnauthorizedException
 import it.polito.wa2.server.profiles.UserRoles
-import it.polito.wa2.server.security.CUSTOMER
-import it.polito.wa2.server.security.MANAGER
-import it.polito.wa2.server.security.TECHNICIAN
+import it.polito.wa2.server.security.*
 import jakarta.transaction.Transactional
 import org.keycloak.admin.client.Keycloak
 import org.keycloak.representations.idm.CredentialRepresentation
 import org.keycloak.representations.idm.UserRepresentation
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User
 import org.springframework.stereotype.Service
 
 @Service
@@ -22,22 +21,32 @@ class AuthServiceImpl(
     @Value("\${keycloak.realm}")
     private val realm: String
 ) : AuthService {
-    override fun createUser(userRequest: UserRequest, roles: List<String>, userDetail: UserDetail) {
-        if (userDetail.role == UserRoles.TECHNICIAN) throw UnauthorizedException("Unauthorized") // un technician non può aggiungere utenti
-        if (userDetail.role == UserRoles.CUSTOMER && (roles.contains(TECHNICIAN) || roles.contains(MANAGER))) throw UnauthorizedException(
+    override fun createUser(userRequest: UserRequest, role: String, userDetail: UserDetail) {
+        if ((role == TECHNICIAN_APP_ROLE || role == MANAGER__APP_ROLE) && userDetail.role != UserRoles.MANAGER) throw UnauthorizedException(
             "Unauthorized"
-        ) // un customer può aggiungere solo dei customer
+        )
 
         val password = preparePasswordRepresentation(userRequest.password)
-        val user = prepareUserRepresentation(userRequest, password, roles)
+        val user = prepareUserRepresentation(userRequest, password, listOf(role))
         val response = keycloak.realm(realm).users().create(user)
 
         if (response.status == 403) throw DuplicateException("${response.statusInfo}")
         else if (response.status != 201) throw RuntimeException("${response.statusInfo}")
     }
 
-    override fun getUserDetails(userDetail: UserDetail): UserDetail {
-        return userDetail
+    override fun getUserDetails(user: DefaultOAuth2User?): UserDetail {
+        if (user == null) return UserDetail(UserRoles.NO_AUTH, "")
+        val email = user.attributes?.get("email") as String
+        val tmp = user.attributes?.get("realm_access") as Map<String, List<String>>
+        val role =
+            tmp["roles"]?.filter { it == CUSTOMER_APP_ROLE || it == MANAGER__APP_ROLE || it == TECHNICIAN_APP_ROLE }
+        if (role.isNullOrEmpty()) return UserDetail(UserRoles.NO_AUTH, email)
+        return when (role[0]) {
+            CUSTOMER_APP_ROLE -> UserDetail(UserRoles.CUSTOMER, email)
+            MANAGER__APP_ROLE -> UserDetail(UserRoles.MANAGER, email)
+            TECHNICIAN_APP_ROLE -> UserDetail(UserRoles.TECHNICIAN, email)
+            else -> UserDetail(UserRoles.NO_AUTH, email)
+        }
     }
 
     private fun preparePasswordRepresentation(

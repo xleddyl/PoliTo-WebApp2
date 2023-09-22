@@ -2,17 +2,13 @@ package it.polito.wa2.server.profiles
 
 import it.polito.wa2.server.BadRequestException
 import it.polito.wa2.server.NotValidException
-import it.polito.wa2.server.UnauthorizedException
 import it.polito.wa2.server.profiles.customer.CustomerDTO
 import it.polito.wa2.server.profiles.customer.CustomerService
 import it.polito.wa2.server.profiles.manager.ManagerDTO
 import it.polito.wa2.server.profiles.manager.ManagerService
 import it.polito.wa2.server.profiles.technician.TechnicianDTO
 import it.polito.wa2.server.profiles.technician.TechnicianService
-import it.polito.wa2.server.purchase.PurchaseDTO
-import it.polito.wa2.server.security.aut.getUserDetail
-import it.polito.wa2.server.ticketing.tickets.TicketDTO
-import it.polito.wa2.server.ticketing.tickets.TicketService
+import it.polito.wa2.server.security.aut.AuthService
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User
@@ -24,42 +20,30 @@ class ProfileController(
     private val customerService: CustomerService,
     private val technicianService: TechnicianService,
     private val managerService: ManagerService,
-    private val ticketService: TicketService,
+    private val authService: AuthService
 ) {
 
 
     @GetMapping("/profiles")
     @ResponseStatus(HttpStatus.OK)
     fun getAll(@AuthenticationPrincipal user: DefaultOAuth2User?): List<Any> {
-        val userDetail = getUserDetail(user)
-        return customerService.getAll(userDetail) + technicianService.getAll(userDetail) + managerService.getAll(
-            userDetail
+        val userDetails = authService.getUserDetails(user)
+        return customerService.getAll(userDetails) + technicianService.getAll(userDetails) + managerService.getAll(
+            userDetails
         )
     }
 
     @GetMapping("/profiles/{email}")
     @ResponseStatus(HttpStatus.OK)
     fun getByEmail(@PathVariable email: String, @AuthenticationPrincipal user: DefaultOAuth2User?): Any? {
-        val userDetail = getUserDetail(user)
+        val userDetails = authService.getUserDetails(user)
         return try {
-            customerService.getByEmail(email, userDetail)
-        } catch (e: Exception) {
-            if (e !is UnauthorizedException) {
-                try {
-                    technicianService.getByEmail(email, userDetail)
-                } catch (e: Exception) {
-                    if (e !is UnauthorizedException) {
-                        try {
-                            managerService.getByEmail(email, userDetail)
-                        } catch (e: Exception) {
-                            throw e
-                        }
-                    } else {
-                        throw e
-                    }
-                }
-            } else {
-                throw e
+            customerService.getByEmail(email, userDetails)
+        } catch (_: Exception) {
+            try {
+                technicianService.getByEmail(email, userDetails)
+            } catch (_: Exception) {
+                managerService.getByEmail(email, userDetails)
             }
         }
     }
@@ -67,11 +51,11 @@ class ProfileController(
     @PostMapping("/profiles")
     @ResponseStatus(HttpStatus.CREATED)
     fun addProfile(@RequestBody profileDTO: Any, @AuthenticationPrincipal user: DefaultOAuth2User?): Any {
-        val userDetail = getUserDetail(user)
+        val userDetails = authService.getUserDetails(user)
         return when (profileDTO) {
-            is CustomerDTO -> customerService.addProfile(profileDTO, userDetail)
-            is TechnicianDTO -> technicianService.addProfile(profileDTO, userDetail)
-            is ManagerDTO -> managerService.addProfile(profileDTO, userDetail)
+            is CustomerDTO -> customerService.addProfile(profileDTO, userDetails)
+            is TechnicianDTO -> technicianService.addProfile(profileDTO, userDetails)
+            is ManagerDTO -> managerService.addProfile(profileDTO, userDetails)
             else -> throw BadRequestException("Bad Request")
         }
     }
@@ -83,81 +67,24 @@ class ProfileController(
         @PathVariable email: String,
         @AuthenticationPrincipal user: DefaultOAuth2User?
     ): Any {
-        val userDetail = getUserDetail(user)
+        val userDetails = authService.getUserDetails(user)
         return when (profileDTO) {
             is CustomerDTO -> {
                 if (profileDTO.email != email) throw NotValidException("Profile id and path id don't match")
-                customerService.editProfile(profileDTO, userDetail)
+                customerService.editProfile(profileDTO, userDetails)
             }
 
             is TechnicianDTO -> {
                 if (profileDTO.email != email) throw NotValidException("Profile id and path id don't match")
-                technicianService.editProfile(profileDTO, userDetail)
+                technicianService.editProfile(profileDTO, userDetails)
             }
 
             is ManagerDTO -> {
                 if (profileDTO.email != email) throw NotValidException("Profile id and path id don't match")
-                managerService.editProfile(profileDTO, userDetail)
+                managerService.editProfile(profileDTO, userDetails)
             }
 
             else -> throw BadRequestException("Bad Request")
         }
-    }
-
-    @GetMapping("/profiles/{email}/tickets")
-    @ResponseStatus(HttpStatus.OK)
-    fun getTickets(@PathVariable email: String, @AuthenticationPrincipal user: DefaultOAuth2User?): List<TicketDTO> {
-        val userDetail = getUserDetail(user)
-        return when (userDetail.role) {
-            UserRoles.CUSTOMER -> {
-                ticketService.getAll(userDetail)
-            }
-
-            UserRoles.TECHNICIAN -> {
-                technicianService.getTickets(email, userDetail)
-            }
-
-            UserRoles.MANAGER -> {
-                ticketService.getAll(userDetail)
-            }
-
-            else -> {
-                throw UnauthorizedException("Unauthorized")
-            }
-        }
-    }
-
-    // CUSTOMER
-
-    @GetMapping("/profiles/{email}/purchases")
-    @ResponseStatus(HttpStatus.OK)
-    fun getCustomerPurchases(
-        @PathVariable email: String,
-        @AuthenticationPrincipal user: DefaultOAuth2User?
-    ): List<PurchaseDTO> {
-        return customerService.getPurchases(email, getUserDetail(user))
-    }
-
-    // TECHNICIAN
-
-    @GetMapping("/profiles/{email}/manager")
-    @ResponseStatus(HttpStatus.OK)
-    fun getTechnicianManager(
-        @PathVariable email: String,
-        @AuthenticationPrincipal user: DefaultOAuth2User?
-    ): ManagerDTO {
-        return technicianService.getManager(email, getUserDetail(user))
-    }
-
-
-    // MANAGER
-
-    @GetMapping("/profiles/{email}/technicians")
-    @ResponseStatus(HttpStatus.OK)
-    fun getManagerTechnicians(
-        @PathVariable email: String,
-        @AuthenticationPrincipal user: DefaultOAuth2User?
-    ): List<TechnicianDTO> {
-        return managerService.getTechnicians(email, getUserDetail(user))
     }
 }

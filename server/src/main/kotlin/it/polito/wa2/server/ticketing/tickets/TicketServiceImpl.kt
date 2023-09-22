@@ -71,7 +71,6 @@ class TicketServiceImpl(
     }
 
     override fun createTicket(ticketDTO: TicketDTO, userDetail: UserDetail): TicketDTO {
-        // TODO("solo il customer o il manager")  ???
         if (userDetail.role != UserRoles.CUSTOMER && userDetail.role != UserRoles.MANAGER) throw UnauthorizedException("Unauthorized")
 
         //if (ticketRepository.findByIdOrNull(ticketDTO.id) != null) throw DuplicateException("Ticket already exists")
@@ -124,22 +123,9 @@ class TicketServiceImpl(
         return ticketRepository.save(newTicket).toDTO()
     }
 
-    override fun deleteTicket(ticketId: Long, userDetail: UserDetail) {
-        // TODO("solo il customer o il manager")  ???
-        if (userDetail.role != UserRoles.CUSTOMER && userDetail.role != UserRoles.MANAGER) throw UnauthorizedException("Unauthorized")
-
-        // customer elimina solo i propri ticket
-        if (userDetail.role == UserRoles.CUSTOMER && ticketRepository.findByPurchaseCustomerEmail(userDetail.email)
-                .any { it.id == ticketId }
-        ) throw UnauthorizedException("Unauthorized")
-
-
-        return ticketRepository.deleteById(ticketId)
-    }
-
     override fun updateStatus(ticketId: Long, status: Statuses, userDetail: UserDetail): TicketDTO {
         // OPEN -> RESOLVED -> REOPENED -> IN PROGRESS -> OPEN
-        // TODO("solo il technician e il manager")  ??? o tutti ?
+
         if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
 
         val ticket = ticketRepository.findByIdOrNull(ticketId) ?: throw DuplicateException("Ticket does not exists")

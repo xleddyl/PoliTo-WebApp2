@@ -8,11 +8,5 @@ data class MessageDTO(
     val fromCustomer: Boolean,
     val timestamp: Timestamp?,
     val attachment: String?, //Base64
-    val content: String,
-    val new: Boolean
-) {
-
-    override fun toString(): String {
-        return "Message(id=$id, ticket=${ticket}, fromCustomer=$fromCustomer, timestamp=$timestamp, attachment=$attachment, content='$content', new=$new)"
-    }
-}
+    val content: String
+)

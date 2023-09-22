@@ -1,7 +1,9 @@
 package it.polito.wa2.server.security.aut
 
-interface AuthService {
-    fun createUser(userRequest: UserRequest, roles: List<String>, userDetail: UserDetail)
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User
 
-    fun getUserDetails(userDetail: UserDetail): UserDetail
+interface AuthService {
+    fun createUser(userRequest: UserRequest, role: String, userDetail: UserDetail)
+
+    fun getUserDetails(user: DefaultOAuth2User?): UserDetail
 }

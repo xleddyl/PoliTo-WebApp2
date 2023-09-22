@@ -8,8 +8,9 @@ import jakarta.persistence.*
 @Entity
 @Table(name = "technicians")
 class Technician(
-    email: String, name: String, phone: String,
-
+    email: String,
+    name: String,
+    phone: String,
     var specialization: String,
 
     @ManyToOne
@@ -19,8 +20,15 @@ class Technician(
     @OneToMany(mappedBy = "technician")
     var tickets: MutableSet<Ticket> = mutableSetOf()
 
-) : Profile(email, name, phone) {
-    fun toDTO(): TechnicianDTO {
-        return TechnicianDTO(email, name, phone, specialization, manager.email, tickets.map { it.id }.toMutableSet())
-    }
+) : Profile(email, name, phone)
+
+fun Technician.toDTO(): TechnicianDTO {
+    return TechnicianDTO(
+        email,
+        name,
+        phone,
+        specialization,
+        manager.email,
+        tickets.map { it.id!! }.toMutableSet(),
+    )
 }

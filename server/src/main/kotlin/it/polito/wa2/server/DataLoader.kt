@@ -37,35 +37,110 @@ class DataLoader(
     @Transactional
     fun loadData() {
         val manager = managerRepository.save(Manager("user02@polito.it", "Michele Misteri", "+00 287465392", 1))
-        val technician = technicianRepository.save(Technician("user03@polito.it", "Pietro Piccioni", "+00 192740387", "poesie", manager=manager))
+        val technician = technicianRepository.save(
+            Technician(
+                "user03@polito.it",
+                "Pietro Piccioni",
+                "+00 192740387",
+                "poesie",
+                manager = manager
+            )
+        )
 
-        val customer1 = customerRepository.save(Customer("user01@polito.it", "Rosa Olinda", "+00 190283947", "via dalla galera 12"))
-        val customer2 = customerRepository.save(Customer("user04@polito.it", "Giuseppe Boschetti", "+00 985129374", "via degli ignoti 9"))
+        val customer1 =
+            customerRepository.save(Customer("user01@polito.it", "Rosa Olinda", "+00 190283947", "via dalla galera 12"))
+        val customer2 = customerRepository.save(
+            Customer(
+                "user04@polito.it",
+                "Giuseppe Boschetti",
+                "+00 985129374",
+                "via degli ignoti 9"
+            )
+        )
 
-        val product01 = productRepository.save(Product("1345346763", "spa-01", "Sword", "Blacksmith&Co", "Weapons", 10.45F))
-        val product02 = productRepository.save(Product("4965664982", "spa-02", "LightSaber", "Blacksmith&Co", "Weapons", 10.45F))
-        val product03 = productRepository.save(Product("5423253453", "spa-03", "MachineGun", "Blacksmith&Co", "Weapons", 10.45F))
-        val product04 = productRepository.save(Product("7856234567", "spa-04", "Dagger", "SteelCrafters", "Weapons", 15.99F))
-        val product05 = productRepository.save(Product("3254678912", "spa-05", "Bow and Arrow", "ArcheryMasters", "Weapons", 29.99F))
-        val product06 = productRepository.save(Product("9876543210", "spa-06", "Magic Staff", "WizardWares", "Weapons", 25.50F))
-        val product07 = productRepository.save(Product("1234567890", "spa-07", "Shield", "ArmorSmiths", "Armor", 39.99F))
-        val product08 = productRepository.save(Product("4567890123", "spa-08", "Plate Armor", "ArmorSmiths", "Armor", 199.99F))
-        val product09 = productRepository.save(Product("5678901234", "spa-09", "Crossbow", "ArcheryMasters", "Weapons", 42.75F))
-        val product10 = productRepository.save(Product("6789012345", "spa-10", "Excalibur", "LegendaryForgeries", "Weapons", 299.99F))
-        val product11 = productRepository.save(Product("7890123456", "spa-11", "Wand", "WizardWares", "Weapons", 12.99F))
-        val product12 = productRepository.save(Product("8901234567", "spa-12", "Mace", "SteelCrafters", "Weapons", 19.95F))
-        val product13 = productRepository.save(Product("9012345678", "spa-13", "Helmet", "ArmorSmiths", "Armor", 29.99F))
+        val product01 =
+            productRepository.save(Product("1345346763", "spa-01", "Sword", "Blacksmith&Co", "Weapons", 10.45F))
+        val product02 =
+            productRepository.save(Product("4965664982", "spa-02", "LightSaber", "Blacksmith&Co", "Weapons", 10.45F))
+        val product03 =
+            productRepository.save(Product("5423253453", "spa-03", "MachineGun", "Blacksmith&Co", "Weapons", 10.45F))
+        val product04 =
+            productRepository.save(Product("7856234567", "spa-04", "Dagger", "SteelCrafters", "Weapons", 15.99F))
+        val product05 = productRepository.save(
+            Product(
+                "3254678912",
+                "spa-05",
+                "Bow and Arrow",
+                "ArcheryMasters",
+                "Weapons",
+                29.99F
+            )
+        )
+        val product06 =
+            productRepository.save(Product("9876543210", "spa-06", "Magic Staff", "WizardWares", "Weapons", 25.50F))
+        val product07 =
+            productRepository.save(Product("1234567890", "spa-07", "Shield", "ArmorSmiths", "Armor", 39.99F))
+        val product08 =
+            productRepository.save(Product("4567890123", "spa-08", "Plate Armor", "ArmorSmiths", "Armor", 199.99F))
+        val product09 =
+            productRepository.save(Product("5678901234", "spa-09", "Crossbow", "ArcheryMasters", "Weapons", 42.75F))
+        val product10 = productRepository.save(
+            Product(
+                "6789012345",
+                "spa-10",
+                "Excalibur",
+                "LegendaryForgeries",
+                "Weapons",
+                299.99F
+            )
+        )
+        val product11 =
+            productRepository.save(Product("7890123456", "spa-11", "Wand", "WizardWares", "Weapons", 12.99F))
+        val product12 =
+            productRepository.save(Product("8901234567", "spa-12", "Mace", "SteelCrafters", "Weapons", 19.95F))
+        val product13 =
+            productRepository.save(Product("9012345678", "spa-13", "Helmet", "ArmorSmiths", "Armor", 29.99F))
 
-        val purchase01 = purchaseRepository.save(Purchase(customer = customer1, product = product01, date = Date(1695028957917L)))
-        val purchase02 = purchaseRepository.save(Purchase(customer = customer2, product = product02, date = Date(1695028957918L)))
-        val purchase03 = purchaseRepository.save(Purchase(customer = customer1, product = product03, date = Date(1695028957919L)))
-        val purchase04 = purchaseRepository.save(Purchase(customer = customer2, product = product04, date = Date(1695028957920L)))
-        val purchase05 = purchaseRepository.save(Purchase(customer = customer1, product = product05, date = Date(1695028957921L)))
-        val purchase06 = purchaseRepository.save(Purchase(customer = customer2, product = product06, date = Date(1695028957922L)))
+        val purchase01 =
+            purchaseRepository.save(Purchase(customer = customer1, product = product01, date = Date(1695028957917L)))
+        val purchase02 =
+            purchaseRepository.save(Purchase(customer = customer2, product = product02, date = Date(1695028957918L)))
+        val purchase03 =
+            purchaseRepository.save(Purchase(customer = customer1, product = product03, date = Date(1695028957919L)))
+        val purchase04 =
+            purchaseRepository.save(Purchase(customer = customer2, product = product04, date = Date(1695028957920L)))
+        val purchase05 =
+            purchaseRepository.save(Purchase(customer = customer1, product = product05, date = Date(1695028957921L)))
+        val purchase06 =
+            purchaseRepository.save(Purchase(customer = customer2, product = product06, date = Date(1695028957922L)))
 
-        val ticket01 = ticketRepository.save(Ticket(statuses = mutableListOf(Statuses.OPEN), description = "Product Broken", priority = 2, purchase = purchase01, technician = technician))
-        val ticket02 = ticketRepository.save(Ticket(statuses = mutableListOf(Statuses.OPEN), description = "Product Broken", priority = 2, purchase = purchase04, technician = technician))
-        val ticket03 = ticketRepository.save(Ticket(statuses = mutableListOf(Statuses.OPEN), description = "Product Malfunctioning", priority = 1, purchase = purchase02, technician = technician))
+        val ticket01 = ticketRepository.save(
+            Ticket(
+                statuses = mutableListOf(Statuses.OPEN),
+                description = "Product Broken",
+                priority = 2,
+                purchase = purchase01,
+                technician = technician
+            )
+        )
+        val ticket02 = ticketRepository.save(
+            Ticket(
+                statuses = mutableListOf(Statuses.OPEN),
+                description = "Product Broken",
+                priority = 2,
+                purchase = purchase04,
+                technician = technician
+            )
+        )
+        val ticket03 = ticketRepository.save(
+            Ticket(
+                statuses = mutableListOf(Statuses.OPEN),
+                description = "Product Malfunctioning",
+                priority = 1,
+                purchase = purchase02,
+                technician = technician
+            )
+        )
 
         purchase01.ticket = ticket01
         purchase04.ticket = ticket02
@@ -74,12 +149,54 @@ class DataLoader(
         purchaseRepository.save(purchase04)
         purchaseRepository.save(purchase02)
 
-        val message01 = messageRepository.save(Message(ticket = ticket01, fromCustomer = true, new = true, content = "My sword is broken", timestamp = Timestamp.valueOf(LocalDateTime.now())))
-        val message02 = messageRepository.save(Message(ticket = ticket01, fromCustomer = false, new = true, content = "I will assign a technician to fix it.", timestamp = Timestamp.valueOf(LocalDateTime.now())))
-        val message03 = messageRepository.save(Message(ticket = ticket01, fromCustomer = true, new = true, content = "Thank you!", timestamp = Timestamp.valueOf(LocalDateTime.now())))
+        val message01 = messageRepository.save(
+            Message(
+                ticket = ticket01,
+                fromCustomer = true,
+                content = "My sword is broken",
+                timestamp = Timestamp.valueOf(LocalDateTime.now())
+            )
+        )
+        val message02 = messageRepository.save(
+            Message(
+                ticket = ticket01,
+                fromCustomer = false,
+                content = "I will assign a technician to fix it.",
+                timestamp = Timestamp.valueOf(LocalDateTime.now())
+            )
+        )
+        val message03 = messageRepository.save(
+            Message(
+                ticket = ticket01,
+                fromCustomer = true,
+                content = "Thank you!",
+                timestamp = Timestamp.valueOf(LocalDateTime.now())
+            )
+        )
 
-        val message04 = messageRepository.save(Message(ticket = ticket02, fromCustomer = true, new = true, content = "My lightsaber is malfunctioning.", timestamp = Timestamp.valueOf(LocalDateTime.now())))
-        val message05 = messageRepository.save(Message(ticket = ticket02, fromCustomer = false, new = true, content = "We will send a technician to inspect it.", timestamp = Timestamp.valueOf(LocalDateTime.now())))
-        val message06 = messageRepository.save(Message(ticket = ticket02, fromCustomer = true, new = true, content = "I appreciate your prompt response.", timestamp = Timestamp.valueOf(LocalDateTime.now())))
+        val message04 = messageRepository.save(
+            Message(
+                ticket = ticket02,
+                fromCustomer = true,
+                content = "My lightsaber is malfunctioning.",
+                timestamp = Timestamp.valueOf(LocalDateTime.now())
+            )
+        )
+        val message05 = messageRepository.save(
+            Message(
+                ticket = ticket02,
+                fromCustomer = false,
+                content = "We will send a technician to inspect it.",
+                timestamp = Timestamp.valueOf(LocalDateTime.now())
+            )
+        )
+        val message06 = messageRepository.save(
+            Message(
+                ticket = ticket02,
+                fromCustomer = true,
+                content = "I appreciate your prompt response.",
+                timestamp = Timestamp.valueOf(LocalDateTime.now())
+            )
+        )
     }
 }

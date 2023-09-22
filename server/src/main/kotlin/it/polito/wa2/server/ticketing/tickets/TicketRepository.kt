@@ -6,9 +6,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface TicketRepository : JpaRepository<Ticket, Long?> {
-    @Query("select ticket from Ticket ticket where ticket.id IN :ids")
-    fun getAllByListOfId(ids: List<Long>): List<Ticket>
-
     @Query("select ticket from Ticket ticket where ticket.purchase.customer.email = :email")
     fun findByPurchaseCustomerEmail(email: String): List<Ticket>
 }

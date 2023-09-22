@@ -9,7 +9,8 @@
         </http>
         <format>
             <label>
-                <pattern>app=${spring.application.name},host=${HOSTNAME},traceID=%X{traceId:-NONE},level=%level</pattern>
+                <pattern>app=${spring.application.name},host=${HOSTNAME},traceID=%X{traceId:-NONE},level=%level
+                </pattern>
             </label>
             <message>
                 <pattern>${FILE_LOG_PATTERN}</pattern>

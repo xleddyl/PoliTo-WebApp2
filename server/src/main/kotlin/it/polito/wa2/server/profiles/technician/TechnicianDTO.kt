@@ -6,11 +6,6 @@ data class TechnicianDTO(
     val phone: String,
     val specialization: String,
     val managerID: String,
-    val ticketsID: MutableSet<Long?>
-) {
-    override fun toString(): String {
-        return "Technician(email='$email', name='$name', phone='$phone', specialization='$specialization')"
-    }
-}
-
+    val ticketsIDs: MutableSet<Long>
+)
 

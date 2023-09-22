@@ -13,9 +13,9 @@ import org.springframework.security.oauth2.core.user.OAuth2UserAuthority
 import org.springframework.security.web.SecurityFilterChain
 import java.util.stream.Collectors
 
-val CUSTOMER = "app_customer"
-val MANAGER = "app_manager"
-val TECHNICIAN = "app_technician"
+val CUSTOMER_APP_ROLE = "app_customer"
+val MANAGER__APP_ROLE = "app_manager"
+val TECHNICIAN_APP_ROLE = "app_technician"
 
 @Configuration
 @EnableWebSecurity

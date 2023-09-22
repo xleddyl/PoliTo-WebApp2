@@ -1,6 +1,6 @@
 package it.polito.wa2.server.purchase
 
-import java.util.Date
+import java.util.*
 
 data class PurchaseDTO(
     val id: Long?,
@@ -8,8 +8,4 @@ data class PurchaseDTO(
     val product: String,
     val date: Date,
     val ticketID: Long?
-) {
-    override fun toString(): String {
-        return "Purchase(id=$id, customer='${customer}', product='${product}', date=$date)"
-    }
-}
+)

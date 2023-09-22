@@ -33,8 +33,15 @@ class Ticket(
 
     @OneToMany(mappedBy = "ticket", cascade = [CascadeType.ALL])
     var messages: MutableSet<Message> = mutableSetOf()
-) {
-    fun toDTO(): TicketDTO {
-        return TicketDTO(id!!, technician?.email, statuses, description, priority, messages.map { it.id }.toMutableSet(), purchase.id!!)
-    }
+)
+
+fun Ticket.toDTO(): TicketDTO {
+    return TicketDTO(
+        id!!,
+        technician?.email,
+        statuses,
+        description,
+        priority,
+        messages.map { it.id }.toMutableSet(), purchase.id!!
+    )
 }

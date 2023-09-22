@@ -13,15 +13,18 @@ class Manager(
     email: String,
     name: String,
     phone: String,
-
     var level: Int,
 
     @OneToMany(mappedBy = "manager", cascade = [CascadeType.ALL])
     var technicians: MutableSet<Technician> = mutableSetOf()
+) : Profile(email, name, phone)
 
-) : Profile(email, name, phone) {
-        fun toDTO(): ManagerDTO {
-        return ManagerDTO(email, name, phone, level, technicians.map { it.email }.toMutableSet())
-    }
-
+fun Manager.toDTO(): ManagerDTO {
+    return ManagerDTO(
+        email,
+        name,
+        phone,
+        level,
+        technicians.map { it.email }.toMutableSet()
+    )
 }

@@ -1,6 +1,5 @@
 package it.polito.wa2.server.profiles.manager
 
-import it.polito.wa2.server.profiles.technician.TechnicianDTO
 import it.polito.wa2.server.security.aut.UserDetail
 
 
@@ -8,8 +7,6 @@ interface ManagerService {
     fun getAll(userDetail: UserDetail): List<ManagerDTO>
 
     fun getByEmail(email: String, userDetail: UserDetail): ManagerDTO
-
-    fun getTechnicians(email: String, userDetail: UserDetail): List<TechnicianDTO>
 
     fun addProfile(managerDTO: ManagerDTO, userDetail: UserDetail): ManagerDTO
 

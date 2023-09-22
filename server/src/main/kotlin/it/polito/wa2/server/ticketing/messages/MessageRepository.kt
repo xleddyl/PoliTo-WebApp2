@@ -12,7 +12,4 @@ interface MessageRepository : JpaRepository<Message, Long?> {
 
     @Query("select message from Message message where message.id = :id and message.ticket.id = :ticketId")
     fun findMessageByIdAndTicketId(id: Long, ticket: Long): Message?
-
-    @Query("select message from Message message where message.id IN :ids")
-    fun getAllByListOfId(ids: List<Long>): List<Message>
 }

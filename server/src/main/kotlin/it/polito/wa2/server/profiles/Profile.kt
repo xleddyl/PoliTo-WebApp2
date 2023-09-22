@@ -8,4 +8,8 @@ enum class UserRoles {
 }
 
 @MappedSuperclass
-open class Profile(@Id var email: String, var name: String, var phone: String)
+open class Profile(
+    @Id var email: String,
+    var name: String,
+    var phone: String
+)

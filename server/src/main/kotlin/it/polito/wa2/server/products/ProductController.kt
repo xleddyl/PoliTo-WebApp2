@@ -1,10 +1,7 @@
 package it.polito.wa2.server.products
 
-import com.github.loki4j.slf4j.marker.LabelMarker
 import io.micrometer.observation.annotation.Observed
-import it.polito.wa2.server.purchase.PurchaseDTO
-import it.polito.wa2.server.security.aut.getUserDetail
-import org.slf4j.Logger
+import it.polito.wa2.server.security.aut.AuthService
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User
@@ -16,7 +13,8 @@ import javax.validation.Valid
 @Observed
 class ProductController(
     private val productService: ProductService,
-    private val log: Logger
+    private val authService: AuthService
+    // private val log: Logger
 ) {
 
     @PostMapping("/products")
@@ -25,29 +23,20 @@ class ProductController(
         @Valid @RequestBody productDTO: ProductDTO,
         @AuthenticationPrincipal user: DefaultOAuth2User?
     ): ProductDTO {
-        return productService.addProduct(productDTO, getUserDetail(user))
+        return productService.addProduct(productDTO, authService.getUserDetails(user))
     }
 
     @GetMapping("/products")
     @ResponseStatus(HttpStatus.OK)
     fun getAll(@AuthenticationPrincipal user: DefaultOAuth2User?): List<ProductDTO> {
-        val label = LabelMarker.of("request") { "TEST" }
-        log.info(label, "ciao")
-        return productService.getAll(getUserDetail(user))
+        // val label = LabelMarker.of("request") { "TEST" }
+        // log.info(label, "ciao")
+        return productService.getAll(authService.getUserDetails(user))
     }
 
     @GetMapping("/products/{ean}")
     @ResponseStatus(HttpStatus.OK)
     fun getById(@PathVariable ean: String, @AuthenticationPrincipal user: DefaultOAuth2User?): ProductDTO? {
-        return productService.getById(ean, getUserDetail(user))
-    }
-
-    @GetMapping("/products/{ean}/purchases")
-    @ResponseStatus(HttpStatus.OK)
-    fun getProductPurchases(
-        @PathVariable ean: String,
-        @AuthenticationPrincipal user: DefaultOAuth2User?
-    ): List<PurchaseDTO> {
-        return productService.getPurchases(ean, getUserDetail(user))
+        return productService.getById(ean, authService.getUserDetails(user))
     }
 }

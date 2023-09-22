@@ -1,1 +1,18 @@
-{"format":"vParquet2","blockID":"a9b29e6a-9086-46c0-b30a-9256d1b7043c","minID":"ZQggAQmL3XpUWQOuCJS+PQ==","maxID":"ZQgjweQJesDts22KMugsTg==","tenantID":"single-tenant","startTime":"2023-09-18T10:01:37Z","endTime":"2023-09-18T10:17:37Z","totalObjects":78,"size":57192,"compactionLevel":0,"encoding":"none","indexPageSize":0,"totalRecords":1,"dataEncoding":"","bloomShards":1,"footerSize":9139}
+{
+  "format": "vParquet2",
+  "blockID": "a9b29e6a-9086-46c0-b30a-9256d1b7043c",
+  "minID": "ZQggAQmL3XpUWQOuCJS+PQ==",
+  "maxID": "ZQgjweQJesDts22KMugsTg==",
+  "tenantID": "single-tenant",
+  "startTime": "2023-09-18T10:01:37Z",
+  "endTime": "2023-09-18T10:17:37Z",
+  "totalObjects": 78,
+  "size": 57192,
+  "compactionLevel": 0,
+  "encoding": "none",
+  "indexPageSize": 0,
+  "totalRecords": 1,
+  "dataEncoding": "",
+  "bloomShards": 1,
+  "footerSize": 9139
+}

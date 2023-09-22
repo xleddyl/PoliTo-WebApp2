@@ -4,7 +4,7 @@ import it.polito.wa2.server.products.Product
 import it.polito.wa2.server.profiles.customer.Customer
 import it.polito.wa2.server.ticketing.tickets.Ticket
 import jakarta.persistence.*
-import java.util.Date
+import java.util.*
 
 @Entity
 @Table(name = "purchases")
@@ -26,9 +26,14 @@ class Purchase(
 
     @OneToOne(cascade = [CascadeType.ALL])
     var ticket: Ticket? = null
-) {
-    fun toDTO(): PurchaseDTO {
-        return PurchaseDTO(id!!, customer.email, product.ean, date, ticket?.id)
-    }
-}
+)
 
+fun Purchase.toDTO(): PurchaseDTO {
+    return PurchaseDTO(
+        id!!,
+        customer.email,
+        product.ean,
+        date,
+        ticket?.id
+    )
+}

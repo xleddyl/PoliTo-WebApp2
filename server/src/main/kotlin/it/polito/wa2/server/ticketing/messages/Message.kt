@@ -22,10 +22,16 @@ class Message(
     var timestamp: Timestamp,
 
     var attachment: String? = null, //Base64
-    var content: String,
-    var new: Boolean
-) {
-    fun toDTO(): MessageDTO {
-        return MessageDTO(id!!, ticket.id!!, fromCustomer, timestamp, attachment, content, new)
-    }
+    var content: String
+)
+
+fun Message.toDTO(): MessageDTO {
+    return MessageDTO(
+        id!!,
+        ticket.id!!,
+        fromCustomer,
+        timestamp,
+        attachment,
+        content
+    )
 }

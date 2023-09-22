@@ -25,7 +25,6 @@ class MessageServiceImpl(
     private val technicianRepository: TechnicianRepository,
 ) : MessageService {
     override fun getAllForTicket(ticketId: Long, userDetail: UserDetail): List<MessageDTO> {
-        // TODO("solo il customer o il technician relativi al ticket o tutti i manager")  ???
         if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
 
         // customer-technician vede solo i propri tickets
@@ -33,13 +32,12 @@ class MessageServiceImpl(
                 .any { it.id == ticketId }) ||
             (userDetail.role == UserRoles.TECHNICIAN && technicianRepository.findByIdOrNull(userDetail.email)?.tickets?.filter { it.id == ticketId }
                 .isNullOrEmpty())
-            ) throw UnauthorizedException("Unauthorized")
+        ) throw UnauthorizedException("Unauthorized")
 
         return messageRepository.findMessagesByTicketId(ticketId).map { it.toDTO() }
     }
 
     override fun getById(ticketId: Long, messageId: Long, userDetail: UserDetail): MessageDTO {
-        // TODO("solo il customer o il technician relativi al ticket o tutti i manager")  ???
         if (userDetail.role == UserRoles.NO_AUTH) throw UnauthorizedException("Unauthorized") // no login
 
         // customer-technician vede solo i propri tickets
@@ -69,10 +67,9 @@ class MessageServiceImpl(
             Message(
                 ticket = ticketRepository.findByIdOrNull(ticketId) ?: throw NotFoundException("Ticket not found"),
                 fromCustomer = messageDTO.fromCustomer,
-                timestamp = messageDTO.timestamp?: Timestamp.valueOf(LocalDateTime.now()),
+                timestamp = messageDTO.timestamp ?: Timestamp.valueOf(LocalDateTime.now()),
                 attachment = messageDTO.attachment,
-                content = messageDTO.content,
-                new = messageDTO.new
+                content = messageDTO.content
             )
         ).toDTO()
     }

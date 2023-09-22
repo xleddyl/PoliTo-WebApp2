@@ -6,10 +6,6 @@ data class TicketDTO(
     val statuses: MutableList<Statuses>?,
     val description: String,
     val priority: Int?,
-    val messagesID: MutableSet<Long?>?,
+    val messagesIDs: MutableSet<Long?>?,
     val purchaseID: Long
-) {
-    override fun toString(): String {
-        return "Ticket(id=$id, technician='${technician}', statuses=$statuses, description='$description', priority=$priority)"
-    }
-}
+)

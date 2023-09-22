@@ -1,7 +1,7 @@
 package it.polito.wa2.server.ticketing.tickets
 
 import it.polito.wa2.server.NotValidException
-import it.polito.wa2.server.security.aut.getUserDetail
+import it.polito.wa2.server.security.aut.AuthService
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User
@@ -11,19 +11,20 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/api")
 class TicketController(
-    private val ticketService: TicketService
+    private val ticketService: TicketService,
+    private val authService: AuthService
 ) {
 
     @GetMapping("/tickets")
     @ResponseStatus(HttpStatus.OK)
     fun getAll(@AuthenticationPrincipal user: DefaultOAuth2User?): List<TicketDTO> {
-        return ticketService.getAll(getUserDetail(user))
+        return ticketService.getAll(authService.getUserDetails(user))
     }
 
     @GetMapping("/tickets/{ticketId}")
     @ResponseStatus(HttpStatus.OK)
     fun getById(@PathVariable ticketId: Long, @AuthenticationPrincipal user: DefaultOAuth2User?): TicketDTO {
-        return ticketService.getById(ticketId, getUserDetail(user))
+        return ticketService.getById(ticketId, authService.getUserDetails(user))
     }
 
     @PostMapping("/tickets")
@@ -32,10 +33,10 @@ class TicketController(
         @Valid @RequestBody ticketDTO: TicketDTO,
         @AuthenticationPrincipal user: DefaultOAuth2User?
     ): TicketDTO {
-        return ticketService.createTicket(ticketDTO, getUserDetail(user))
+        return ticketService.createTicket(ticketDTO, authService.getUserDetails(user))
     }
 
-    @PostMapping("/tickets/{ticketId}")
+    @PutMapping("/tickets/{ticketId}/status")
     @ResponseStatus(HttpStatus.CREATED)
     fun updateStatus(
         @PathVariable ticketId: Long,
@@ -45,7 +46,7 @@ class TicketController(
         println("\n\n\nHERE UPDATE STATUS")
         try {
             val status = Statuses.valueOf(ticketStatus.status.uppercase())
-            return ticketService.updateStatus(ticketId, status, getUserDetail(user))
+            return ticketService.updateStatus(ticketId, status, authService.getUserDetails(user))
         } catch (e: IllegalArgumentException) {
             throw NotValidException("Invalid status")
         }
@@ -59,12 +60,6 @@ class TicketController(
         @AuthenticationPrincipal user: DefaultOAuth2User?
     ): TicketDTO {
         if (ticketId != ticketDTO.id) throw NotValidException("Ticket id and path id don't match")
-        return ticketService.editTicket(ticketDTO, getUserDetail(user))
-    }
-
-    @DeleteMapping("/tickets/{ticketId}")
-    @ResponseStatus(HttpStatus.OK)
-    fun deleteTicket(@PathVariable ticketId: Long, @AuthenticationPrincipal user: DefaultOAuth2User?) {
-        return ticketService.deleteTicket(ticketId, getUserDetail(user))
+        return ticketService.editTicket(ticketDTO, authService.getUserDetails(user))
     }
 }
