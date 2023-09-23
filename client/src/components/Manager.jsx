@@ -23,7 +23,7 @@ export default function Manager({ user }) {
       if (res.status === 401) navigate('/', { replace: true })
       if (!res.ok) return
       const profiles = await res.json()
-      setProfiles(profiles)
+      setProfiles(() => profiles.sort((a, b) => a.email.localeCompare(b.email)))
    }
 
    const fetchAllPurchases = async () => {
@@ -31,7 +31,7 @@ export default function Manager({ user }) {
       if (res.status === 401) navigate('/', { replace: true })
       if (!res.ok) return
       const purchases = await res.json()
-      setPurchases(purchases)
+      setPurchases(() => purchases.sort((a, b) => a.id - b.id))
    }
 
    const fetchAllTickets = async () => {
@@ -39,8 +39,23 @@ export default function Manager({ user }) {
       if (res.status === 401) navigate('/', { replace: true })
       if (!res.ok) return
       const tickets = await res.json()
-      console.log(tickets)
-      setTickets(tickets)
+      setTickets(() => tickets.sort((a, b) => a.id - b.id))
+   }
+
+   const createTechnician = async (obj) => {
+      const data = {
+         ...obj,
+         managerID: user.email,
+      }
+      const res = await fetch('/api/createExpert', {
+         method: 'POST',
+         body: JSON.stringify(data),
+         headers: {
+            'Content-type': 'application/json',
+         },
+      })
+      if (res.status === 401) navigate('/', { replace: true })
+      if (res.ok) fetchAllProfiles()
    }
 
    useEffect(() => {
@@ -52,10 +67,10 @@ export default function Manager({ user }) {
 
    return (
       <div className="flex flex-col gap-3">
-         <Accordion products={products} />
-         <Accordion profiles={profiles} />
-         <Accordion purchases={purchases} />
-         <Accordion tickets={tickets} />
+         <Accordion products={products} title="Products" />
+         <Accordion profiles={profiles} title="Profiles" createTechnician={createTechnician} />
+         <Accordion purchases={purchases} tickets={tickets} title="Purchases" />
+         <Accordion tickets={tickets} title="Tickets" />
       </div>
    )
 }

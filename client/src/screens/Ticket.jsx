@@ -4,6 +4,13 @@ import TicketList from '../components/TicketList'
 import Chat from '../components/Chat'
 import Status from '../components/Status'
 
+const toBase64 = file => new Promise((resolve, reject) => {
+   const reader = new FileReader();
+   reader.readAsDataURL(file);
+   reader.onload = () => resolve(reader.result);
+   reader.onerror = reject;
+})
+
 export default function Ticket({ user }) {
    const { id } = useParams()
    const [ticket, setTicket] = useState(undefined)
@@ -23,16 +30,18 @@ export default function Ticket({ user }) {
       if (res.status === 401) navigate('/', { replace: true })
       if (!res.ok) return
       const messages = await res.json()
+      console.log(messages)
       setMessages(messages)
    }
 
    const sendMessage = async (message, file) => {
+      if (!file && !message) return
+      const b64 = file ? await toBase64(file) : undefined
       const data = {
          ticket: id,
          fromCustomer: user.role === 'CUSTOMER',
-         attachment: file,
+         attachment: b64,
          content: message,
-         new: true,
       }
       const res = await fetch(`/api/tickets/${id}/messages`, {
          method: 'POST',
@@ -62,12 +71,12 @@ export default function Ticket({ user }) {
          method: 'PUT',
          body: JSON.stringify({
             id: ticket.id,
-            technician: technician,
+            technicianID: technician,
             statuses: ticket.statuses,
             description: ticket.description,
             priority: priority,
             messagesIDs: ticket.messagesIDs,
-            purchaseID: ticket.purchaseID
+            purchaseID: ticket.purchaseID,
          }),
          headers: {
             'Content-type': 'application/json',
@@ -93,7 +102,7 @@ export default function Ticket({ user }) {
             <>
                <TicketList tickets={[ticket]} ticketPage={true} user={user} updateTicket={updateTicket} />
                <Status updateStatus={updateStatus} user={user} statuses={ticket.statuses} />
-               <Chat messages={messages} sendMessage={sendMessage} technician={ticket.technician} user={user} />
+               <Chat messages={messages} sendMessage={sendMessage} technician={ticket.technicianID} user={user} />
             </>
          )}
       </div>

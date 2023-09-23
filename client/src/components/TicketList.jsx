@@ -1,17 +1,17 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function TicketList({ tickets, ticketPage, user, updateTicket }) {
-   const [priority, setPriority] = useState(undefined)
-   const [technician, setTechnician] = useState(undefined)
+export default function TicketList({ tickets, ticketPage, user, updateTicket, manager }) {
+   const [priority, setPriority] = useState('')
+   const [technician, setTechnician] = useState('')
 
    const navigate = useNavigate()
-   console.log(user)
+
    return (
       <div className="flex flex-row gap-10">
          <div className="flex-grow">
-            <div className="text-white text-lg font-medium pb-2">{ticketPage ? 'Ticket' : 'Tickets'}</div>
-            <div className="relative overflow-x-auto shadow-md rounded-lg w-full">
+            {!manager && <div className="text-white text-lg font-medium pb-2">{ticketPage ? 'Ticket' : 'Tickets'}</div>}
+            <div className="relative overflow-x-auto rounded-lg w-full">
                <table className="w-full text-sm text-left text-gray-400">
                   <thead className="text-xs uppercase bg-gray-700 text-gray-400">
                      <tr>
@@ -58,7 +58,7 @@ export default function TicketList({ tickets, ticketPage, user, updateTicket }) 
                               <td className="px-6 py-4">{p.description}</td>
                               <td className="px-6 py-4">{p.priority ? p.priority : 'Pending'}</td>
                               <td className="px-6 py-4">{p.purchaseID}</td>
-                              <td className="px-6 py-4">{p.technician ? p.technician : 'Pending'}</td>
+                              <td className="px-6 py-4">{p.technicianID ? p.technicianID : 'Pending'}</td>
                               {ticketPage ? (
                                  ''
                               ) : (
@@ -80,7 +80,7 @@ export default function TicketList({ tickets, ticketPage, user, updateTicket }) 
                   </tbody>
                </table>
                {ticketPage && user.role === 'MANAGER' && !tickets[0].technician && (
-                  <div className="p-4">
+                  <div className="p-4 pt-10 mx-auto max-w-lg flex flex-col gap-2">
                      <input
                         type="text"
                         name="text"
@@ -103,6 +103,8 @@ export default function TicketList({ tickets, ticketPage, user, updateTicket }) 
                         className="py-3 px-5 text-white focus:ring-4 font-medium rounded-lg text-sm bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800"
                         onClick={() => {
                            updateTicket(priority, technician)
+                           setTechnician('')
+                           setPriority('')
                         }}
                      >
                         Update Ticket

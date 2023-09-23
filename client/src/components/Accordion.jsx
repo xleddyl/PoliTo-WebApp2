@@ -4,7 +4,7 @@ import ProfilesList from './ProfilesList'
 import PurchasesList from './PurchasesList'
 import TicketList from './TicketList'
 
-export default function Accordion({ products = null, profiles = null, purchases = null, tickets = null }) {
+export default function Accordion({ products, profiles, purchases, tickets, title, createTechnician }) {
    const [isOpen, setIsOpen] = useState(false)
 
    const toggleAccordion = () => {
@@ -19,12 +19,7 @@ export default function Accordion({ products = null, profiles = null, purchases 
             }`}
             onClick={toggleAccordion}
          >
-            <span>
-               {products && 'Products'}
-               {profiles && 'Profiles'}
-               {purchases && 'Purchases'}
-               {tickets && 'Tickets'}
-            </span>
+            <span>{title}</span>
             <svg
                xmlns="http://www.w3.org/2000/svg"
                className={`w-6 h-6 transition-transform transform ${isOpen ? 'rotate-180' : ''}`}
@@ -41,10 +36,14 @@ export default function Accordion({ products = null, profiles = null, purchases 
             </svg>
          </div>
          <div className={`relative overflow-x-auto rounded-lg w-full pb-10 ${isOpen ? 'block' : 'hidden'}`}>
-            {isOpen && products && <ProductsList products={products} manager={true} />}
-            {isOpen && profiles && <ProfilesList profiles={profiles} manager={true} />}
-            {isOpen && purchases && <PurchasesList purchases={purchases} manager={true} />}
-            {isOpen && tickets && <TicketList tickets={tickets} manager={true} />}
+            {isOpen && title === 'Products' && <ProductsList products={products} manager={true} />}
+            {isOpen && title === 'Profiles' && (
+               <ProfilesList profiles={profiles} manager={true} createTechnician={createTechnician} />
+            )}
+            {isOpen && title === 'Purchases' && (
+               <PurchasesList purchases={purchases} manager={true} tickets={tickets} />
+            )}
+            {isOpen && title === 'Tickets' && <TicketList tickets={tickets} manager={true} />}
          </div>
       </div>
    )

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Chat({ messages, sendMessage, technician, user }) {
    const [message, setMessage] = useState('')
@@ -19,12 +19,21 @@ export default function Chat({ messages, sendMessage, technician, user }) {
                   key={m.id}
                   className={
                      'p-4 mb-4 text-sm rounded-lg bg-gray-800 text-blue-400 ' +
-                     ((user.role === 'TECHNICIAN' && !m.fromCustomer) ? 'text-end ' : 'text-start ') +
-                     ((user.role !== 'TECHNICIAN' && m.fromCustomer) ? 'text-end ' : 'text-start ')
+                     (user.role !== 'CUSTOMER' && !m.fromCustomer ? 'text-end ' : 'text-start ') +
+                     (user.role === 'CUSTOMER' && m.fromCustomer ? 'text-end ' : 'text-start ')
                   }
                   role="alert"
                >
-                  {m.content}
+                  <div className='flex flex-col gap-2'>
+                     {m.attachment && <div className={'border-4 border-gray-600 rounded-xl '+
+                     (user.role !== 'CUSTOMER' && !m.fromCustomer ? 'self-end ' : 'self-start ') +
+                     (user.role === 'CUSTOMER' && m.fromCustomer ? 'self-end ' : 'self-start ')}>
+                        <img src={m.attachment} className='rounded-lg max-w-xs'/>
+                     </div>}
+                     <div>
+                        {m.content}
+                     </div>
+                  </div>
                </div>
             ))}
          <div className="flex flex-row gap-3">
@@ -45,7 +54,7 @@ export default function Chat({ messages, sendMessage, technician, user }) {
                   setFile(undefined)
                }}
             >
-               Invia
+               Send
             </button>
             <input type="file" className="text-white self-center" onChange={(e) => setFile(e.target.files[0])} />
          </div>
