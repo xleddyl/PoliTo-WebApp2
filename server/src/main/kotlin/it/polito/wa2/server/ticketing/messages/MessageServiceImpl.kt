@@ -69,7 +69,7 @@ class MessageServiceImpl(
                 fromCustomer = messageDTO.fromCustomer,
                 timestamp = messageDTO.timestamp ?: Timestamp.valueOf(LocalDateTime.now()),
                 attachment = messageDTO.attachment,
-                content = messageDTO.content
+                content = messageDTO.content ?: ""
             )
         ).toDTO()
     }

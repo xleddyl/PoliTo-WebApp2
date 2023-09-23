@@ -8,5 +8,5 @@ data class MessageDTO(
     val fromCustomer: Boolean,
     val timestamp: Timestamp?,
     val attachment: String?, //Base64
-    val content: String
+    val content: String?
 )

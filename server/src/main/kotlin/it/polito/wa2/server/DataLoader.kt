@@ -141,13 +141,23 @@ class DataLoader(
                 technician = technician
             )
         )
+        val ticket04 = ticketRepository.save(
+            Ticket(
+                statuses = mutableListOf(Statuses.OPEN),
+                description = "PLEASE HELP",
+                priority = 1,
+                purchase = purchase03,
+            )
+        )
 
         purchase01.ticket = ticket01
         purchase04.ticket = ticket02
         purchase02.ticket = ticket03
+        purchase03.ticket = ticket04
         purchaseRepository.save(purchase01)
         purchaseRepository.save(purchase04)
         purchaseRepository.save(purchase02)
+        purchaseRepository.save(purchase03)
 
         val message01 = messageRepository.save(
             Message(

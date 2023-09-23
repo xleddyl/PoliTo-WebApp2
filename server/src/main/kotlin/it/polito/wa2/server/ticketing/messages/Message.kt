@@ -21,8 +21,10 @@ class Message(
     @Temporal(TemporalType.TIMESTAMP)
     var timestamp: Timestamp,
 
+    @Column(columnDefinition = "text")
     var attachment: String? = null, //Base64
-    var content: String
+
+    var content: String = ""
 )
 
 fun Message.toDTO(): MessageDTO {
