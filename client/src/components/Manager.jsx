@@ -6,6 +6,7 @@ export default function Manager({ user }) {
    const [products, setProducts] = useState([])
    const [profiles, setProfiles] = useState([])
    const [purchases, setPurchases] = useState([])
+   const [tickets, setTickets] = useState([])
 
    const navigate = useNavigate()
 
@@ -25,19 +26,28 @@ export default function Manager({ user }) {
       setProfiles(profiles)
    }
 
-   const fetchallPurchases = async () => {
+   const fetchAllPurchases = async () => {
       const res = await fetch(`/api/purchases`)
       if (res.status === 401) navigate('/', { replace: true })
       if (!res.ok) return
       const purchases = await res.json()
-      console.log(purchases)
       setPurchases(purchases)
+   }
+
+   const fetchAllTickets = async () => {
+      const res = await fetch(`/api/tickets`)
+      if (res.status === 401) navigate('/', { replace: true })
+      if (!res.ok) return
+      const tickets = await res.json()
+      console.log(tickets)
+      setTickets(tickets)
    }
 
    useEffect(() => {
       fetchAllProducts()
       fetchAllProfiles()
-      fetchallPurchases()
+      fetchAllPurchases()
+      fetchAllTickets()
    }, [])
 
    return (
@@ -45,6 +55,7 @@ export default function Manager({ user }) {
          <Accordion products={products} />
          <Accordion profiles={profiles} />
          <Accordion purchases={purchases} />
+         <Accordion tickets={tickets} />
       </div>
    )
 }

@@ -31,13 +31,13 @@
 
 ### Ticket
 
-| method | route                      | body         | role        | frontend? |
-| ------ | -------------------------- | ------------ | ----------- | :-------: |
-| GET    | /tickets                   |              | da rivedere |     Y     |
-| GET    | /tickets/{ticketId}        |              | da rivedere |     Y     |
-| POST   | /tickets                   | TicketDTO    | da rivedere |     Y     |
-| PUT    | /tickets/{ticketId}/status | TicketStatus | da rivedere |     Y     |
-| PUT    | /tickets/{ticketId}        | TicketDTO    | da rivedere |           |
+| method | route                      | body         | role        |   frontend?   |
+| ------ | -------------------------- | ------------ | ----------- | :-----------: |
+| GET    | /tickets                   |              | da rivedere |       Y       |
+| GET    | /tickets/{ticketId}        |              | da rivedere |       Y       |
+| POST   | /tickets                   | TicketDTO    | da rivedere |       Y       |
+| PUT    | /tickets/{ticketId}/status | TicketStatus | da rivedere |       Y       |
+| PUT    | /tickets/{ticketId}        | TicketDTO    | da rivedere | da completare |
 
 ### Message
 

@@ -1,8 +1,12 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function TicketList({ tickets, ticketPage }) {
-   const navigate = useNavigate()
+export default function TicketList({ tickets, ticketPage, user, updateTicket }) {
+   const [priority, setPriority] = useState(undefined)
+   const [technician, setTechnician] = useState(undefined)
 
+   const navigate = useNavigate()
+   console.log(user)
    return (
       <div className="flex flex-row gap-10">
          <div className="flex-grow">
@@ -28,6 +32,9 @@ export default function TicketList({ tickets, ticketPage }) {
                         <th scope="col" className="px-6 py-3">
                            purchase ID
                         </th>
+                        <th scope="col" className="px-6 py-3">
+                           technician
+                        </th>
                         {ticketPage ? (
                            ''
                         ) : (
@@ -49,8 +56,9 @@ export default function TicketList({ tickets, ticketPage }) {
                               </th>
                               {!ticketPage && <td className="px-6 py-4">{p.statuses[p.statuses.length - 1]}</td>}
                               <td className="px-6 py-4">{p.description}</td>
-                              <td className="px-6 py-4">{p.priority}</td>
+                              <td className="px-6 py-4">{p.priority ? p.priority : 'Pending'}</td>
                               <td className="px-6 py-4">{p.purchaseID}</td>
+                              <td className="px-6 py-4">{p.technician ? p.technician : 'Pending'}</td>
                               {ticketPage ? (
                                  ''
                               ) : (
@@ -71,6 +79,36 @@ export default function TicketList({ tickets, ticketPage }) {
                         ))}
                   </tbody>
                </table>
+               {ticketPage && user.role === 'MANAGER' && !tickets[0].technician && (
+                  <div className="p-4">
+                     <input
+                        type="text"
+                        name="text"
+                        className="border sm:text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Set Priority"
+                        required
+                        onChange={(e) => setPriority(e.target.value)}
+                        value={priority}
+                     />
+                     <input
+                        type="text"
+                        name="text"
+                        className="border sm:text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Assign Technician"
+                        required
+                        onChange={(e) => setTechnician(e.target.value)}
+                        value={technician}
+                     />
+                     <button
+                        className="py-3 px-5 text-white focus:ring-4 font-medium rounded-lg text-sm bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800"
+                        onClick={() => {
+                           updateTicket(priority, technician)
+                        }}
+                     >
+                        Update Ticket
+                     </button>
+                  </div>
+               )}
             </div>
          </div>
       </div>

@@ -65,7 +65,6 @@ export default function ProfilesList({ profiles, manager }) {
 }
 
 function ProfilePopup({ profile, onClose }) {
-   console.log(profile)
    const role = profile.address ? 'CUSTOMER' : profile.specialization ? 'TECHNICIAN' : 'MANAGER'
 
    return (
@@ -87,7 +86,7 @@ function ProfilePopup({ profile, onClose }) {
                      <div>
                         <strong>Address: </strong> {profile.address}
                      </div>
-                     <div>{profile.purchasesID.length} purchases made</div>
+                     <div>{profile.purchasesIDs.length} purchases made</div>
                   </>
                )}
                {role === 'TECHNICIAN' && (
@@ -107,7 +106,7 @@ function ProfilePopup({ profile, onClose }) {
                         <strong>Level: </strong> {profile.level}
                      </div>
                      <div>
-                        <strong>Works with: </strong> {profile.techniciansID.map((t) => `${t} `)}
+                        <strong>Works with: </strong> {profile.techniciansIDs.map((t) => `${t} `)}
                      </div>
                   </>
                )}

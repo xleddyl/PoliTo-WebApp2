@@ -16,7 +16,6 @@ export default function Ticket({ user }) {
       if (!res.ok) return
       const ticket = await res.json()
       setTicket(ticket)
-      console.log(ticket)
    }
 
    const fetchMessages = async () => {
@@ -25,11 +24,9 @@ export default function Ticket({ user }) {
       if (!res.ok) return
       const messages = await res.json()
       setMessages(messages)
-      console.log(messages)
    }
 
    const sendMessage = async (message, file) => {
-      console.log(message, file)
       const data = {
          ticket: id,
          fromCustomer: user.role === 'CUSTOMER',
@@ -60,6 +57,26 @@ export default function Ticket({ user }) {
       if (res.ok) fetchTicket()
    }
 
+   const updateTicket = async (priority, technician) => {
+      const res = await fetch(`/api/tickets/${id}`, {
+         method: 'PUT',
+         body: JSON.stringify({
+            id: ticket.id,
+            technician: technician,
+            statuses: ticket.statuses,
+            description: ticket.description,
+            priority: priority,
+            messagesIDs: ticket.messagesIDs,
+            purchaseID: ticket.purchaseID
+         }),
+         headers: {
+            'Content-type': 'application/json',
+         },
+      })
+      if (res.status === 401) navigate('/', { replace: true })
+      if (res.ok) fetchTicket()
+   }
+
    useEffect(() => {
       if (!id) navigate('/', { replace: true })
       fetchTicket()
@@ -74,7 +91,7 @@ export default function Ticket({ user }) {
       <div className="flex flex-col gap-20">
          {ticket && (
             <>
-               <TicketList tickets={[ticket]} ticketPage={true} />
+               <TicketList tickets={[ticket]} ticketPage={true} user={user} updateTicket={updateTicket} />
                <Status updateStatus={updateStatus} user={user} statuses={ticket.statuses} />
                <Chat messages={messages} sendMessage={sendMessage} technician={ticket.technician} user={user} />
             </>

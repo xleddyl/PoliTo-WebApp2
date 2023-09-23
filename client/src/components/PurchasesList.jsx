@@ -60,7 +60,7 @@ export default function PurchasesList({ purchases, addTicket, manager }) {
                                  )}
                               </td>
                               {manager && <>
-                           <td scope="col" className="px-6 py-3 text-center">
+                           <td className="px-6 py-3 text-center">
                           { p.customer}
                         </td>
                         </>}
