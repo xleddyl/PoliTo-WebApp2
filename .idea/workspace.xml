@@ -4,14 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="fixed keycloak roles">
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/docker-compose-parziale.yml" afterDir="false" />
+    <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="completed server">
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/408c5cb3-b326-470e-8e0e-6dcd2ab89e79/bloom-0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/408c5cb3-b326-470e-8e0e-6dcd2ab89e79/data.parquet" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/408c5cb3-b326-470e-8e0e-6dcd2ab89e79/meta.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/75d51c06-a63e-40d8-b594-50a6518afc80/bloom-0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/75d51c06-a63e-40d8-b594-50a6518afc80/data.parquet" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/75d51c06-a63e-40d8-b594-50a6518afc80/meta.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/90accb3d-d998-4c2b-b7fa-5060a7b41c61/bloom-0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/90accb3d-d998-4c2b-b7fa-5060a7b41c61/data.parquet" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/90accb3d-d998-4c2b-b7fa-5060a7b41c61/meta.compacted.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/de515098-de3c-4f03-8d9a-799329d5d273/bloom-0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/de515098-de3c-4f03-8d9a-799329d5d273/data.parquet" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/de515098-de3c-4f03-8d9a-799329d5d273/meta.compacted.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/docker/docker-compose-completo.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/docker/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/docker/observer/grafana/provisioning/dashboards/logs_traces_metrics.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/docker/observer/grafana/provisioning/dashboards/logs_traces_metrics.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/docker/observer/grafana/provisioning/datasources/datasource.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/docker/observer/grafana/provisioning/datasources/datasource.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/index.json.gz" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/index.json.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/DataLoader.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/DataLoader.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/purchase/PurchaseServiceImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/purchase/PurchaseServiceImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/security/aut/AuthServiceImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/security/aut/AuthServiceImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/static/index.html" afterDir="false" />
     </list>
     <list id="38bb76aa-e297-4ec8-88e2-555c0a0ac3d9" name="Changes by edo" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -211,6 +222,7 @@
       <workItem from="1695133608596" duration="2094000" />
       <workItem from="1695384712800" duration="8401000" />
       <workItem from="1695470024998" duration="9442000" />
+      <workItem from="1695730942216" duration="2561000" />
     </task>
     <task id="LOCAL-00001" summary="feat(test): added some test and fixed some problems in services">
       <created>1683800085310</created>
@@ -457,7 +469,14 @@
       <option name="project" value="LOCAL" />
       <updated>1695719762525</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="fixed grafana">
+      <created>1695723115415</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1695723115415</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -476,8 +495,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="feat(keycloak): working keycloak??" />
-    <MESSAGE value="feat(keycloak): securing url is working + logout handler" />
     <MESSAGE value="feat(keycloak): added keycloak to jib" />
     <MESSAGE value="fix(jib): modified jib configurations" />
     <MESSAGE value="feat(observers): added grafana, prometheus, loki and tempo" />
@@ -501,6 +518,8 @@
     <MESSAGE value="modifiche al server per evitare di smadonnare" />
     <MESSAGE value="big changes on server (auth, routes and services)" />
     <MESSAGE value="fixed keycloak roles" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed keycloak roles" />
+    <MESSAGE value="fixed grafana" />
+    <MESSAGE value="completed server" />
+    <option name="LAST_COMMIT_MESSAGE" value="completed server" />
   </component>
 </project>

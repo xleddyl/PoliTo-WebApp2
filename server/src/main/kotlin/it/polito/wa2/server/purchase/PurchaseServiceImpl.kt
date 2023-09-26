@@ -28,8 +28,12 @@ class PurchaseServiceImpl(
     }
 
     override fun getAllByListOfID(list: List<Long>, userDetail: UserDetail): List<PurchaseDTO> {
-        if (userDetail.role != UserRoles.MANAGER) throw UnauthorizedException("Unauthorized")
-        return purchaseRepository.findAllById(list).map { it.toDTO() }
+        val purchases = purchaseRepository.findAllById(list).map { it.toDTO() }
+        return purchases.filter {
+            if (userDetail.role != UserRoles.MANAGER) (it.customer == userDetail.email || (ticketRepository.findByIdOrNull(
+                it.ticketID
+            )?.technician?.email == userDetail.email)) else true
+        }
     }
 
     override fun getAllByEmail(email: String, userDetail: UserDetail): List<PurchaseDTO> {

@@ -8,7 +8,6 @@ import it.polito.wa2.server.security.*
 import jakarta.transaction.Transactional
 import org.keycloak.admin.client.Keycloak
 import org.keycloak.representations.idm.CredentialRepresentation
-import org.keycloak.representations.idm.RoleRepresentation
 import org.keycloak.representations.idm.UserRepresentation
 import org.slf4j.Logger
 import org.springframework.beans.factory.annotation.Value

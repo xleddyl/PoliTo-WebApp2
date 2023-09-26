@@ -59,47 +59,48 @@ class DataLoader(
         )
 
         val product01 =
-            productRepository.save(Product("1345346763", "spa-01", "Sword", "Blacksmith&Co", "Weapons", 10.45F))
+            productRepository.save(Product("1345346763", "spa-01", "Smartphone", "Apple", "Smartphones", 10.45F))
         val product02 =
-            productRepository.save(Product("4965664982", "spa-02", "LightSaber", "Blacksmith&Co", "Weapons", 10.45F))
+            productRepository.save(Product("4965664982", "spa-02", "Laptop", "Microsoft", "Computer", 10.45F))
         val product03 =
-            productRepository.save(Product("5423253453", "spa-03", "MachineGun", "Blacksmith&Co", "Weapons", 10.45F))
+            productRepository.save(Product("5423253453", "spa-03", "Tablet", "Samsung", "Tablet", 10.45F))
         val product04 =
-            productRepository.save(Product("7856234567", "spa-04", "Dagger", "SteelCrafters", "Weapons", 15.99F))
+            productRepository.save(Product("7856234567", "spa-04", "Smartwatch", "Google", "Wearables", 15.99F))
         val product05 = productRepository.save(
             Product(
                 "3254678912",
                 "spa-05",
-                "Bow and Arrow",
-                "ArcheryMasters",
-                "Weapons",
+                "Smart TV",
+                "LG",
+                "TV",
                 29.99F
             )
         )
         val product06 =
-            productRepository.save(Product("9876543210", "spa-06", "Magic Staff", "WizardWares", "Weapons", 25.50F))
+            productRepository.save(Product("9876543210", "spa-06", "Console", "Sony", "Gaming", 25.50F))
         val product07 =
-            productRepository.save(Product("1234567890", "spa-07", "Shield", "ArmorSmiths", "Armor", 39.99F))
+            productRepository.save(Product("1234567890", "spa-07", "Router", "Asus", "Networking", 39.99F))
         val product08 =
-            productRepository.save(Product("4567890123", "spa-08", "Plate Armor", "ArmorSmiths", "Armor", 199.99F))
+            productRepository.save(Product("4567890123", "spa-08", "NAS", "Synology", "Storage", 199.99F))
         val product09 =
-            productRepository.save(Product("5678901234", "spa-09", "Crossbow", "ArcheryMasters", "Weapons", 42.75F))
+            productRepository.save(Product("5678901234", "spa-09", "Smart Speaker", "Amazon", "Smart Home", 42.75F))
         val product10 = productRepository.save(
             Product(
                 "6789012345",
                 "spa-10",
-                "Excalibur",
-                "LegendaryForgeries",
-                "Weapons",
+                "Virtual Reality Headset",
+                "Meta",
+                "Gaming",
                 299.99F
             )
         )
         val product11 =
-            productRepository.save(Product("7890123456", "spa-11", "Wand", "WizardWares", "Weapons", 12.99F))
+            productRepository.save(Product("7890123456", "spa-11", "Wireless Earbuds", "Apple", "Audio", 12.99F))
         val product12 =
-            productRepository.save(Product("8901234567", "spa-12", "Mace", "SteelCrafters", "Weapons", 19.95F))
+            productRepository.save(Product("8901234567", "spa-12", "Smartwatch Band", "Samsung", "Wearables", 19.95F))
         val product13 =
-            productRepository.save(Product("9012345678", "spa-13", "Helmet", "ArmorSmiths", "Armor", 29.99F))
+            productRepository.save(Product("9012345678", "spa-13", "Smartphone Case", "Spigen", "Accessories", 29.99F))
+
 
         val purchase01 =
             purchaseRepository.save(Purchase(customer = customer1, product = product01, date = Date(1695028957917L)))
@@ -163,7 +164,7 @@ class DataLoader(
             Message(
                 ticket = ticket01,
                 fromCustomer = true,
-                content = "My sword is broken",
+                content = "My device is broken",
                 timestamp = Timestamp.valueOf(LocalDateTime.now())
             )
         )
@@ -188,7 +189,7 @@ class DataLoader(
             Message(
                 ticket = ticket02,
                 fromCustomer = true,
-                content = "My lightsaber is malfunctioning.",
+                content = "My device is malfunctioning.",
                 timestamp = Timestamp.valueOf(LocalDateTime.now())
             )
         )
