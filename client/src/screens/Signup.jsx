@@ -2,13 +2,13 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function Signup() {
-   const [username, setUsername] = useState(undefined)
-   const [password, setPassword] = useState(undefined)
-   const [email, setEmail] = useState(undefined)
-   const [firstName, setFirstName] = useState(undefined)
-   const [lastName, setLastName] = useState(undefined)
-   const [phone, setPhone] = useState(undefined)
-   const [address, setAddress] = useState(undefined)
+   const [username, setUsername] = useState('')
+   const [password, setPassword] = useState('')
+   const [email, setEmail] = useState('')
+   const [firstName, setFirstName] = useState('')
+   const [lastName, setLastName] = useState('')
+   const [phone, setPhone] = useState('')
+   const [address, setAddress] = useState('')
    const [response, setResponse] = useState('')
    const [error, setError] = useState('')
 
@@ -58,7 +58,7 @@ export default function Signup() {
                               placeholder="First Name"
                               required
                               onChange={(e) => setFirstName(e.target.value)}
-                              value={firstName || ''}
+                              value={firstName}
                            />
                         </div>
 
@@ -74,7 +74,7 @@ export default function Signup() {
                               placeholder="Last Name"
                               required
                               onChange={(e) => setLastName(e.target.value)}
-                              value={lastName || ''}
+                              value={lastName}
                            />
                         </div>
 
@@ -90,7 +90,7 @@ export default function Signup() {
                               placeholder="User Name"
                               required
                               onChange={(e) => setUsername(e.target.value)}
-                              value={username || ''}
+                              value={username}
                            />
                         </div>
 
@@ -106,7 +106,7 @@ export default function Signup() {
                               placeholder="333 0000000"
                               required
                               onChange={(e) => setPhone(e.target.value)}
-                              value={phone || ''}
+                              value={phone}
                            />
                         </div>
 
@@ -122,7 +122,7 @@ export default function Signup() {
                               placeholder="address"
                               required
                               onChange={(e) => setAddress(e.target.value)}
-                              value={address || ''}
+                              value={address}
                            />
                         </div>
 
@@ -138,7 +138,7 @@ export default function Signup() {
                               placeholder="name@company.com"
                               required
                               onChange={(e) => setEmail(e.target.value)}
-                              value={email || ''}
+                              value={email}
                            />
                         </div>
 
@@ -154,7 +154,7 @@ export default function Signup() {
                               className="border sm:text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                               required
                               onChange={(e) => setPassword(e.target.value)}
-                              value={password || ''}
+                              value={password}
                            />
                         </div>
                         <div className="flex justify-center items-center">

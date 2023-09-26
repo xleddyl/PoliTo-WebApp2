@@ -10,14 +10,14 @@ export default function Status({ updateStatus, statuses, user }) {
                <div className="text-white text-lg font-medium pb-2">Statuses</div>
                <div className="flex flex-row flex-wrap gap-2">
                   {statuses.map((p, i) => (
-                        <div
+                     <div
                         key={i}
-                           className={`${
-                              i === statuses.length - 1 ? 'bg-gray-700' : 'bg-gray-800'
-                           } px-5 py-3 text-white rounded-md`}
-                        >
-                           {p}
-                        </div>
+                        className={`${
+                           i === statuses.length - 1 ? 'bg-gray-700' : 'bg-gray-800'
+                        } px-5 py-3 text-white rounded-md`}
+                     >
+                        {p}
+                     </div>
                   ))}
                </div>
             </>

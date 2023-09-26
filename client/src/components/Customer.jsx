@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 export default function Customer({ user }) {
    const [purchases, setPurchases] = useState([])
    const [products, setProducts] = useState([])
+   const [tickets, setTickets] = useState([])
    const navigate = useNavigate()
 
    const fetchProducts = async () => {
@@ -14,6 +15,14 @@ export default function Customer({ user }) {
       if (!res.ok) return
       const products = await res.json()
       setProducts(() => products.sort((a, b) => a.id - b.id))
+   }
+
+   const fetchTickets = async () => {
+      const res = await fetch(`/api/tickets`)
+      if (res.status === 401) navigate('/', { replace: true })
+      if (!res.ok) return
+      const tickets = await res.json()
+      setTickets(tickets)
    }
 
    const fetchPurchases = async () => {
@@ -37,7 +46,10 @@ export default function Customer({ user }) {
          },
       })
       if (res.status === 401) navigate('/', { replace: true })
-      if (res.ok) fetchPurchases()
+      if (res.ok) {
+         fetchPurchases()
+         fetchTickets()
+      }
    }
 
    const addPurchase = async (p) => {
@@ -60,11 +72,12 @@ export default function Customer({ user }) {
    useEffect(() => {
       fetchProducts()
       fetchPurchases()
+      fetchTickets()
    }, [])
 
    return (
       <div className="flex flex-col gap-10">
-         <PurchasesList purchases={purchases} addTicket={addTicket} />
+         <PurchasesList purchases={purchases} addTicket={addTicket} tickets={tickets} />
          <ProductsList
             products={products}
             purchasedProducts={purchases.map((p) => p.product)}
