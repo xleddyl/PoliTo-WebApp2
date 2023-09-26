@@ -1,8 +1,9 @@
-export default function ProductsList({ products, purchasedProducts = null, addPurchase, manager }) {
+export default function ProductsList({ products, purchasedProducts = null, addPurchase, manager, ticketPage }) {
    return (
       <div className="flex flex-row">
          <div className="flex-grow">
             {purchasedProducts && <div className="text-white text-lg font-medium pb-2">All Products</div>}
+            {!purchasedProducts && ticketPage && <div className="text-white text-lg font-medium pb-2">Products</div>}
             <div className="relative overflow-x-auto shadow-md rounded-lg w-full">
                <table className="w-full text-sm text-left text-gray-400">
                   <thead className="text-xs uppercase bg-gray-700 text-gray-400">
@@ -22,7 +23,7 @@ export default function ProductsList({ products, purchasedProducts = null, addPu
                         <th scope="col" className="px-6 py-3">
                            category
                         </th>
-                        {purchasedProducts && (
+                        {!ticketPage && purchasedProducts && (
                            <th scope="col" className="px-6 py-3 text-center">
                               register purchase
                            </th>
@@ -33,7 +34,7 @@ export default function ProductsList({ products, purchasedProducts = null, addPu
                      {products &&
                         products.map((p, i) => (
                            <tr
-                              key={p.ean}
+                              key={p.ean+'_product'}
                               className={'border-b border-gray-700 ' + (i % 2 === 0 ? 'bg-gray-800' : 'bg-gray-900')}
                            >
                               <td className="px-6 py-4">{p.ean}</td>
@@ -41,7 +42,7 @@ export default function ProductsList({ products, purchasedProducts = null, addPu
                               <td className="px-6 py-4">{p.name}</td>
                               <td className="px-6 py-4">{p.brand}</td>
                               <td className="px-6 py-4">{p.category}</td>
-                              {purchasedProducts && (
+                              {!ticketPage && purchasedProducts && (
                                  <td className="px-6 py-4 flex justify-center">
                                     {purchasedProducts.find((v) => v === p.ean) ? (
                                        <div className="text-gray-600 italic">purchased</div>

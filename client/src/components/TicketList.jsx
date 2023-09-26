@@ -48,7 +48,7 @@ export default function TicketList({ tickets, ticketPage, user, updateTicket, ma
                      {tickets &&
                         tickets.map((p, i) => (
                            <tr
-                              key={p.id}
+                              key={p.id+'_ticket'}
                               className={'border-b border-gray-700 ' + (i % 2 === 0 ? 'bg-gray-800' : 'bg-gray-900')}
                            >
                               <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap text-white">

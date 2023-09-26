@@ -2,21 +2,23 @@ import { useNavigate } from 'react-router-dom'
 import AddTicket from './AddTicket'
 import { useEffect, useState } from 'react'
 
-export default function PurchasesList({ purchases, addTicket, manager, tickets }) {
+export default function PurchasesList({ purchases, addTicket, manager, tickets, ticketPage }) {
    const navigate = useNavigate()
    const [show, setShow] = useState([])
 
    useEffect(() => {
-      const ciao = purchases.map((p) => {
+      if (ticketPage) return
+      const list = purchases.map((p) => {
          return tickets.find((t) => t.id === p.ticketID)?.technicianID
       })
-      setShow(ciao)
+      setShow(list)
    }, [tickets, purchases])
 
    return (
       <div className="flex flex-row gap-10">
          <div className="flex-grow">
             {addTicket && <div className="text-white text-lg font-medium pb-2">Purchases</div>}
+            {!addTicket && ticketPage && <div className="text-white text-lg font-medium pb-2">Purchase</div>}
             <div className="relative overflow-x-auto shadow-md rounded-lg w-full">
                <table className="w-full text-sm text-left text-gray-400">
                   <thead className="text-xs uppercase bg-gray-700 text-gray-400">
@@ -30,9 +32,9 @@ export default function PurchasesList({ purchases, addTicket, manager, tickets }
                         <th scope="col" className="px-6 py-3">
                            Product
                         </th>
-                        <th scope="col" className="px-6 py-3 text-center">
+                        {!ticketPage && <th scope="col" className="px-6 py-3 text-center">
                            Ticket
-                        </th>
+                        </th>}
                         {manager && (
                            <>
                               <th scope="col" className="px-6 py-3 text-center">
@@ -46,7 +48,7 @@ export default function PurchasesList({ purchases, addTicket, manager, tickets }
                      {purchases &&
                         purchases.map((p, i) => (
                            <tr
-                              key={p.id}
+                              key={p.id+'_purchase'}
                               className={'border-b border-gray-700 ' + (i % 2 === 0 ? 'bg-gray-800' : 'bg-gray-900')}
                            >
                               <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap text-white">
@@ -54,7 +56,7 @@ export default function PurchasesList({ purchases, addTicket, manager, tickets }
                               </th>
                               <td className="px-6 py-4">{p.date}</td>
                               <td className="px-6 py-4">{p.product}</td>
-                              <td className="px-6 py-4 flex justify-center">
+                              {!ticketPage && <td className="px-6 py-4 flex justify-center">
                                  {p.ticketID ? (
                                     <div className="flex flex-row gap-2">
                                        <svg
@@ -83,12 +85,8 @@ export default function PurchasesList({ purchases, addTicket, manager, tickets }
                                  ) : (
                                     <div className="text-gray-600 italic">-</div>
                                  )}
-                              </td>
-                              {manager && (
-                                 <>
-                                    <td className="px-6 py-3 text-center">{p.customer}</td>
-                                 </>
-                              )}
+                              </td>}
+                              {manager && <td className="px-6 py-3 text-center">{p.customer}</td>}
                            </tr>
                         ))}
                   </tbody>

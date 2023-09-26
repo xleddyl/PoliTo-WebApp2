@@ -8,7 +8,7 @@
 | ------ | --------------- | ---------- | :-------: |
 | POST   | /products       | productDTO |           |
 | GET    | /products       |            |     Y     |
-| GET    | /products/{ean} |            |           |
+| GET    | /products/{ean} |            |     Y     |
 
 ### Profiles
 
@@ -24,7 +24,7 @@
 | method | route              | body        | frontend? |
 | ------ | ------------------ | ----------- | :-------: |
 | GET    | /purchases         |             |     Y     |
-| POST   | /purchases/list    | List(Long)  |           |
+| POST   | /purchases/list    | List(Long)  |     Y     |
 | GET    | /purchases/{email} |             |     Y     |
 | POST   | /purchases         | purchaseDTO |     Y     |
 | PUT    | /purchases         | purchaseDTO |           |

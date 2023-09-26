@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import TicketList from '../components/TicketList'
 import Chat from '../components/Chat'
 import Status from '../components/Status'
+import PurchasesList from '../components/PurchasesList'
+import ProductsList from '../components/ProductsList'
 
 const toBase64 = file => new Promise((resolve, reject) => {
    const reader = new FileReader();
@@ -15,6 +17,8 @@ export default function Ticket({ user }) {
    const { id } = useParams()
    const [ticket, setTicket] = useState(undefined)
    const [messages, setMessages] = useState([])
+   const [purchase, setPurchase] = useState([])
+   const [product, setProduct] = useState([])
    const navigate = useNavigate()
 
    const fetchTicket = async () => {
@@ -23,6 +27,25 @@ export default function Ticket({ user }) {
       if (!res.ok) return
       const ticket = await res.json()
       setTicket(ticket)
+
+      const res2 = await fetch(`/api/purchases/list`, {
+         method: 'POST',
+         body: JSON.stringify([ticket.purchaseID]),
+         headers: {
+            'Content-type': 'application/json',
+         },
+      })
+      if (res2.status === 401) navigate('/', { replace: true })
+      if (!res2.ok) return
+      const purchase = await res2.json()
+      console.log(purchase)
+      setPurchase(purchase[0])
+
+      const res3 = await fetch(`/api/products/${purchase[0].product}`)
+      if (res3.status === 401) navigate('/', { replace: true })
+      if (!res3.ok) return
+      const product = await res3.json()
+      setProduct(product)
    }
 
    const fetchMessages = async () => {
@@ -100,7 +123,11 @@ export default function Ticket({ user }) {
       <div className="flex flex-col gap-20">
          {ticket && (
             <>
-               <TicketList tickets={[ticket]} ticketPage={true} user={user} updateTicket={updateTicket} />
+               <div className='flex flex-col gap-5'>
+                  <TicketList tickets={[ticket]} ticketPage={true} user={user} updateTicket={updateTicket} />
+                  <PurchasesList purchases={[purchase]} ticketPage={true} />
+                  <ProductsList products={[product]} ticketPage={true} />
+               </div>
                <Status updateStatus={updateStatus} user={user} statuses={ticket.statuses} />
                <Chat messages={messages} sendMessage={sendMessage} technician={ticket.technicianID} user={user} />
             </>
