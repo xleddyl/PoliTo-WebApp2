@@ -14,8 +14,14 @@ import org.springframework.security.web.SecurityFilterChain
 import java.util.stream.Collectors
 
 val CUSTOMER_APP_ROLE = "app_customer"
-val MANAGER__APP_ROLE = "app_manager"
+val CUSTOMER_APP_ROLE_ID = "b17833f4-04d7-48b3-8ecd-471141897da5"
+
+val MANAGER_APP_ROLE = "app_manager"
+val MANAGER_APP_ROLE_ID = "d1f3d15c-cb20-4a94-86c8-ecece9c1a80d"
+
 val TECHNICIAN_APP_ROLE = "app_technician"
+val TECHNICIAN_APP_ROLE_ID = "0eb7a33f-38ba-42f8-b540-58884418542b"
+
 
 @Configuration
 @EnableWebSecurity
