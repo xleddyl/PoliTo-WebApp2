@@ -27,6 +27,10 @@ export default function Signup() {
             },
          })
          console.log(res)
+         if (!res.ok) {
+            setError('Something bad happened')
+            return
+         }
          setResponse('success: ' + res)
 
          navigate('/')

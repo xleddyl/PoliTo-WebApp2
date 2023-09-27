@@ -57,6 +57,10 @@ export default function Manager({ user }) {
                'Content-type': 'application/json',
             },
          })
+         if (!res.ok) {
+            setError('Something bad happened')
+            return
+         }
          if (res.status === 401) navigate('/', { replace: true })
          if (res.ok) fetchAllProfiles()
       } catch (e) {
