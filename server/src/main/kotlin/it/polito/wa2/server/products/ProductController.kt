@@ -2,6 +2,7 @@ package it.polito.wa2.server.products
 
 import io.micrometer.observation.annotation.Observed
 import it.polito.wa2.server.security.aut.AuthService
+import org.slf4j.Logger
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User
@@ -13,8 +14,8 @@ import javax.validation.Valid
 @Observed
 class ProductController(
     private val productService: ProductService,
-    private val authService: AuthService
-    // private val log: Logger
+    private val authService: AuthService,
+    private val log: Logger
 ) {
 
     @PostMapping("/products")
@@ -23,6 +24,7 @@ class ProductController(
         @Valid @RequestBody productDTO: ProductDTO,
         @AuthenticationPrincipal user: DefaultOAuth2User?
     ): ProductDTO {
+        log.info("ciao dal controller")
         return productService.addProduct(productDTO, authService.getUserDetails(user))
     }
 

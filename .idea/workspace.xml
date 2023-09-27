@@ -5,24 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="95f9e26e-5ff0-4361-a22e-783654fa9d96" name="Changes" comment="completed server">
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/408c5cb3-b326-470e-8e0e-6dcd2ab89e79/bloom-0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/408c5cb3-b326-470e-8e0e-6dcd2ab89e79/data.parquet" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/408c5cb3-b326-470e-8e0e-6dcd2ab89e79/meta.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/75d51c06-a63e-40d8-b594-50a6518afc80/bloom-0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/75d51c06-a63e-40d8-b594-50a6518afc80/data.parquet" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/75d51c06-a63e-40d8-b594-50a6518afc80/meta.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/90accb3d-d998-4c2b-b7fa-5060a7b41c61/bloom-0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/90accb3d-d998-4c2b-b7fa-5060a7b41c61/data.parquet" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/90accb3d-d998-4c2b-b7fa-5060a7b41c61/meta.compacted.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/de515098-de3c-4f03-8d9a-799329d5d273/bloom-0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/de515098-de3c-4f03-8d9a-799329d5d273/data.parquet" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/de515098-de3c-4f03-8d9a-799329d5d273/meta.compacted.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/38a88928-284d-4944-9c07-12124c9c8da3/data.parquet" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/6396f000-a16a-4467-91c8-8f785cdd24ff/bloom-0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/6396f000-a16a-4467-91c8-8f785cdd24ff/data.parquet" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/6396f000-a16a-4467-91c8-8f785cdd24ff/meta.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/84634a31-d2d5-4e6e-a6db-4be05794c905/data.parquet" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/ccac92ff-bc37-465d-8bfa-93354f1a63ed/bloom-0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/ccac92ff-bc37-465d-8bfa-93354f1a63ed/data.parquet" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/ccac92ff-bc37-465d-8bfa-93354f1a63ed/meta.compacted.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/90accb3d-d998-4c2b-b7fa-5060a7b41c61/bloom-0" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/38a88928-284d-4944-9c07-12124c9c8da3/bloom-0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/90accb3d-d998-4c2b-b7fa-5060a7b41c61/data.parquet" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/90accb3d-d998-4c2b-b7fa-5060a7b41c61/meta.compacted.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/de515098-de3c-4f03-8d9a-799329d5d273/bloom-0" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/84634a31-d2d5-4e6e-a6db-4be05794c905/bloom-0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/de515098-de3c-4f03-8d9a-799329d5d273/data.parquet" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/de515098-de3c-4f03-8d9a-799329d5d273/meta.compacted.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/index.json.gz" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/docker/tempo-data/blocks/single-tenant/index.json.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/DataLoader.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/DataLoader.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/purchase/PurchaseServiceImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/purchase/PurchaseServiceImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/security/aut/AuthServiceImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/security/aut/AuthServiceImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/products/ProductController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/Ticket.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/Ticket.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketDTO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketServiceImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/it/polito/wa2/server/ticketing/tickets/TicketServiceImpl.kt" afterDir="false" />
     </list>
     <list id="38bb76aa-e297-4ec8-88e2-555c0a0ac3d9" name="Changes by edo" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -222,7 +225,8 @@
       <workItem from="1695133608596" duration="2094000" />
       <workItem from="1695384712800" duration="8401000" />
       <workItem from="1695470024998" duration="9442000" />
-      <workItem from="1695730942216" duration="2561000" />
+      <workItem from="1695730942216" duration="2607000" />
+      <workItem from="1695827941949" duration="2008000" />
     </task>
     <task id="LOCAL-00001" summary="feat(test): added some test and fixed some problems in services">
       <created>1683800085310</created>
@@ -476,7 +480,14 @@
       <option name="project" value="LOCAL" />
       <updated>1695723115415</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="completed server">
+      <created>1695733807314</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1695733807314</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

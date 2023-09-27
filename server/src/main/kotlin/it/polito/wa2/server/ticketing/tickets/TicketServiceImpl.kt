@@ -14,6 +14,8 @@ import it.polito.wa2.server.security.aut.UserDetail
 import jakarta.transaction.Transactional
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import java.sql.Date
+import java.sql.Timestamp
 
 @Service
 @Transactional
@@ -79,6 +81,7 @@ class TicketServiceImpl(
                 purchase = purchase,
                 statuses = mutableListOf(Statuses.OPEN),
                 description = ticketDTO.description,
+                date = Timestamp(System.currentTimeMillis())
             )
         )
         purchase.ticket = ticket
@@ -109,7 +112,8 @@ class TicketServiceImpl(
                 description = ticketDTO.description,
                 priority = ticketDTO.priority,
                 messages = oldTicket.messages,
-                id = oldTicket.id
+                id = oldTicket.id,
+                date = oldTicket.date
             )
         )
         purchase.ticket = ticket

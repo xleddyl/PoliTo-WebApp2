@@ -121,7 +121,8 @@ class DataLoader(
                 description = "Product Broken",
                 priority = 2,
                 purchase = purchase01,
-                technician = technician
+                technician = technician,
+                date = Timestamp(System.currentTimeMillis())
             )
         )
         val ticket02 = ticketRepository.save(
@@ -130,7 +131,7 @@ class DataLoader(
                 description = "Product Broken",
                 priority = 2,
                 purchase = purchase04,
-                technician = technician
+                date = Timestamp(System.currentTimeMillis())
             )
         )
         val ticket03 = ticketRepository.save(
@@ -139,7 +140,7 @@ class DataLoader(
                 description = "Product Malfunctioning",
                 priority = 1,
                 purchase = purchase02,
-                technician = technician
+                date = Timestamp(System.currentTimeMillis())
             )
         )
         val ticket04 = ticketRepository.save(
@@ -148,6 +149,7 @@ class DataLoader(
                 description = "PLEASE HELP",
                 priority = 1,
                 purchase = purchase03,
+                date = Timestamp(System.currentTimeMillis())
             )
         )
 
@@ -165,7 +167,7 @@ class DataLoader(
                 ticket = ticket01,
                 fromCustomer = true,
                 content = "My device is broken",
-                timestamp = Timestamp.valueOf(LocalDateTime.now())
+                timestamp = Timestamp(System.currentTimeMillis())
             )
         )
         val message02 = messageRepository.save(
@@ -173,7 +175,7 @@ class DataLoader(
                 ticket = ticket01,
                 fromCustomer = false,
                 content = "I will assign a technician to fix it.",
-                timestamp = Timestamp.valueOf(LocalDateTime.now())
+                timestamp = Timestamp(System.currentTimeMillis())
             )
         )
         val message03 = messageRepository.save(
@@ -181,7 +183,7 @@ class DataLoader(
                 ticket = ticket01,
                 fromCustomer = true,
                 content = "Thank you!",
-                timestamp = Timestamp.valueOf(LocalDateTime.now())
+                timestamp = Timestamp(System.currentTimeMillis())
             )
         )
 
@@ -190,7 +192,7 @@ class DataLoader(
                 ticket = ticket02,
                 fromCustomer = true,
                 content = "My device is malfunctioning.",
-                timestamp = Timestamp.valueOf(LocalDateTime.now())
+                timestamp = Timestamp(System.currentTimeMillis())
             )
         )
         val message05 = messageRepository.save(
@@ -198,7 +200,7 @@ class DataLoader(
                 ticket = ticket02,
                 fromCustomer = false,
                 content = "We will send a technician to inspect it.",
-                timestamp = Timestamp.valueOf(LocalDateTime.now())
+                timestamp = Timestamp(System.currentTimeMillis())
             )
         )
         val message06 = messageRepository.save(
@@ -206,7 +208,7 @@ class DataLoader(
                 ticket = ticket02,
                 fromCustomer = true,
                 content = "I appreciate your prompt response.",
-                timestamp = Timestamp.valueOf(LocalDateTime.now())
+                timestamp = Timestamp(System.currentTimeMillis())
             )
         )
     }

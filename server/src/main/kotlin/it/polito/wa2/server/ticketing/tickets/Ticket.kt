@@ -2,6 +2,7 @@ package it.polito.wa2.server.ticketing.tickets
 
 import it.polito.wa2.server.profiles.technician.Technician
 import it.polito.wa2.server.purchase.Purchase
+import java.sql.Timestamp
 import it.polito.wa2.server.ticketing.messages.Message
 import jakarta.persistence.*
 
@@ -32,7 +33,9 @@ class Ticket(
     var priority: Int? = null,
 
     @OneToMany(mappedBy = "ticket", cascade = [CascadeType.ALL])
-    var messages: MutableSet<Message> = mutableSetOf()
+    var messages: MutableSet<Message> = mutableSetOf(),
+
+    var date: Timestamp
 )
 
 fun Ticket.toDTO(): TicketDTO {
@@ -42,6 +45,7 @@ fun Ticket.toDTO(): TicketDTO {
         statuses,
         description,
         priority,
-        messages.map { it.id }.toMutableSet(), purchase.id!!
+        messages.map { it.id }.toMutableSet(), purchase.id!!,
+        date
     )
 }
