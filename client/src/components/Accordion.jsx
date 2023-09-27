@@ -4,7 +4,7 @@ import ProfilesList from './ProfilesList'
 import PurchasesList from './PurchasesList'
 import TicketList from './TicketList'
 
-export default function Accordion({ products, profiles, purchases, tickets, title, createTechnician }) {
+export default function Accordion({ products, profiles, purchases, tickets, title, createTechnician, error }) {
    const [isOpen, setIsOpen] = useState(false)
 
    const toggleAccordion = () => {
@@ -38,7 +38,7 @@ export default function Accordion({ products, profiles, purchases, tickets, titl
          <div className={`relative overflow-x-auto rounded-lg w-full pb-10 ${isOpen ? 'block' : 'hidden'}`}>
             {isOpen && title === 'Products' && <ProductsList products={products} manager={true} />}
             {isOpen && title === 'Profiles' && (
-               <ProfilesList profiles={profiles} manager={true} createTechnician={createTechnician} />
+               <ProfilesList profiles={profiles} manager={true} createTechnician={createTechnician} error={error} />
             )}
             {isOpen && title === 'Purchases' && (
                <PurchasesList purchases={purchases} manager={true} tickets={tickets} />

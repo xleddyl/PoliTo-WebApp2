@@ -35,6 +35,9 @@ export default function TicketList({ tickets, ticketPage, user, updateTicket, ma
                         <th scope="col" className="px-6 py-3">
                            technician
                         </th>
+                        <th scope="col" className="px-6 py-3">
+                           date
+                        </th>
                         {ticketPage ? (
                            ''
                         ) : (
@@ -59,6 +62,7 @@ export default function TicketList({ tickets, ticketPage, user, updateTicket, ma
                               <td className="px-6 py-4">{p.priority ? p.priority : 'Pending'}</td>
                               <td className="px-6 py-4">{p.purchaseID}</td>
                               <td className="px-6 py-4">{p.technicianID ? p.technicianID : 'Pending'}</td>
+                              <td className="px-6 py-4">{new Date(p.date)}</td>
                               {ticketPage ? (
                                  ''
                               ) : (

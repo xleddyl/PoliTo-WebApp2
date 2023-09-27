@@ -7,6 +7,7 @@ export default function Manager({ user }) {
    const [profiles, setProfiles] = useState([])
    const [purchases, setPurchases] = useState([])
    const [tickets, setTickets] = useState([])
+   const [error, setError] = useState('')
 
    const navigate = useNavigate()
 
@@ -43,19 +44,25 @@ export default function Manager({ user }) {
    }
 
    const createTechnician = async (obj) => {
-      const data = {
-         ...obj,
-         managerID: user.email,
-      }
-      const res = await fetch('/api/createExpert', {
-         method: 'POST',
-         body: JSON.stringify(data),
-         headers: {
-            'Content-type': 'application/json',
-         },
-      })
-      if (res.status === 401) navigate('/', { replace: true })
-      if (res.ok) fetchAllProfiles()
+      setError('')
+      try {
+         const data = {
+            ...obj,
+            managerID: user.email,
+         }
+         const res = await fetch('/api/createExpert', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+               'Content-type': 'application/json',
+            },
+         })
+         if (res.status === 401) navigate('/', { replace: true })
+         if (res.ok) fetchAllProfiles()
+      } catch (e) {
+         console.log(e)
+         setError('Something bad happened: ' + e)
+      } 
    }
 
    useEffect(() => {
@@ -68,7 +75,7 @@ export default function Manager({ user }) {
    return (
       <div className="flex flex-col gap-3">
          <Accordion products={products} title="Products" />
-         <Accordion profiles={profiles} title="Profiles" createTechnician={createTechnician} />
+         <Accordion profiles={profiles} title="Profiles" createTechnician={createTechnician} error={error}/>
          <Accordion purchases={purchases} tickets={tickets} title="Purchases" />
          <Accordion tickets={tickets} title="Tickets" />
       </div>

@@ -19,6 +19,8 @@ export default function Ticket({ user }) {
    const [messages, setMessages] = useState([])
    const [purchase, setPurchase] = useState([])
    const [product, setProduct] = useState([])
+   const [error, setError] = useState('')
+
    const navigate = useNavigate()
 
    const fetchTicket = async () => {
@@ -78,15 +80,21 @@ export default function Ticket({ user }) {
    }
 
    const updateStatus = async (status) => {
-      const res = await fetch(`/api/tickets/${id}/status`, {
-         method: 'PUT',
-         body: JSON.stringify({ status }),
-         headers: {
-            'Content-type': 'application/json',
-         },
-      })
-      if (res.status === 401) navigate('/', { replace: true })
-      if (res.ok) fetchTicket()
+      setError('')
+      try {
+         const res = await fetch(`/api/tickets/${id}/status`, {
+            method: 'PUT',
+            body: JSON.stringify({ status }),
+            headers: {
+               'Content-type': 'application/json',
+            },
+         })
+         if (res.status === 401) navigate('/', { replace: true })
+         if (res.ok) fetchTicket()
+      } catch (e) {
+         console.log(e)
+         setError('Something bad happened: ' + e)
+      } 
    }
 
    const updateTicket = async (priority, technician) => {
@@ -128,7 +136,7 @@ export default function Ticket({ user }) {
                   <PurchasesList purchases={[purchase]} ticketPage={true} />
                   <ProductsList products={[product]} ticketPage={true} />
                </div>
-               <Status updateStatus={updateStatus} user={user} statuses={ticket.statuses} />
+               <Status updateStatus={updateStatus} user={user} statuses={ticket.statuses} error={error} />
                <Chat messages={messages} sendMessage={sendMessage} technician={ticket.technicianID} user={user} />
             </>
          )}

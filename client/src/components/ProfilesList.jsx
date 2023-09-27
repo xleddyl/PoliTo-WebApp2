@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function ProfilesList({ profiles, manager, createTechnician }) {
+export default function ProfilesList({ profiles, manager, createTechnician, error }) {
    const [isPopupOpen, setIsPopupOpen] = useState(false)
    const [selectedProfile, setSelectedProfile] = useState(null)
    const [openTechnician, setOpenTechnician] = useState(false)
@@ -66,7 +66,7 @@ export default function ProfilesList({ profiles, manager, createTechnician }) {
             </button>
          </div>
 
-         {openTechnician && <TechnicianPopup onClose={() => setOpenTechnician(false)} submit={createTechnician} />}
+         {openTechnician && <TechnicianPopup onClose={() => setOpenTechnician(false)} submit={createTechnician} error={error} />}
          {isPopupOpen && selectedProfile && <ProfilePopup profile={selectedProfile} onClose={closePopup} />}
       </div>
    )
@@ -127,7 +127,7 @@ function ProfilePopup({ profile, onClose }) {
    )
 }
 
-function TechnicianPopup({ submit, onClose }) {
+function TechnicianPopup({ submit, onClose, error }) {
    const [username, setUsername] = useState('')
    const [password, setPassword] = useState('')
    const [email, setEmail] = useState('')
@@ -213,6 +213,9 @@ function TechnicianPopup({ submit, onClose }) {
                   onChange={(e) => setSpecialization(e.target.value)}
                   value={specialization}
                />
+               {error && (
+                              <div className="mt-1 font-semibold text-red-600 w-96 whitespace-pre-wrap">{error}</div>
+                           )}
 
                <div className='flex flex-row gap-2'>
                   <button

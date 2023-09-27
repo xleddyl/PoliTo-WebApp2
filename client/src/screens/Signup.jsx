@@ -19,7 +19,7 @@ export default function Signup() {
       setResponse('')
       setError('')
       try {
-         const res = fetch('/api/signup', {
+         const res = await fetch('/api/signup', {
             method: 'POST',
             body: JSON.stringify({ username, email, firstName, lastName, password, phone, address }),
             headers: {
