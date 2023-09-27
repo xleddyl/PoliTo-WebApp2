@@ -62,7 +62,7 @@ export default function TicketList({ tickets, ticketPage, user, updateTicket, ma
                               <td className="px-6 py-4">{p.priority ? p.priority : 'Pending'}</td>
                               <td className="px-6 py-4">{p.purchaseID}</td>
                               <td className="px-6 py-4">{p.technicianID ? p.technicianID : 'Pending'}</td>
-                              <td className="px-6 py-4">{new Date(p.date)}</td>
+                              <td className="px-6 py-4">{p.date}</td>
                               {ticketPage ? (
                                  ''
                               ) : (
